@@ -154,7 +154,22 @@
             }
 
         #profit_loss {
-            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
+        #profit_loss2 {
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
+        #total-data {
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
@@ -189,6 +204,13 @@
         .align-text-center {
             text-align: center;
         }
+
+        .common-info {
+            text-align: center;
+            background-color: darkgrey;
+            font-weight: bold;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -215,7 +237,7 @@
                             <th class="column-2">Date</th>
                             <th class="column-3">Team1</th>
                             <th class="column-4">Team2</th>
-                            <th class="column-5">Won</th>
+                            <th class="column-5">Winner</th>
                             <th class="column-6">MoM</th>
                         </tr>
                     </thead>
@@ -344,19 +366,16 @@
                 </table>
             </div>
         </div>
-        <div id="profit_loss" style="text-align: center; background-color: darkgrey; font-weight: bold; color: white; ">
+        <div id="profit_loss" class="common-info">
         </div>
-        <div id="profit_loss" style="text-align: center; background-color: darkgrey; font-weight: bold; color: white;">
+        <div id="total-data" class="common-info">
             <p>Won by Gopesh: 0</p>
             <p>Won by Vivek: 1</p>
             <p>Total: 1</p>
         </div>
+        <div id="profit_loss2" class="common-info">
+        </div>
     </main>
-    <div style="margin-left:5%">
-        <iframe width="340" height="300" src="https://www.cricketlineguru.com/live-scores"></iframe>
-    </div>
-    <div style="height:10px">
-    </div>
     <script>
         var selectedDate = "";
         var userName = "";
@@ -365,7 +384,11 @@
         var noNameError = true;
 
         var dailyData = [
-            { date: 'Mar 22', gopeshProfit: -250, vivekProfit: +250 }
+            { date: 'Mar 22', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs RCB' }
+        ];
+
+        var dailyData2 = [
+            { date: 'Mar 22', gopeshProfit: +850, teams: 'CSK vs RCB' }
         ];
 
         function editStatus(button) {
@@ -416,7 +439,6 @@
                 localStorage.setItem(key, updatedData[key]);
             }
         }
-
 
         function submitTeam() {
 
@@ -555,8 +577,28 @@
             }
         }
 
+        function calculateProfit2() {
+            var profit_loss = document.getElementById('profit_loss2');
+            var gopeshTotal = 0;
+
+            dailyData2.forEach(function (data) {
+                gopeshTotal += data.gopeshProfit;
+            });
+
+            // Display profit/loss for Gopesh
+            profit_loss.innerHTML += 'P/L (Others): ';
+            if (gopeshTotal >= 0) {
+                profit_loss.innerHTML += '<span class="green-triangle"></span> ' + gopeshTotal;
+            } else {
+                profit_loss.innerHTML += '<span class="red-triangle"></span> ' + gopeshTotal;
+            }
+            profit_loss.innerHTML += '<br><br>';
+            profit_loss.innerHTML += 'Total Investment: 1150';
+        }
+
         // Call the function to calculate and display profit/loss
         calculateProfit();
+        calculateProfit2();
 
         function updateEntryCount() {
             var filterTeam = document.getElementById('filter-team').value.toUpperCase();
