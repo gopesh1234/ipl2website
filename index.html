@@ -237,7 +237,6 @@
                             <th class="column-2">Date</th>
                             <th class="column-3">Team1</th>
                             <th class="column-4">Team2</th>
-                            <th class="column-5">Winner</th>
                             <th class="column-6">MoM</th>
                         </tr>
                     </thead>
@@ -245,25 +244,22 @@
                         <tr style="background-color:grey;">
                             <td>1</td>
                             <td class="selected-date">22Mar</td>
-                            <td>CSK</td>
                             <td style="background-color: red; color: white;">RCB</td>
                             <td style="background-color: green; color: white;">CSK</td>
-                            <td style="background-color: blue; color: white;">Mustafizur(4o-29r-4w)</td>
+                            <td style="background-color: blue; color: white;">Mustafizur (4o-29r-4w)</td>
                         </tr>
-                        <tr>
+                        <tr style="background-color:grey;">
                             <td>2</td>
                             <td class="selected-date">23Mar</td>
-                            <td>DC</td>
-                            <td>PBKS</td>
-                            <td>NA</td>
-                            <td>NA</td>
+                            <td style="background-color: red; color: white;">DC</td>
+                            <td style="background-color: green; color: white;">PBKS</td>
+                            <td style="background-color: blue; color: white;">Sam Curran (63 runs)</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td class="selected-date">23Mar</td>
                             <td>KKR</td>
                             <td>SRH</td>
-                            <td>NA</td>
                             <td>NA</td>
                         </tr>
                         <tr>
@@ -272,14 +268,12 @@
                             <td>LSG</td>
                             <td>RR</td>
                             <td>NA</td>
-                            <td>NA</td>
                         </tr>
                         <tr>
                             <td>5</td>
                             <td class="selected-date">24Mar</td>
                             <td>GT</td>
                             <td>MI</td>
-                            <td>NA</td>
                             <td>NA</td>
                         </tr>
                         <tr>
@@ -288,7 +282,6 @@
                             <td>PBKS</td>
                             <td>RCB</td>
                             <td>NA</td>
-                            <td>NA</td>
                         </tr>
                         <tr>
                             <td>7</td>
@@ -296,14 +289,12 @@
                             <td>CSK</td>
                             <td>GT</td>
                             <td>NA</td>
-                            <td>NA</td>
                         </tr>
                         <tr>
                             <td>8</td>
                             <td class="selected-date">27Mar</td>
                             <td>MI</td>
                             <td>SRH</td>
-                            <td>NA</td>
                             <td>NA</td>
                         </tr>
                     </tbody>
@@ -353,7 +344,7 @@
                             <td>23Mar</td>
                             <td>Vivek</td>
                             <td>PBKS</td>
-                            <td>NA</td>
+                            <td style="background-color: green; color: white;">Won</td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -370,8 +361,8 @@
         </div>
         <div id="total-data" class="common-info">
             <p>Won by Gopesh: 0</p>
-            <p>Won by Vivek: 1</p>
-            <p>Total: 1</p>
+            <p>Won by Vivek: 2</p>
+            <p>Total: 2</p>
         </div>
         <div id="profit_loss2" class="common-info">
         </div>
@@ -384,11 +375,14 @@
         var noNameError = true;
 
         var dailyData = [
-            { date: 'Mar 22', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs RCB' }
+            { date: 'Mar 22', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs RCB' },
+            { date: 'Mar 23', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs PBKS' }
         ];
 
         var dailyData2 = [
-            { date: 'Mar 22', gopeshProfit: +850, teams: 'CSK vs RCB' }
+            { date: 'Mar 22', gopeshProfit: +850, teams: 'CSK vs RCB' },
+            { date: 'Mar 23', gopeshProfit: -1000, teams: 'DC vs PBKS' }
+
         ];
 
         function editStatus(button) {
@@ -580,10 +574,14 @@
         function calculateProfit2() {
             var profit_loss = document.getElementById('profit_loss2');
             var gopeshTotal = 0;
+            var investment = 1150;
+            var overall = 0;
 
             dailyData2.forEach(function (data) {
                 gopeshTotal += data.gopeshProfit;
             });
+
+            overall = gopeshTotal + investment;
 
             // Display profit/loss for Gopesh
             profit_loss.innerHTML += 'P/L (Others): ';
@@ -592,8 +590,17 @@
             } else {
                 profit_loss.innerHTML += '<span class="red-triangle"></span> ' + gopeshTotal;
             }
-            profit_loss.innerHTML += '<br><br>';
-            profit_loss.innerHTML += 'Total Investment: 1150';
+            profit_loss.innerHTML += '<br>';
+            profit_loss.innerHTML += 'Total Investment: ' + investment;
+
+            profit_loss.innerHTML += '<br>';
+            profit_loss.innerHTML += 'Current Investment Value: ';
+
+            if (overall >= investment) {
+                profit_loss.innerHTML += '<span class="green-triangle"></span> ' + overall;
+            } else {
+                profit_loss.innerHTML += '<span class="red-triangle"></span> ' + overall;
+            }
         }
 
         // Call the function to calculate and display profit/loss
