@@ -217,6 +217,10 @@
             white-space: nowrap;
             color: white
         }
+
+        .hidden-cls{
+            display:none;
+        }
     </style>
 </head>
 <body>
@@ -238,76 +242,233 @@
             <div class="team" style="max-height: 312px; overflow-y: scroll;">
                 <table>
                     <thead>
-                        <tr>
+                        <tr style="white-space: nowrap;">
                             <th class="column-1">SNo</th>
                             <th class="column-2">Date</th>
-                            <th class="column-3">Team1</th>
-                            <th class="column-4">Team2</th>
-                            <th class="column-6">MoM</th>
+                            <th class="column-3">Toss</th>
+                            <th class="column-4">Bat/Ball</th>
+                            <th class="column-5">Won By</th>
+                            <th class="column-6">Team1</th>
+                            <th class="column-7">Team2</th>
+                            <th class="column-8">MoM</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
                             <td>1</td>
                             <td class="selected-date">22 Mar</td>
-                            <td style="background-color: red; color: white;">RCB</td>
-                            <td style="background-color: green; color: white;">CSK</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>6 wkts</td>
+                            <td style="background-color: red; color: white;">RCB (173-6)</td>
+                            <td style="background-color: green; color: white;">CSK (176-4)</td>
                             <td style="background-color: blue; color: white;">Mustafizur (4 wickets)</td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td>2</td>
                             <td class="selected-date">23 Mar</td>
-                            <td style="background-color: red; color: white;">DC</td>
-                            <td style="background-color: green; color: white;">PBKS</td>
+                            <td>PBKS</td>
+                            <td>Ball</td>
+                            <td>4 wkts</td>
+                            <td style="background-color: red; color: white;">DC (174-9)</td>
+                            <td style="background-color: green; color: white;">PBKS (177-6)</td>
                             <td style="background-color: blue; color: white;">Sam Curran (63 runs)</td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td>3</td>
                             <td class="selected-date">23 Mar</td>
-                            <td style="background-color: red; color: white;">SRH</td>
-                            <td style="background-color: green; color: white;">KKR</td>
+                            <td>SRH</td>
+                            <td>Ball</td>
+                            <td>4 runs</td>
+                            <td style="background-color: red; color: white;">SRH (204-7)</td>
+                            <td style="background-color: green; color: white;">KKR (208-7)</td>
                             <td style="background-color: blue; color: white;">Russell (64 runs, 2 wickets)</td>
                         </tr>
-                        <tr>
+                        <tr class="no-wrap-cls">
                             <td>4</td>
                             <td class="selected-date">24 Mar</td>
-                            <td>LSG</td>
                             <td>RR</td>
-                            <td>NA</td>
+                            <td>Bat</td>
+                            <td>20 runs</td>
+                            <td style="background-color: red; color: white;">LSG (173-6)</td>
+                            <td style="background-color: green; color: white;">RR (193-4)</td>
+                            <td style="background-color: blue; color: white;">Sanju Samson (82 runs)</td>
                         </tr>
-                        <tr>
+                        <tr class="no-wrap-cls hidden-cls">
                             <td>5</td>
                             <td class="selected-date">24 Mar</td>
-                            <td>GT</td>
                             <td>MI</td>
+                            <td>Ball</td>
                             <td>NA</td>
+                            <td style="background-color: red; color: white;">GT (168-6)</td>
+                            <td style="background-color: green; color: white;">MI (0-0)</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
                         </tr>
-                        <tr>
+                        <tr class="no-wrap-cls hidden-cls">
                             <td>6</td>
                             <td class="selected-date">25 Mar</td>
-                            <td>PBKS</td>
                             <td>RCB</td>
+                            <td>Bat</td>
                             <td>NA</td>
+                            <td style="background-color: red; color: white;">PBKS (0-0)</td>
+                            <td style="background-color: green; color: white;">RCB (0-0)</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
                         </tr>
-                        <tr>
+                        <tr class="no-wrap-cls hidden-cls">
                             <td>7</td>
                             <td class="selected-date">26 Mar</td>
-                            <td>CSK</td>
-                            <td>GT</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
                             <td>NA</td>
+                            <td style="background-color: red; color: white;">CSK</td>
+                            <td style="background-color: green; color: white;">GT</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
                         </tr>
-                        <tr>
+                        <tr class="no-wrap-cls hidden-cls">
                             <td>8</td>
                             <td class="selected-date">27 Mar</td>
-                            <td>MI</td>
-                            <td>SRH</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
                             <td>NA</td>
+                            <td style="background-color: red; color: white;">SRH</td>
+                            <td style="background-color: green; color: white;">MI</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>9</td>
+                            <td class="selected-date">28 Mar</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">DC</td>
+                            <td style="background-color: green; color: white;">RR</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>10</td>
+                            <td class="selected-date">29 Mar</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">KKR</td>
+                            <td style="background-color: green; color: white;">RCB</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>11</td>
+                            <td class="selected-date">30 Mar</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">LSG</td>
+                            <td style="background-color: green; color: white;">PBKS</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>12</td>
+                            <td class="selected-date">31 Mar</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">GT</td>
+                            <td style="background-color: green; color: white;">SRH</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>13</td>
+                            <td class="selected-date">31 Mar</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">CSK</td>
+                            <td style="background-color: green; color: white;">DC</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>14</td>
+                            <td class="selected-date">1 Apr</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">RR</td>
+                            <td style="background-color: green; color: white;">MI</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>15</td>
+                            <td class="selected-date">2 Apr</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">LSG</td>
+                            <td style="background-color: green; color: white;">RCB</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>16</td>
+                            <td class="selected-date">3 Apr</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">DC</td>
+                            <td style="background-color: green; color: white;">KKR</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>17</td>
+                            <td class="selected-date">4 Apr</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">GT</td>
+                            <td style="background-color: green; color: white;">PBKS</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>18</td>
+                            <td class="selected-date">5 Apr</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">CSK</td>
+                            <td style="background-color: green; color: white;">SRH</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>19</td>
+                            <td class="selected-date">6 Apr</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">RCB</td>
+                            <td style="background-color: green; color: white;">RR</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>20</td>
+                            <td class="selected-date">7 Apr</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">DC</td>
+                            <td style="background-color: green; color: white;">MI</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>21</td>
+                            <td class="selected-date">7 Apr</td>
+                            <td>RCB</td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">GT</td>
+                            <td style="background-color: green; color: white;">LSG</td>
+                            <td style="background-color: blue; color: white;">NA ()</td>
                         </tr>
                     </tbody>
                 </table>
                 <div style="text-align:center;" id="entry-count">
                     <!-- Footer row to show the number of entries -->
-                    <span id="entry-count-display">Showing 8 out of 8 entries</span>
+                    <span id="entry-count-display">Showing 4 out of 4 entries</span>
                 </div>
             </div>
         </div>
@@ -359,6 +520,132 @@
                             <td>KKR</td>
                             <td style="background-color: green; color: white;">Won</td>
                         </tr>
+                        <tr class="no-wrap-cls">
+                            <td>4</td>
+                            <td>24 Mar</td>
+                            <td>Vivek</td>
+                            <td>RR</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>5</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>6</td>
+                            <td>24 Mar</td>
+                            <td>Vivek</td>
+                            <td>RR</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>7</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>8</td>
+                            <td>24 Mar</td>
+                            <td>Vivek</td>
+                            <td>RR</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>9</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>10</td>
+                            <td>24 Mar</td>
+                            <td>Vivek</td>
+                            <td>RR</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>11</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>12</td>
+                            <td>24 Mar</td>
+                            <td>Vivek</td>
+                            <td>RR</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>13</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>14</td>
+                            <td>24 Mar</td>
+                            <td>Vivek</td>
+                            <td>RR</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>15</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>16</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>17</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>18</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>19</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>20</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls hidden-cls">
+                            <td>21</td>
+                            <td>24 Mar</td>
+                            <td>Gopesh</td>
+                            <td>MI</td>
+                            <td style="background-color: green; color: white;">Won</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -367,8 +654,8 @@
         </div>
         <div id="total-data" class="common-info">
             <p>Won by Gopesh: 1</p>
-            <p>Won by Vivek: 2</p>
-            <p>Total: 3</p>
+            <p>Won by Vivek: 3</p>
+            <p>Total: 4</p>
         </div>
         <div id="profit_loss2" class="common-info">
         </div>
@@ -381,16 +668,51 @@
         var noNameError = true;
 
         var dailyData = [
-            { date: 'Mar 22', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs RCB' },
+            { date: 'Mar 22', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs CSK' },
             { date: 'Mar 23', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs PBKS' },
-            { date: 'Mar 23', gopeshProfit: +250, vivekProfit: -250, teams: 'KKR vs SRH' }
+            { date: 'Mar 23', gopeshProfit: +250, vivekProfit: -250, teams: 'SRH vs KKR' },
+            { date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            { date: 'Mar 24', gopeshProfit: -0, vivekProfit: +0, teams: 'GT vs MI' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
         ];
 
         var dailyData2 = [
-            { date: 'Mar 22', gopeshProfit: +850, teams: 'CSK vs RCB' },
+            { date: 'Mar 22', gopeshProfit: +850, teams: 'RCB vs CSK' },
             { date: 'Mar 23', gopeshProfit: -1000, teams: 'DC vs PBKS' },
-            { date: 'Mar 23', gopeshProfit: +800, teams: 'KKR vs SRH' }
-
+            { date: 'Mar 23', gopeshProfit: +800, teams: 'SRH vs KKR' },
+            { date: 'Mar 24', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Mar 24', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
         ];
 
         function editStatus(button) {
@@ -598,7 +920,7 @@
             } else {
                 profit_loss.innerHTML += '<span class="red-triangle"></span> ' + gopeshTotal;
             }
-            profit_loss.innerHTML += '<br>';
+            profit_loss.innerHTML += '<br><br>';
             profit_loss.innerHTML += 'Total Investment: ' + investment;
 
             profit_loss.innerHTML += '<br>';
