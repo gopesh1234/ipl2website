@@ -234,19 +234,20 @@
 <body>
     <main>
         <div class="team-selection">
-            <select disabled id="filter-team" style="margin-bottom: 20px; height: 45px; width: 200px; text-align: center; background-color: darkorange; border-radius: 35px;">
-                <option value="">Select Team</option>
-                <option value="CSK">CSK</option>
-                <option value="DC">DC</option>
-                <option value="GT">GT</option>
-                <option value="KKR">KKR</option>
-                <option value="LSG">LSG</option>
-                <option value="MI">MI</option>
-                <option value="PBKS">PBKS</option>
-                <option value="RCB">RCB</option>
-                <option value="RR">RR</option>
-                <option value="SRH">SRH</option>
-            </select>
+            <input value="" id="filter-team" placeholder="Search..." style="border-radius: 25px; text-align: center; margin-bottom: 11px; width: 207px; height: 42px; background-color: aliceblue;" />
+            @*<select disabled id="filter-team" style="margin-bottom: 20px; height: 45px; width: 200px; text-align: center; background-color: darkorange; border-radius: 35px;">
+            <option value="">Select Team</option>
+            <option value="CSK">CSK</option>
+            <option value="DC">DC</option>
+            <option value="GT">GT</option>
+            <option value="KKR">KKR</option>
+            <option value="LSG">LSG</option>
+            <option value="MI">MI</option>
+            <option value="PBKS">PBKS</option>
+            <option value="RCB">RCB</option>
+            <option value="RR">RR</option>
+            <option value="SRH">SRH</option>
+        </select>*@
             <div class="team" style="max-height: 312px; overflow-y: scroll;">
                 <table>
                     <thead>
@@ -474,10 +475,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <div style="text-align:center;" id="entry-count">
+                <!--<div style="text-align:center;" id="entry-count">-->
                     <!-- Footer row to show the number of entries -->
-                    <span id="entry-count-display">Showing 6 out of 6 entries</span>
-                </div>
+                    <!--<span id="entry-count-display">Showing 6 out of 6 entries</span>
+                </div>-->
             </div>
         </div>
         <div class="popup" id="popup">
@@ -998,7 +999,7 @@
             });
 
             // Display the count of visible entries
-            document.getElementById('entry-count-display').textContent = "Showing " + visibleRowCount + " out of " + totalRowCount + " entries";
+            //document.getElementById('entry-count-display').textContent = "Showing " + visibleRowCount + " out of " + totalRowCount + " entries";
         }
 
         function filterTableByTeam() {
@@ -1028,9 +1029,9 @@
         }
 
         // Add event listener to the select element for filtering the table by team
-        document.getElementById('filter-team').addEventListener('change', function () {
+        document.getElementById('filter-team').addEventListener('keyup', function () {
             filterTableByTeam();
-            updateEntryCount();
+            //updateEntryCount();
         });
 
     </script>
