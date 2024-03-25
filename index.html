@@ -169,6 +169,14 @@
             margin: 50px auto;
         }
 
+        #profit_loss3 {
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
         #total-data {
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -218,8 +226,8 @@
             color: white
         }
 
-        .hidden-cls{
-            display:none;
+        .hidden-cls {
+            display: none;
         }
     </style>
 </head>
@@ -304,15 +312,15 @@
                             <td style="background-color: green; color: white;">GT (168-6)</td>
                             <td style="background-color: blue; color: white;">Sai Sudharsan (45 runs)</td>
                         </tr>
-                        <tr class="no-wrap-cls hidden-cls">
+                        <tr class="no-wrap-cls">
                             <td>6</td>
                             <td class="selected-date">25 Mar</td>
                             <td>RCB</td>
-                            <td>Bat</td>
-                            <td>NA</td>
-                            <td style="background-color: red; color: white;">PBKS (0-0)</td>
-                            <td style="background-color: green; color: white;">RCB (0-0)</td>
-                            <td style="background-color: blue; color: white;">NA ()</td>
+                            <td>Ball</td>
+                            <td>4 wkts</td>
+                            <td style="background-color: red; color: white;">PBKS (176-6)</td>
+                            <td style="background-color: green; color: white;">RCB (178-6)</td>
+                            <td style="background-color: blue; color: white;">Virat Kohli (77 runs)</td>
                         </tr>
                         <tr class="no-wrap-cls hidden-cls">
                             <td>7</td>
@@ -468,7 +476,7 @@
                 </table>
                 <div style="text-align:center;" id="entry-count">
                     <!-- Footer row to show the number of entries -->
-                    <span id="entry-count-display">Showing 5 out of 5 entries</span>
+                    <span id="entry-count-display">Showing 6 out of 6 entries</span>
                 </div>
             </div>
         </div>
@@ -534,12 +542,15 @@
                             <td>MI</td>
                             <td style="background-color: red; color: white;">Lost</td>
                         </tr>
-                        <tr class="no-wrap-cls hidden-cls">
+                        <tr class="no-wrap-cls">
                             <td>6</td>
-                            <td>24 Mar</td>
+                            <td>25 Mar</td>
                             <td>Vivek</td>
-                            <td>RR</td>
+                            <td>RCB</td>
                             <td style="background-color: green; color: white;">Won</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="background-color: brown; color: white; ">Encash 1000 by Vivek</td>
                         </tr>
                         <tr class="no-wrap-cls hidden-cls">
                             <td>7</td>
@@ -654,10 +665,16 @@
         </div>
         <div id="total-data" class="common-info">
             <p>Won by Gopesh: 1</p>
-            <p>Won by Vivek: 4</p>
-            <p>Total: 5</p>
+            <p>Won by Vivek: 5</p>
+            <p>Total: 6</p>
         </div>
         <div id="profit_loss2" class="common-info">
+        </div>
+        <div id="profit_loss3" class="common-info">
+        </div>
+        <div id="total-data" class="common-info">
+            <p>Encash by Gopesh: 2000</p>
+            <p>Encash by Vivek: 1000</p>
         </div>
     </main>
     <script>
@@ -673,7 +690,8 @@
             { date: 'Mar 23', gopeshProfit: +250, vivekProfit: -250, teams: 'SRH vs KKR' },
             { date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
             { date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs GT' },
-            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            { date: 'Mar 25', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs RCB' },
+            { date: 'Mar 25', gopeshProfit: +1000, vivekProfit: -1000, teams: 'Encash' },
             //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
             //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
             //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
@@ -865,10 +883,10 @@
             var tableBody = document.querySelector('#users-table tbody');
             var newRow = document.createElement('tr');
             newRow.innerHTML = `
-                                    <td>${userEntry.date}</td>
-                                    <td>${userEntry.name}</td>
-                                    <td>${userEntry.team}</td>
-                                    <td>${userEntry.status}</td>`;
+                                        <td>${userEntry.date}</td>
+                                        <td>${userEntry.name}</td>
+                                        <td>${userEntry.team}</td>
+                                        <td>${userEntry.status}</td>`;
 
             tableBody.appendChild(newRow);
         }
@@ -933,9 +951,23 @@
             }
         }
 
+        function calculateProfit3() {
+            var profit_loss = document.getElementById('profit_loss3');
+            var gopeshTotal = 1000;
+
+            // Display profit/loss for Gopesh
+            profit_loss.innerHTML += 'Overall Gopesh (P/L): ';
+            if (gopeshTotal >= 0) {
+                profit_loss.innerHTML += '<span class="green-triangle"></span> ' + gopeshTotal;
+            } else {
+                profit_loss.innerHTML += '<span class="red-triangle"></span> ' + gopeshTotal;
+            }
+        }
+
         // Call the function to calculate and display profit/loss
         calculateProfit();
         calculateProfit2();
+        calculateProfit3();
 
         function updateEntryCount() {
             var filterTeam = document.getElementById('filter-team').value.toUpperCase();
