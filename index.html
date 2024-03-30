@@ -233,6 +233,16 @@
         .gps-cls {
             background-color: blue;
         }
+
+        .lose-cls {
+            background-color: red;
+            color: white;
+        }
+
+        .win-cls {
+            background-color: green;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -259,10 +269,10 @@
                             <td class="selected-date">30 Mar</td>
                             <td>LSG</td>
                             <td>Bat</td>
-                            <td>NA</td>
-                            <td style="background-color: red; color: white;">LSG (199-8)</td>
-                            <td style="background-color: green; color: white;">PBKS (0-0)</td>
-                            <td style="background-color: blue; color: white;">NA (0 run)</td>
+                            <td>21 runs</td>
+                            <td style="background-color: red; color: white;">PBKS (178-5)</td>
+                            <td style="background-color: green; color: white;">LSG (199-8)</td>
+                            <td style="background-color: blue; color: white;">Mayank Yadav (3 wkts)</td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td>Day - 10</td>
@@ -404,7 +414,7 @@
                             <td>30 Mar</td>
                             <td>Gopesh</td>
                             <td>LSG</td>
-                            <td style="background-color: red; color: white;">Lost</td>
+                            <td class="win-cls">Won</td>
                         </tr>
                         <tr>
                             <td colspan="5" style="background-color: brown; color: white; ">Encash 1000 by Gopesh</td>
@@ -414,28 +424,28 @@
                             <td>29 Mar</td>
                             <td>Vivek</td>
                             <td>RCB</td>
-                            <td style="background-color: red; color: white;">Lost</td>
+                            <td class="lose-cls">Lost</td>
                         </tr>
                         <tr class="no-wrap-cls gps-cls">
                             <td>Day - 9</td>
                             <td>28 Mar</td>
                             <td>Gopesh</td>
                             <td>RR</td>
-                            <td style="background-color: green; color: white;">Won</td>
+                            <td class="win-cls">Won</td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td>Day - 8</td>
                             <td>27 Mar</td>
                             <td>Vivek</td>
                             <td>MI</td>
-                            <td style="background-color: red; color: white;">Lost</td>
+                            <td class="lose-cls">Lost</td>
                         </tr>
                         <tr class="no-wrap-cls gps-cls">
                             <td>Day - 7</td>
                             <td>26 Mar</td>
                             <td>Gopesh</td>
                             <td>CSK</td>
-                            <td style="background-color: green; color: white;">Won</td>
+                            <td class="win-cls">Won</td>
                         </tr>
                         <tr>
                             <td colspan="5" style="background-color: brown; color: white; ">Encash 1000 by Vivek</td>
@@ -445,42 +455,42 @@
                             <td>25 Mar</td>
                             <td>Vivek</td>
                             <td>RCB</td>
-                            <td style="background-color: green; color: white;">Won</td>
+                            <td class="win-cls">Won</td>
                         </tr>
                         <tr class="no-wrap-cls gps-cls">
                             <td>Day - 5</td>
                             <td>24 Mar</td>
                             <td>Gopesh</td>
                             <td>MI</td>
-                            <td style="background-color: red; color: white;">Lost</td>
+                            <td class="lose-cls">Lost</td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td>Day - 4</td>
                             <td>24 Mar</td>
                             <td>Vivek</td>
                             <td>RR</td>
-                            <td style="background-color: green; color: white;">Won</td>
+                            <td class="win-cls">Won</td>
                         </tr>
                         <tr class="no-wrap-cls gps-cls">
                             <td>Day - 3</td>
                             <td>23 Mar</td>
                             <td>Gopesh</td>
                             <td>KKR</td>
-                            <td style="background-color: green; color: white;">Won</td>
+                            <td class="win-cls">Won</td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td>Day - 2</td>
                             <td>23 Mar</td>
                             <td>Vivek</td>
                             <td>PBKS</td>
-                            <td style="background-color: green; color: white;">Won</td>
+                            <td class="win-cls">Won</td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td>Day - 1</td>
                             <td>22 Mar</td>
                             <td>Vivek</td>
                             <td>CSK</td>
-                            <td style="background-color: green; color: white;">Won</td>
+                            <td class="win-cls">Won</td>
                         </tr>
                     </tbody>
                 </table>
@@ -490,8 +500,8 @@
         </div>
 
         <div id="total-data" class="common-info">
-            <p>Won by Gopesh: 5</p>
-            <p>Won by Vivek: 6</p>
+            <p>Won by Gopesh: 6</p>
+            <p>Won by Vivek: 5</p>
             <p>Total: 11</p>
         </div>
         <div id="profit_loss2" class="common-info">
@@ -527,7 +537,7 @@
 
             { date: 'Mar 29', gopeshProfit: -1000, vivekProfit: +1000, teams: 'Encash' },
 
-            { date: 'Mar 30', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs PBKS' },
+            { date: 'Mar 30', gopeshProfit: +250, vivekProfit: -250, teams: 'PBKS vs LSG' },
             //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
             //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
             //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
@@ -552,7 +562,7 @@
             { date: 'Mar 26', gopeshProfit: +750, teams: 'GT vs CSK' },
             { date: 'Mar 27', gopeshProfit: +900, teams: 'MI vs SRH' },
             { date: 'Mar 28', gopeshProfit: +750, teams: 'DC vs RR' },
-            { date: 'Mar 30', gopeshProfit: -1000, teams: 'LSG vs PBKS' },
+            { date: 'Mar 30', gopeshProfit: +800, teams: 'PBKS vs LSG' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
