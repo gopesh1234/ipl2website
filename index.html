@@ -416,8 +416,8 @@
     </main>
     <main>
         <div class="team-selection2">
-            <h2 style="box-shadow: 10px 10px 5px lightblue;">Users List</h2>
-            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; display: flex;">Gopesh: 8 Vivek: 5 Total: 13</span>
+            <input value="" id="filter-user" placeholder="Search..." style="border-radius: 25px; text-align: center; margin-bottom: 11px; width: 207px; height: 42px; background-color: aliceblue;" />
+            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 50px; display: flex;">Gopesh: 8 || Vivek: 5 || Total: 13</span>
             <div class="team" style="max-height: 312px; overflow-y: scroll;">
                 <table id="users-table">
                     <thead>
@@ -916,10 +916,40 @@
             });
         }
 
+        function filterTableByUser() {
+            var filterTeam = document.getElementById('filter-user').value.toUpperCase();
+            var rows = document.querySelectorAll('.team-selection2 tbody tr');
+
+            rows.forEach(function (row) {
+                var cells = row.getElementsByTagName("td");
+                var found = false;
+
+                // Loop through all cells in the row
+                for (var i = 0; i < cells.length; i++) {
+                    var cell = cells[i];
+                    if (cell.textContent.toUpperCase().indexOf(filterTeam) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                // Display the row if the selected team is found in any cell, or if no team is selected
+                if (found || filterTeam === '') {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
         // Add event listener to the select element for filtering the table by team
         document.getElementById('filter-team').addEventListener('keyup', function () {
             filterTableByTeam();
             //updateEntryCount();
+        });
+
+        document.getElementById('filter-user').addEventListener('keyup', function () {
+            filterTableByUser();
         });
 
     </script>
