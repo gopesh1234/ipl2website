@@ -265,6 +265,26 @@
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
+                            <td>Day - 13</td>
+                            <td class="selected-date">31 Mar</td>
+                            <td>DC</td>
+                            <td>Bat</td>
+                            <td>7 wkts</td>
+                            <td style="background-color: red; color: white;">CSK (171-6)</td>
+                            <td style="background-color: green; color: white;">DC (191-5)</td>
+                            <td style="background-color: blue; color: white;">Khaleel Ahmed (2 wkts)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Day - 12</td>
+                            <td class="selected-date">31 Mar</td>
+                            <td>SRH</td>
+                            <td>Bat</td>
+                            <td>20 runs</td>
+                            <td style="background-color: red; color: white;">SRH (162-8)</td>
+                            <td style="background-color: green; color: white;">GT (168-3)</td>
+                            <td style="background-color: blue; color: white;">Mohit Sharma (3 wkts)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
                             <td>Day - 11</td>
                             <td class="selected-date">30 Mar</td>
                             <td>LSG</td>
@@ -397,7 +417,7 @@
     <main>
         <div class="team-selection2">
             <h2 style="box-shadow: 10px 10px 5px lightblue;">Users List</h2>
-            <span style="box-shadow: 10px 10px 5px lightblue; width: 100px; position: relative; display: flex; margin-top: 18px;">Gopesh: 6</span>
+            <span style="box-shadow: 10px 10px 5px lightblue; width: 100px; position: relative; display: flex; margin-top: 18px;">Gopesh: 8</span>
             <span style="box-shadow: 10px 10px 5px lightblue; margin-left: 126px; width: 100px; position: relative; display: flex; margin-top: -23px;">Vivek: 5</span>
             <div class="team" style="max-height: 312px; overflow-y: scroll;">
                 <table id="users-table">
@@ -411,6 +431,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Day - 13</td>
+                            <td>31 Mar</td>
+                            <td>Vivek</td>
+                            <td>CSK</td>
+                            <td class="lose-cls">Lost</td>
+                        </tr>
+                        <tr class="no-wrap-cls gps-cls">
+                            <td>Day - 12</td>
+                            <td>31 Mar</td>
+                            <td>Gopesh</td>
+                            <td>GT</td>
+                            <td class="win-cls">Won</td>
+                        </tr>
                         <tr class="no-wrap-cls gps-cls">
                             <td>Day - 11</td>
                             <td>30 Mar</td>
@@ -505,8 +539,8 @@
         <div id="profit_loss3" class="common-info">
         </div>
         <div id="total-data" class="common-info">
-            <p>Encash by Gopesh: 3200</p>
-            <p>Encash by Vivek: 1000</p>
+            <p id="encash-id-gops"></p>
+            <p id="encash-id-vive"></p>
         </div>
     </main>
     <script>
@@ -534,6 +568,9 @@
             { date: 'Mar 29', gopeshProfit: -1000, vivekProfit: +1000, teams: 'Encash' },
 
             { date: 'Mar 30', gopeshProfit: +250, vivekProfit: -250, teams: 'PBKS vs LSG' },
+            { date: 'Mar 31', gopeshProfit: +250, vivekProfit: -250, teams: 'SRH vs GT' },
+            { date: 'Mar 31', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs DC' },
+
             //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
             //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
             //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
@@ -559,7 +596,11 @@
             { date: 'Mar 27', gopeshProfit: +900, teams: 'MI vs SRH' },
             { date: 'Mar 28', gopeshProfit: +750, teams: 'DC vs RR' },
             { date: 'Mar 30', gopeshProfit: +800, teams: 'PBKS vs LSG' },
-            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
+
+            { date: 'Mar 31', gopeshProfit: -3200, teams: 'Encash' },
+
+            { date: 'Mar 31', gopeshProfit: +850, teams: 'SRH vs GT' },
+            { date: 'Mar 31', gopeshProfit: -1000, teams: 'CSK vs DC' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
@@ -792,10 +833,20 @@
 
         function calculateProfit3() {
             var profit_loss = document.getElementById('profit_loss3');
-            var gopeshTotal = 2200 - 1000 + 1000;
+            var profit_loss_encash_gops = document.getElementById('encash-id-gops');
+            var profit_loss_encash_vive = document.getElementById('encash-id-vive');
+
+            var gopeshTotalEnc = 2200 + 1000 + 3200;
+            var vivekTotalEnc = 1000;
+
+            profit_loss_encash_gops.innerHTML = 'Encash by Gopesh: ' + gopeshTotalEnc;
+            profit_loss_encash_vive.innerHTML = 'Encash by Gopesh: ' + vivekTotalEnc;
+
+            var gopeshTotal = 2200 - 1000 + 1000 + 3200;
 
             // Display profit/loss for Gopesh
             profit_loss.innerHTML += 'Overall Gopesh (P/L): ';
+
             if (gopeshTotal >= 0) {
                 profit_loss.innerHTML += '<span class="green-triangle"></span> ' + gopeshTotal;
             } else {
