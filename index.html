@@ -6,6 +6,7 @@
     <title>IPL24</title>
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* General styles */
         body {
@@ -552,7 +553,7 @@
         </div>
         <div id="profit_loss2" class="common-info">
         </div>
-        <div id="profit_loss3" class="common-info">
+        <div id="profit_loss3" class="common-info" style="cursor:pointer">
         </div>
         <div id="total-data" class="common-info">
             <p id="encash-id-gops"></p>
@@ -565,6 +566,10 @@
         var teamName = "";
         var noError = true;
         var noNameError = true;
+        var investment = 1150 + 150;
+        var gopeshTotalEnc = 2200 + 1000 + 3200;
+        var vivekTotalEnc = 1000;
+        var gopeshTotal = 2200 - 1000 + 1000 + 3200; // Abh, -Viv, +Viv, Abh
 
         var dailyData = [
             { date: 'Mar 22', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs CSK' },
@@ -821,7 +826,6 @@
         function calculateProfit2() {
             var profit_loss = document.getElementById('profit_loss2');
             var gopeshTotal = 0;
-            var investment = 1150;
             var overall = 0;
 
             dailyData2.forEach(function (data) {
@@ -855,21 +859,18 @@
             var profit_loss_encash_gops = document.getElementById('encash-id-gops');
             var profit_loss_encash_vive = document.getElementById('encash-id-vive');
 
-            var gopeshTotalEnc = 2200 + 1000 + 3200;
-            var vivekTotalEnc = 1000;
+            profit_loss_encash_gops.innerHTML = 'Encash by Gopesh: ' + '<span class="green-triangle"></span> '+ gopeshTotalEnc;
+            profit_loss_encash_vive.innerHTML = 'Encash by Vivek: ' + '<span class="green-triangle"></span> ' + vivekTotalEnc;
 
-            profit_loss_encash_gops.innerHTML = 'Encash by Gopesh: ' + gopeshTotalEnc;
-            profit_loss_encash_vive.innerHTML = 'Encash by Vivek: ' + vivekTotalEnc;
-
-            var gopeshTotal = 2200 - 1000 + 1000 + 3200;
+            var inHand = gopeshTotal - investment;
 
             // Display profit/loss for Gopesh
             profit_loss.innerHTML += 'Overall Gopesh (P/L): ';
 
             if (gopeshTotal >= 0) {
-                profit_loss.innerHTML += '<span class="green-triangle"></span> ' + gopeshTotal;
+                profit_loss.innerHTML += '<span class="green-triangle"></span> ' + inHand;
             } else {
-                profit_loss.innerHTML += '<span class="red-triangle"></span> ' + gopeshTotal;
+                profit_loss.innerHTML += '<span class="red-triangle"></span> ' + inHand;
             }
         }
 
@@ -970,6 +971,10 @@
 
         document.getElementById('filter-user').addEventListener('keyup', function () {
             filterTableByUser();
+        });
+
+        document.getElementById('profit_loss3').addEventListener('click', function () {
+            Swal.fire("Encash: 6400 || Vivek: -1000 || Investment: -1300");
         });
 
     </script>
