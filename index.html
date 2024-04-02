@@ -554,6 +554,7 @@
         <div id="profit_loss2" class="common-info">
         </div>
         <div id="profit_loss3" class="common-info" style="cursor:pointer">
+            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 24px; display: flex; margin-bottom: 16px;">Won: 9 || Lost: 3 || Skipped: 2</span>
         </div>
         <div id="total-data" class="common-info">
             <p id="encash-id-gops"></p>
@@ -606,24 +607,26 @@
         ];
 
         var dailyData2 = [
-            { date: 'Mar 22', gopeshProfit: +850, teams: 'RCB vs CSK' },
-            { date: 'Mar 23', gopeshProfit: -1000, teams: 'DC vs PBKS' },
-            { date: 'Mar 23', gopeshProfit: +800, teams: 'SRH vs KKR' },
-            { date: 'Mar 24', gopeshProfit: +900, teams: 'LSG vs RR' },
-            { date: 'Mar 24', gopeshProfit: +1500, teams: 'MI vs GT' },
+            { date: 'Mar 22', gopeshProfit: +850, teams: 'RCB vs CSK', Status: 'Won' },
+            { date: 'Mar 23', gopeshProfit: -1000, teams: 'DC vs PBKS', Status: 'Lost' },
+            { date: 'Mar 23', gopeshProfit: +800, teams: 'SRH vs KKR', Status: 'Won' },
+            { date: 'Mar 24', gopeshProfit: +900, teams: 'LSG vs RR', Status: 'Won' },
+            { date: 'Mar 24', gopeshProfit: +1500, teams: 'MI vs GT', Status: 'Won' },
+            { date: 'Mar 25', gopeshProfit: 0, teams: 'PBKS vs RCB', Status: 'Skipped' },
 
             { date: 'Mar 25', gopeshProfit: -2200, teams: 'Encash' },
 
-            { date: 'Mar 26', gopeshProfit: +750, teams: 'GT vs CSK' },
-            { date: 'Mar 27', gopeshProfit: +900, teams: 'MI vs SRH' },
-            { date: 'Mar 28', gopeshProfit: +750, teams: 'DC vs RR' },
-            { date: 'Mar 30', gopeshProfit: +800, teams: 'PBKS vs LSG' },
+            { date: 'Mar 26', gopeshProfit: +750, teams: 'GT vs CSK', Status: 'Won' },
+            { date: 'Mar 27', gopeshProfit: +900, teams: 'MI vs SRH', Status: 'Won' },
+            { date: 'Mar 28', gopeshProfit: +750, teams: 'DC vs RR', Status: 'Won' },
+            { date: 'Mar 29', gopeshProfit: 0, teams: 'RCB vs KKR', Status: 'Skipped' },
+            { date: 'Mar 30', gopeshProfit: +800, teams: 'PBKS vs LSG', Status: 'Won' },
 
             { date: 'Mar 31', gopeshProfit: -3200, teams: 'Encash' },
 
-            { date: 'Mar 31', gopeshProfit: +850, teams: 'SRH vs GT' },
-            { date: 'Mar 31', gopeshProfit: -1000, teams: 'CSK vs DC' },
-            { date: 'Apr 1', gopeshProfit: -1000, teams: 'MI vs RR' },
+            { date: 'Mar 31', gopeshProfit: +850, teams: 'SRH vs GT', Status: 'Won' },
+            { date: 'Mar 31', gopeshProfit: -1000, teams: 'CSK vs DC', Status: 'Lost' },
+            { date: 'Apr 1', gopeshProfit: -1000, teams: 'MI vs RR', Status: 'Lost' },
 
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
