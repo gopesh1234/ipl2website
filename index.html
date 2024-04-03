@@ -266,6 +266,16 @@
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
+                            <td>Day - 15</td>
+                            <td class="selected-date">2 Apr</td>
+                            <td>RCB</td>
+                            <td>Ball</td>
+                            <td>28 runs</td>
+                            <td style="background-color: red; color: white;">RCB (153-10)</td>
+                            <td style="background-color: green; color: white;">LSG (181-5)</td>
+                            <td style="background-color: blue; color: white;">Mayank Yadav (3 wkts)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
                             <td>Day - 14</td>
                             <td class="selected-date">1 Apr</td>
                             <td>RR</td>
@@ -428,7 +438,7 @@
     <main>
         <div class="team-selection2">
             <input value="" id="filter-user" placeholder="Search..." style="border-radius: 25px; text-align: center; margin-bottom: 11px; width: 207px; height: 42px; background-color: aliceblue;" />
-            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 50px; display: flex;">Gopesh: 8 || Vivek: 6 || Total: 14</span>
+            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 50px; display: flex;">Gopesh: 9 || Vivek: 6 || Total: 15</span>
             <div class="team" style="max-height: 312px; overflow-y: scroll;">
                 <table id="users-table">
                     <thead>
@@ -441,6 +451,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Day - 15</td>
+                            <td>2 Apr</td>
+                            <td>Vivek</td>
+                            <td>RCB</td>
+                            <td class="lose-cls">Lost</td>
+                        </tr>
                         <tr class="no-wrap-cls gps-cls">
                             <td>Day - 14</td>
                             <td>1 Apr</td>
@@ -554,7 +571,7 @@
         <div id="profit_loss2" class="common-info">
         </div>
         <div id="profit_loss3" class="common-info" style="cursor:pointer">
-            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 24px; display: flex; margin-bottom: 16px;">Won: 9 || Lost: 3 || Skipped: 2</span>
+            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 24px; display: flex; margin-bottom: 16px;">Won: 9 || Lost: 4 || Skipped: 2</span>
         </div>
         <div id="total-data" class="common-info">
             <p id="encash-id-gops"></p>
@@ -593,17 +610,7 @@
             { date: 'Mar 31', gopeshProfit: +250, vivekProfit: -250, teams: 'SRH vs GT' },
             { date: 'Mar 31', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs DC' },
             { date: 'Apr 1', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs RR' },
-
-            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
-            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
-            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
-            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
-            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
-            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
-            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
-            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
-            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
-            //{ date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
+            { date: 'Apr 2', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs LSG' },
         ];
 
         var dailyData2 = [
@@ -627,6 +634,7 @@
             { date: 'Mar 31', gopeshProfit: +850, teams: 'SRH vs GT', Status: 'Won' },
             { date: 'Mar 31', gopeshProfit: -1000, teams: 'CSK vs DC', Status: 'Lost' },
             { date: 'Apr 1', gopeshProfit: -1000, teams: 'MI vs RR', Status: 'Lost' },
+            { date: 'Apr 2', gopeshProfit: -1000, teams: 'RCB vs LSG', Status: 'Lost' },
 
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
