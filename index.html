@@ -266,6 +266,26 @@
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
+                            <td>Day - 17</td>
+                            <td class="selected-date">4 Apr</td>
+                            <td>PBKS</td>
+                            <td>Ball</td>
+                            <td>3 wkts</td>
+                            <td style="background-color: red; color: white;">GT (199-4)</td>
+                            <td style="background-color: green; color: white;">PBKS (200-7)</td>
+                            <td style="background-color: blue; color: white;">Shashank Singh (61 runs)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Day - 16 <span style="display:none">Second Highest</span></td>
+                            <td class="selected-date">3 Apr</td>
+                            <td>KKR</td>
+                            <td>Bat</td>
+                            <td>106 runs</td>
+                            <td style="background-color: red; color: white;">DC (166-10)</td>
+                            <td style="background-color: green; color: white;">KKR (272-7)</td>
+                            <td style="background-color: blue; color: white;">Sunil Narine (85 runs, 1 wkt)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
                             <td>Day - 15</td>
                             <td class="selected-date">2 Apr</td>
                             <td>RCB</td>
@@ -276,7 +296,7 @@
                             <td style="background-color: blue; color: white;">Mayank Yadav (3 wkts)</td>
                         </tr>
                         <tr class="no-wrap-cls">
-                            <td>Day - 14</td>
+                            <td>Day - 14 <span style="display:none">Lowest</span></td>
                             <td class="selected-date">1 Apr</td>
                             <td>RR</td>
                             <td>Ball</td>
@@ -438,7 +458,7 @@
     <main>
         <div class="team-selection2">
             <input value="" id="filter-user" placeholder="Search..." style="border-radius: 25px; text-align: center; margin-bottom: 11px; width: 207px; height: 42px; background-color: aliceblue;" />
-            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 50px; display: flex;">Gopesh: 9 || Vivek: 6 || Total: 15</span>
+            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 50px; display: flex;">Gopesh: 10 || Vivek: 7 || Total: 17</span>
             <div class="team" style="max-height: 312px; overflow-y: scroll;">
                 <table id="users-table">
                     <thead>
@@ -451,6 +471,23 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Day - 17</td>
+                            <td>4 Apr</td>
+                            <td>Vivek</td>
+                            <td>PBKS</td>
+                            <td class="win-cls">Won</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="background-color: brown; color: white; ">Encash 1000 by Gopesh</td>
+                        </tr>
+                        <tr class="no-wrap-cls gps-cls">
+                            <td>Day - 16</td>
+                            <td>3 Apr</td>
+                            <td>Gopesh</td>
+                            <td>KKR</td>
+                            <td class="win-cls">Won</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Day - 15</td>
                             <td>2 Apr</td>
@@ -571,7 +608,7 @@
         <div id="profit_loss2" class="common-info">
         </div>
         <div id="profit_loss3" class="common-info" style="cursor:pointer">
-            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 24px; display: flex; margin-bottom: 16px;">Won: 9 || Lost: 4 || Skipped: 2</span>
+            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 24px; display: flex; margin-bottom: 16px;">Won: 9 || Lost: 4 || Skipped: 4</span>
         </div>
         <div id="total-data" class="common-info">
             <p id="encash-id-gops"></p>
@@ -585,9 +622,9 @@
         var noError = true;
         var noNameError = true;
         var investment = 1150 + 150;
-        var gopeshTotalEnc = 2200 + 1000 + 3200;
+        var gopeshTotalEnc = 2200 + 1000 + 3200 + 1000;
         var vivekTotalEnc = 1000;
-        var gopeshTotal = 2200 - 1000 + 1000 + 3200; // Abh, -Viv, +Viv, Abh
+        var gopeshTotal = 2200 - 1000 + 1000 + 3200 + 1000; // Abh, -Viv, +Viv, Abh, +Viv
 
         var dailyData = [
             { date: 'Mar 22', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs CSK' },
@@ -611,6 +648,12 @@
             { date: 'Mar 31', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs DC' },
             { date: 'Apr 1', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs RR' },
             { date: 'Apr 2', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs LSG' },
+            { date: 'Apr 3', gopeshProfit: +250, vivekProfit: -250, teams: 'DC vs KKR' },
+
+            { date: 'Apr 3', gopeshProfit: -1000, vivekProfit: +1000, teams: 'Encash' },
+
+            { date: 'Apr 4', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs PBKS' },
+
         ];
 
         var dailyData2 = [
@@ -985,7 +1028,7 @@
         });
 
         document.getElementById('profit_loss3').addEventListener('click', function () {
-            Swal.fire("Encash: 6400 || Vivek: -1000 || Investment: -1300");
+            Swal.fire("Encash: 7400 || Vivek: -1000 || Investment: -1300");
         });
 
     </script>
