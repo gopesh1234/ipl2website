@@ -250,6 +250,7 @@
     <main>
         <div class="team-selection">
             <input value="" id="filter-team" placeholder="Search..." style="border-radius: 25px; text-align: center; margin-bottom: 11px; width: 207px; height: 42px; background-color: aliceblue;" />
+            <span id="ranking-website" style="box-shadow: 10px 10px 5px lightblue; margin-left: 18px; cursor: pointer; color: blue; font-size: 17px;">Ranking</span>
             <div class="team" style="max-height: 312px; overflow-y: scroll;">
                 <table>
                     <thead>
@@ -438,9 +439,9 @@
                     </tbody>
                 </table>
                 <!--<div style="text-align:center;" id="entry-count">-->
-                    <!-- Footer row to show the number of entries -->
-                    <!--<span id="entry-count-display">Showing 6 out of 6 entries</span>
-                </div>-->
+                <!-- Footer row to show the number of entries -->
+                <!--<span id="entry-count-display">Showing 6 out of 6 entries</span>
+        </div>-->
             </div>
         </div>
         <div class="popup" id="popup">
@@ -1029,6 +1030,10 @@
 
         document.getElementById('profit_loss3').addEventListener('click', function () {
             Swal.fire("Encash: 7400 || Vivek: -1000 || Investment: -1300");
+        });
+
+        document.getElementById('ranking-website').addEventListener('click', function () {
+            window.location.href = 'https://www.google.com/search?q=ipl+team+ranking&rlz=1C1OPNX_enIN961IN961&oq=ipl+team+ran&gs_lcrp=EgZjaHJvbWUqDQgAEAAYgwEYsQMYgAQyDQgAEAAYgwEYsQMYgAQyDQgBEAAYgwEYsQMYgAQyBggCEEUYOTIGCAMQABgDMgcIBBAAGIAEMgcIBRAAGIAEMgcIBhAAGIAEMgcIBxAAGIAEMgcICBAAGIAEMgcICRAAGIAEqAIAsAIA&sourceid=chrome&ie=UTF-8#sie=lg;/g/11v0gsbybs;5;/m/03b_lm1;st;fp;1;;;';
         });
 
     </script>
