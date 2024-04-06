@@ -267,6 +267,26 @@
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
+                            <td>Day - 19</td>
+                            <td class="selected-date">6 Apr</td>
+                            <td>RR <span style="display:none">RCB Red RR Green</span></td>
+                            <td>Ball</td>
+                            <td>6 wkts</td>
+                            <td style="background-color: red; color: white;">RCB (183-3)</td>
+                            <td style="background-color: green; color: white;">RR (189-4)</td>
+                            <td style="background-color: blue; color: white;">Jos Buttler (100 runs)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Day - 18</td>
+                            <td class="selected-date">5 Apr</td>
+                            <td>SRH <span style="display:none">CSK Red SRH Green</span></td>
+                            <td>Ball</td>
+                            <td>6 wkts</td>
+                            <td style="background-color: red; color: white;">CSK (165-5)</td>
+                            <td style="background-color: green; color: white;">SRH (166-4)</td>
+                            <td style="background-color: blue; color: white;">Abhishek Sharma (37 runs)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
                             <td>Day - 17</td>
                             <td class="selected-date">4 Apr</td>
                             <td>PBKS <span style="display:none">GT Red PBKS Green</span></td>
@@ -459,7 +479,7 @@
     <main>
         <div class="team-selection2">
             <input value="" id="filter-user" placeholder="Search..." style="border-radius: 25px; text-align: center; margin-bottom: 11px; width: 207px; height: 42px; background-color: aliceblue;" />
-            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 50px; display: flex;">Gopesh: 10 || Vivek: 7 || Total: 17</span>
+            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 50px; display: flex;">Gopesh: 10 || Vivek: 9 || Total: 19</span>
             <div class="team" style="max-height: 312px; overflow-y: scroll;">
                 <table id="users-table">
                     <thead>
@@ -472,6 +492,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Day - 19</td>
+                            <td>6 Apr</td>
+                            <td>Vivek</td>
+                            <td>RR</td>
+                            <td class="win-cls">Won</td>
+                        </tr>
+                        <tr class="no-wrap-cls gps-cls">
+                            <td>Day - 18</td>
+                            <td>5 Apr</td>
+                            <td>Gopesh</td>
+                            <td>CSK</td>
+                            <td class="lose-cls">Lost</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Day - 17</td>
                             <td>4 Apr</td>
@@ -609,7 +643,7 @@
         <div id="profit_loss2" class="common-info">
         </div>
         <div id="profit_loss3" class="common-info" style="cursor:pointer">
-            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 24px; display: flex; margin-bottom: 16px;">Won: 9 || Lost: 4 || Skipped: 4</span>
+            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 24px; display: flex; margin-bottom: 16px;">Won: 9 || Lost: 4 || Skipped: 6</span>
         </div>
         <div id="total-data" class="common-info">
             <p id="encash-id-gops"></p>
@@ -654,6 +688,8 @@
             { date: 'Apr 3', gopeshProfit: -1000, vivekProfit: +1000, teams: 'Encash' },
 
             { date: 'Apr 4', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs PBKS' },
+            { date: 'Apr 5', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs SRH' },
+            { date: 'Apr 6', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs RR' },
 
         ];
 
