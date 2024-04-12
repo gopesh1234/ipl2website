@@ -267,6 +267,26 @@
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
+                            <td>Match - 26</td>
+                            <td class="selected-date">12 Apr</td>
+                            <td>LSG <span style="display:none">LSG Red DC Green</span></td>
+                            <td>Bat</td>
+                            <td>NA</td>
+                            <td style="background-color: red; color: white;">LSG (167-7)</td>
+                            <td style="background-color: green; color: white;">DC (NA)</td>
+                            <td style="background-color: blue; color: white;">NA (NA)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 25</td>
+                            <td class="selected-date">11 Apr</td>
+                            <td>MI <span style="display:none">RCB Red MI Green</span></td>
+                            <td>Ball</td>
+                            <td>7 wkts</td>
+                            <td style="background-color: red; color: white;">RCB (196-8)</td>
+                            <td style="background-color: green; color: white;">MI (199-3)</td>
+                            <td style="background-color: blue; color: white;">Jasprit Bumrah (5 wkts)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
                             <td>Match - 24</td>
                             <td class="selected-date">10 Apr</td>
                             <td>GT <span style="display:none">RR Red GT Green</span></td>
@@ -529,7 +549,7 @@
     <main>
         <div class="team-selection2">
             <input value="" id="filter-user" placeholder="Search..." style="border-radius: 25px; text-align: center; margin-bottom: 11px; width: 207px; height: 42px; background-color: aliceblue;" />
-            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 50px; display: flex;">Gopesh: 11 || Vivek: 13 || Total: 24</span>
+            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 50px; display: flex;">Gopesh: 11 || Vivek: 15 || Total: 26</span>
             <div class="team" style="max-height: 312px; overflow-y: scroll;">
                 <table id="users-table">
                     <thead>
@@ -542,6 +562,23 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td colspan="5" style="background-color: brown; color: white; ">Encash 1000 by Vivek</td>
+                        </tr>
+                        <tr class="no-wrap-cls gps-cls">
+                            <td>Match - 26</td>
+                            <td>12 Apr</td>
+                            <td>Gopesh</td>
+                            <td>LSG</td>
+                            <td class="lose-cls">Lost</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 25</td>
+                            <td>11 Apr</td>
+                            <td>Vivek</td>
+                            <td>MI</td>
+                            <td class="win-cls">Won</td>
+                        </tr>
                         <tr class="no-wrap-cls gps-cls">
                             <td>Match - 24</td>
                             <td>10 Apr</td>
@@ -731,7 +768,7 @@
         <div id="profit_loss2" class="common-info">
         </div>
         <div id="profit_loss3" class="common-info" style="cursor:pointer">
-            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 24px; display: flex; margin-bottom: 16px;">Won: 9 || Lost: 4 || Skipped: 11</span>
+            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 24px; display: flex; margin-bottom: 16px;">Won: 9 || Lost: 4 || Skipped: 13</span>
         </div>
         <div id="total-data" class="common-info">
             <p id="encash-id-gops"></p>
@@ -746,10 +783,10 @@
         var noNameError = true;
 
         var gopeshTotalEnc = 2200 + 1000 + 3200 + 1000;
-        var vivekTotalEnc = 2000;
+        var vivekTotalEnc = 3000;
         var investment = 1150 + 150;
 
-        var gopeshTotal = 2200 - 1000 + 1000 + 3200 + 1000 - 1000; // Abh, -Viv, +Viv, Abh, +Viv, -Viv
+        var gopeshTotal = 2200 - 1000 + 1000 + 3200 + 1000 - 1000 - 1000; // Abh, -Viv, +Viv, Abh, +Viv, -Viv, -Viv
 
         var dailyData = [
             { date: 'Mar 22', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs CSK' },
@@ -788,6 +825,10 @@
             { date: 'Apr 8', gopeshProfit: +250, vivekProfit: -250, teams: 'KKR vs CSK' },
             { date: 'Apr 9', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs SRH' },
             { date: 'Apr 10', gopeshProfit: -250, vivekProfit: +250, teams: 'RR vs GT' },
+            { date: 'Apr 11', gopeshProfit: -250, vivekProfit: +250, teams: 'RR vs GT' },
+            { date: 'Apr 12', gopeshProfit: -250, vivekProfit: +250, teams: 'RR vs GT' },
+
+            { date: 'Apr 12', gopeshProfit: +1000, vivekProfit: -1000, teams: 'Vivek - Encash' },
 
         ];
 
