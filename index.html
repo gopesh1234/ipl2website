@@ -1166,11 +1166,10 @@
             });
 
             // Display profit/loss for Gopesh
+            profit_loss.innerHTML += 'Profit/Loss: ';
             if (gopeshTotal >= 0) {
-                profit_loss.innerHTML += 'Profit: ';
                 profit_loss.innerHTML += '<span class="green-triangle"></span> ' + gopeshTotal;
             } else {
-                profit_loss.innerHTML += 'Loss: ';
                 profit_loss.innerHTML += '<span class="red-triangle"></span> ' + gopeshTotal;
             }
         }
@@ -1184,11 +1183,10 @@
             });
 
             // Display profit/loss for Vivek
+            profit_loss.innerHTML += 'Profit/Loss: ';
             if (vivekTotal >= 0) {
-                profit_loss.innerHTML += 'Profit: ';
                 profit_loss.innerHTML += '<span class="green-triangle"></span> ' + vivekTotal;
             } else {
-                profit_loss.innerHTML += 'Loss: ';
                 profit_loss.innerHTML += '<span class="red-triangle"></span> ' + vivekTotal;
             }
         }
