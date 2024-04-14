@@ -622,29 +622,35 @@
         </div>
     </main>
     <main>
-        <div class="container">
+        <div class="container" style="box-shadow: 10px 10px 10px lightblue;">
             <div class="batsman">
-                <img src="batsman1.jpg" alt="Batsman 1">
-                <div class="name">Batsman 1</div>
+                <img src="https://domf5oio6qrcr.cloudfront.net/medialibrary/8371/bigstock-Hamburger-And-French-Fries-263887.jpg" alt="Gopesh">
+                <div class="name">Gopesh</div>
                 <div class="stats">
                     <div class="stat-item">
-                        <span>Runs:</span> 5000
+                        <span>Encash:</span> 2000
                     </div>
                     <div class="stat-item">
-                        <span>Matches:</span> 100
+                        <span>Won:</span> 13/29
+                    </div>
+                    <div class="stat-item">
+                        <span id="profit_loss_gps"></span>
                     </div>
                     <!-- Add more stats as needed -->
                 </div>
             </div>
             <div class="batsman">
-                <img src="batsman2.jpg" alt="Batsman 2">
-                <div class="name">Batsman 2</div>
+                <img src="https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg" alt="Vivek">
+                <div class="name">Vivek</div>
                 <div class="stats">
                     <div class="stat-item">
-                        <span>Runs:</span> 6000
+                        <span>Encash:</span> 3000
                     </div>
                     <div class="stat-item">
-                        <span>Matches:</span> 120
+                        <span>Won:</span> 16/29
+                    </div>
+                    <div class="stat-item">
+                        <span id="profit_loss_viv"></span>
                     </div>
                     <!-- Add more stats as needed -->
                 </div>
@@ -654,7 +660,6 @@
     <main>
         <div class="team-selection2">
             <input value="" id="filter-user" placeholder="Search..." style="border-radius: 25px; text-align: center; margin-bottom: 11px; width: 207px; height: 42px; background-color: aliceblue;" />
-            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 50px; display: flex;">Gopesh: 13 || Vivek: 16 || Total: 29</span>
             <div class="team" style="max-height: 312px; overflow-y: scroll;">
                 <table id="users-table">
                     <thead>
@@ -889,8 +894,6 @@
                 </table>
             </div>
         </div>
-        <div id="profit_loss" class="common-info">
-        </div>
         <div id="profit_loss2" class="common-info">
         </div>
         <div id="profit_loss3" class="common-info" style="cursor:pointer">
@@ -898,7 +901,6 @@
         </div>
         <div id="total-data" class="common-info">
             <p id="encash-id-gops"></p>
-            <p id="encash-id-vive"></p>
         </div>
     </main>
     <script>
@@ -1155,27 +1157,33 @@
             tableBody.appendChild(newRow);
         }
 
-        function calculateProfit() {
-            var profit_loss = document.getElementById('profit_loss');
+        function calculateGpsProfit() {
+            var profit_loss = document.getElementById('profit_loss_gps');
             var gopeshTotal = 0;
-            var vivekTotal = 0;
 
             dailyData.forEach(function (data) {
                 gopeshTotal += data.gopeshProfit;
-                vivekTotal += data.vivekProfit;
             });
 
             // Display profit/loss for Gopesh
-            profit_loss.innerHTML += 'Gopesh Profit/Loss: ';
+            profit_loss.innerHTML += 'Profit/Loss: ';
             if (gopeshTotal >= 0) {
                 profit_loss.innerHTML += '<span class="green-triangle"></span> ' + gopeshTotal;
             } else {
                 profit_loss.innerHTML += '<span class="red-triangle"></span> ' + gopeshTotal;
             }
-            profit_loss.innerHTML += '<br>';
+        }
+
+        function calculateVivProfit() {
+            var profit_loss = document.getElementById('profit_loss_viv');
+            var vivekTotal = 0;
+
+            dailyData.forEach(function (data) {
+                vivekTotal += data.vivekProfit;
+            });
 
             // Display profit/loss for Vivek
-            profit_loss.innerHTML += 'Vivek Profit/Loss: ';
+            profit_loss.innerHTML += 'Profit/Loss: ';
             if (vivekTotal >= 0) {
                 profit_loss.innerHTML += '<span class="green-triangle"></span> ' + vivekTotal;
             } else {
@@ -1217,10 +1225,8 @@
         function calculateProfit3() {
             var profit_loss = document.getElementById('profit_loss3');
             var profit_loss_encash_gops = document.getElementById('encash-id-gops');
-            var profit_loss_encash_vive = document.getElementById('encash-id-vive');
 
             profit_loss_encash_gops.innerHTML = 'Encash by Gopesh: ' + '<span class="green-triangle"></span> '+ gopeshTotalEnc;
-            profit_loss_encash_vive.innerHTML = 'Encash by Vivek: ' + '<span class="green-triangle"></span> ' + vivekTotalEnc;
 
             var inHand = gopeshTotal - investment;
 
@@ -1235,7 +1241,8 @@
         }
 
         // Call the function to calculate and display profit/loss
-        calculateProfit();
+        calculateGpsProfit();
+        calculateVivProfit();
         calculateProfit2();
         calculateProfit3();
 
