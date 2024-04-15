@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IPL24</title>
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/site.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
     <style>
         /* General styles */
         body {
@@ -289,9 +290,20 @@
             .stat-item span {
                 font-weight: bold;
             }
+
+        .bungee-spice-regular {
+            font-family: "Bungee Spice", sans-serif;
+            font-style: normal;
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: -70px;
+        }
     </style>
 </head>
 <body>
+    <div class="bungee-spice-regular">
+        IPL 2024
+    </div>
     <main>
         <div class="team-selection">
             <input value="" id="filter-team" placeholder="Search..." style="border-radius: 25px; text-align: center; margin-bottom: 11px; width: 207px; height: 42px; background-color: aliceblue;" />
@@ -616,7 +628,7 @@
                 <!--<div style="text-align:center;" id="entry-count">-->
                 <!-- Footer row to show the number of entries -->
                 <!--<span id="entry-count-display">Showing 6 out of 6 entries</span>
-        </div>-->
+                </div>-->
             </div>
         </div>
         <div class="popup" id="popup">
@@ -1167,10 +1179,10 @@
             var tableBody = document.querySelector('#users-table tbody');
             var newRow = document.createElement('tr');
             newRow.innerHTML = `
-                                        <td>${userEntry.date}</td>
-                                        <td>${userEntry.name}</td>
-                                        <td>${userEntry.team}</td>
-                                        <td>${userEntry.status}</td>`;
+                                            <td>${userEntry.date}</td>
+                                            <td>${userEntry.name}</td>
+                                            <td>${userEntry.team}</td>
+                                            <td>${userEntry.status}</td>`;
 
             tableBody.appendChild(newRow);
         }
@@ -1244,7 +1256,7 @@
             var profit_loss = document.getElementById('profit_loss3');
             var profit_loss_encash_gops = document.getElementById('encash-id-gops');
 
-            profit_loss_encash_gops.innerHTML = 'Encash by Gopesh: ' + '<span class="green-triangle"></span> '+ gopeshTotalEnc;
+            profit_loss_encash_gops.innerHTML = 'Encash by Gopesh: ' + '<span class="green-triangle"></span> ' + gopeshTotalEnc;
 
             var inHand = gopeshTotal - investment;
 
