@@ -344,6 +344,53 @@
             text-align: center;
             line-height: 30px;
         }*/
+
+        /* Styles for circle container */
+        .circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Styles for sections */
+        .section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            color: white;
+            position: relative;
+        }
+
+        /* Define different background colors for each section */
+        #section1 {
+            background-color: #FF5733;
+        }
+        /* Orange */
+        #section2 {
+            background-color: #4BC57E;
+        }
+        /* Red */
+        #section3 {
+            background-color: #4BAFC5;
+        }
+        /* Dark Red */
+        #section4 {
+            background-color: #B04BC5;
+        }
+        /* Purple */
+        #section5 {
+            background-color: #AFC54B;
+        }
+        /* Indigo */
+
+
     </style>
 </head>
 <body>
@@ -1004,14 +1051,14 @@
                 </table>
             </div>
         </div>
-        <div id="profit_loss2" class="common-info">
+        <div class="circle">
+            <div class="section" id="section1" style="font-size: 16px;">Other Details</div>
+            <div class="section" id="section2" style="font-size: 16px;">Won: <span class="green-triangle"></span> 9 || Lost: <span class="red-triangle"></span> 4</div>
+            <div class="section" id="section3" style="font-size: 16px;">Investment: <span class="red-triangle"></span> 1300 || Vivek: <span class="red-triangle"></span> 3000</div>
+            <div class="section" id="section4"style="font-size: 16px;">Encash: <span class="green-triangle"></span> 7400</div>
+            <div class="section" id="section5" style="font-size: 16px;">Overall: <span class="green-triangle"></span> 3100</div>
         </div>
-        <div id="profit_loss3" class="common-info" style="cursor:pointer">
-            <span style="box-shadow: 10px 10px 5px lightblue; position: relative; height: 24px; display: flex; margin-bottom: 16px;">Won: 9 || Lost: 4 || Skipped: 21</span>
-        </div>
-        <div id="total-data" class="common-info">
-            <p id="encash-id-gops"></p>
-        </div>
+
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
