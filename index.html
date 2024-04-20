@@ -387,7 +387,11 @@
         }
         /* Purple */
         #section5 {
+            background-color: black;
+        }
+        #section6 {
             background-color: brown;
+            cursor:pointer;
         }
         /* Indigo */
 
@@ -415,6 +419,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 35</td>
+                            <td class="selected-date">20 Apr</td>
+                            <td>DC <span style="display:none">DC Red SRH Green (IPL24)</span></td>
+                            <td>Ball</td>
+                            <td>67 runs</td>
+                            <td style="background-color: red; color: white;">DC (199-10)</td>
+                            <td style="background-color: green; color: white;">SRH (266-7)</td>
+                            <td style="background-color: blue; color: white;">Travis Head (89 runs)</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 34</td>
                             <td class="selected-date">19 Apr</td>
@@ -787,7 +801,7 @@
                         <span>Encash:</span> 2000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 14/34
+                        <span>Won:</span> 14/35
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_gps"></span>
@@ -805,7 +819,7 @@
                         <span>Encash:</span> 3000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 20/34
+                        <span>Won:</span> 21/35
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_viv"></span>
@@ -829,6 +843,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 35</td>
+                            <td>20 Apr</td>
+                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>SRH</sup></td>
+                            <td>SRH vs DC</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 34</td>
                             <td>19 Apr</td>
@@ -1053,11 +1073,12 @@
             </div>
         </div>
         <div class="circle">
-            <div class="section" id="section1" style="font-size: 16px;">Other Details</div>
-            <div class="section" id="section2" style="font-size: 16px;">Won: <span class="green-triangle"></span> 9 || Lost: <span class="red-triangle"></span> 4</div>
-            <div class="section" id="section3" style="font-size: 16px;">Investment: <span class="red-triangle"></span> 1300 || Vivek: <span class="red-triangle"></span> 3000</div>
-            <div class="section" id="section4"style="font-size: 16px;">Encash: <span class="green-triangle"></span> 7400</div>
-            <div class="section" id="section5" style="font-size: 16px;">Overall: <span class="green-triangle"></span> 3100</div>
+            <div class="section" id="section1" style="font-size: 15px;"></div>
+            <div class="section" id="section2" style="font-size: 15px;"></div>
+            <div class="section" id="section3" style="font-size: 15px;"></div>
+            <div class="section" id="section4" style="font-size: 15px;"></div>
+            <div class="section" id="section5" style="font-size: 15px;"></div>
+            <div class="section" id="section6" style="font-size: 15px;"></div>
         </div>
 
     </main>
@@ -1068,10 +1089,14 @@
         var teamName = "";
         var noError = true;
         var noNameError = true;
+        var won = 10;
+        var lost = 4;
 
         var gopeshTotalEnc = 2200 + 1000 + 3200 + 1000;
         var vivekTotalEnc = 3000;
-        var investment = 1150 + 150;
+        var investment = 1150 + 150 + 1200;
+        var overall = gopeshTotalEnc - (vivekTotalEnc + investment);
+        var currentVal = 2000;
 
         var gopeshTotal = 2200 - 1000 + 1000 + 3200 + 1000 - 1000 - 1000; // Abh, -Viv, +Viv, Abh, +Viv, -Viv, -Viv
 
@@ -1125,6 +1150,7 @@
             { date: 'Apr 17', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs DC' },
             { date: 'Apr 18', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs MI' },
             { date: 'Apr 19', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs LSG' },
+            { date: 'Apr 20', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs SRH' },
         ];
 
         var dailyData2 = [
@@ -1149,6 +1175,7 @@
             { date: 'Mar 31', gopeshProfit: -1000, teams: 'CSK vs DC', Status: 'Lost' },
             { date: 'Apr 1', gopeshProfit: -1000, teams: 'MI vs RR', Status: 'Lost' },
             { date: 'Apr 2', gopeshProfit: -1000, teams: 'RCB vs LSG', Status: 'Lost' },
+            { date: 'Apr 20', gopeshProfit: +800, teams: 'DC vs SRH', Status: 'Won' },
 
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
@@ -1403,11 +1430,30 @@
             }
         }
 
+        function calculateProfit4() {
+
+            var sec1 = document.getElementById('section1');
+            var sec2 = document.getElementById('section2');
+            var sec3 = document.getElementById('section3');
+            var sec4 = document.getElementById('section4');
+            var sec5 = document.getElementById('section5');
+            var sec6 = document.getElementById('section6');
+
+            sec1.innerHTML = 'Other Details';
+            sec2.innerHTML = 'Won: <span class="green-triangle"></span> ' + won + ' || Lost: <span class="red-triangle"></span> ' + lost;
+            sec3.innerHTML = 'Investment: <span class="red-triangle"></span> ' + investment + ' || Vivek: <span class="red-triangle"></span> ' + vivekTotalEnc;
+            sec4.innerHTML = 'Current Value: <span class="green-triangle"></span> ' + currentVal;
+            sec5.innerHTML = 'Encash: <span class="green-triangle"></span> ' + gopeshTotalEnc;
+            sec6.innerHTML = 'Overall: <span class="green-triangle"></span> ' + overall;
+
+        }
+
         // Call the function to calculate and display profit/loss
         calculateGpsProfit();
         calculateVivProfit();
-        calculateProfit2();
-        calculateProfit3();
+        //calculateProfit2();
+        //calculateProfit3();
+        calculateProfit4();
 
         function updateEntryCount() {
             var filterTeam = document.getElementById('filter-team').value.toUpperCase();
@@ -1503,8 +1549,8 @@
             filterTableByUser();
         });
 
-        document.getElementById('profit_loss3').addEventListener('click', function () {
-            var overallData = "Encash: " + gopeshTotalEnc + " || Vivek: -" + vivekTotalEnc + " || Investment: -" + investment;
+        document.getElementById('section6').addEventListener('click', function () {
+            var overallData = "Encash: " + gopeshTotalEnc + " || Vivek: -" + vivekTotalEnc + " || Investment: -" + investment + " || Under Process: " + currentVal;
             Swal.fire(overallData);
         });
 
