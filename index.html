@@ -422,6 +422,16 @@
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
+                            <td>Match - 38 <span style="display:none">Chahal Completed his 200 wickets in IPL</span></td>
+                            <td class="selected-date">22 Apr</td>
+                            <td>MI <span style="display:none">MI Red RR Green (IPL24)</span></td>
+                            <td>Bat</td>
+                            <td>9 wkts</td>
+                            <td style="background-color: red; color: white;">MI (179-9)</td>
+                            <td style="background-color: green; color: white;">RR (183-1)</td>
+                            <td style="background-color: blue; color: white;">Sandeep Sharma (5 wkts)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
                             <td>Match - 37</td>
                             <td class="selected-date">21 Apr</td>
                             <td>PBKS <span style="display:none">PBKS Red GT Green (IPL24)</span></td>
@@ -823,7 +833,7 @@
                         <span>Encash:</span> 2000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 14/35
+                        <span>Won:</span> 16/38
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_gps"></span>
@@ -841,7 +851,7 @@
                         <span>Encash:</span> 3000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 21/35
+                        <span>Won:</span> 22/38
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_viv"></span>
@@ -865,6 +875,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 38</td>
+                            <td>22 Apr</td>
+                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>MI</sup></td>
+                            <td>MI vs RR</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 37</td>
                             <td>21 Apr</td>
@@ -1123,13 +1139,13 @@
         var noError = true;
         var noNameError = true;
         var won = 11; //
-        var lost = 4; //
+        var lost = 5; //
 
         var gopeshTotalEnc = 2200 + 1000 + 3200 + 1000;
         var vivekTotalEnc = 3000;
         var investment = 1150 + 150 + 1200;
         var overall = gopeshTotalEnc - (vivekTotalEnc + investment);
-        var currentVal = 2000 + 700; //
+        var currentVal = 2000 + 700 - 1000; //
 
         var gopeshTotal = 2200 - 1000 + 1000 + 3200 + 1000 - 1000 - 1000; // Abh, -Viv, +Viv, Abh, +Viv, -Viv, -Viv
 
@@ -1186,6 +1202,7 @@
             { date: 'Apr 20', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs SRH' },
             { date: 'Apr 21', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs KKR' },
             { date: 'Apr 21', gopeshProfit: +250, vivekProfit: -250, teams: 'PBKS vs GT' },
+            { date: 'Apr 22', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs RR' },
         ];
 
         var dailyData2 = [
@@ -1212,6 +1229,7 @@
             { date: 'Apr 2', gopeshProfit: -1000, teams: 'RCB vs LSG', Status: 'Lost' },
             { date: 'Apr 20', gopeshProfit: +800, teams: 'DC vs SRH', Status: 'Won' },
             { date: 'Apr 21', gopeshProfit: +700, teams: 'DC vs SRH', Status: 'Won' },
+            { date: 'Apr 22', gopeshProfit: -1000, teams: 'MI vs RR', Status: 'Lost' },
 
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
