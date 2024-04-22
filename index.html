@@ -395,7 +395,9 @@
         }
         /* Indigo */
 
-
+        .font-size {
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
@@ -419,6 +421,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 37</td>
+                            <td class="selected-date">21 Apr</td>
+                            <td>PBKS <span style="display:none">PBKS Red GT Green (IPL24)</span></td>
+                            <td>Bat</td>
+                            <td>3 wkts</td>
+                            <td style="background-color: red; color: white;">PBKS (142-10)</td>
+                            <td style="background-color: green; color: white;">GT (146-7)</td>
+                            <td style="background-color: blue; color: white;">Ravi Sai Kishore (4 wkts)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 36</td>
+                            <td class="selected-date">21 Apr</td>
+                            <td>RCB <span style="display:none">RCB Red KKR Green (IPL24)</span></td>
+                            <td>Ball</td>
+                            <td>1 run</td>
+                            <td style="background-color: red; color: white;">RCB (221-10)</td>
+                            <td style="background-color: green; color: white;">KKR (222-6)</td>
+                            <td style="background-color: blue; color: white;">Andre Russell (27 runs, 3 wkts)</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 35</td>
                             <td class="selected-date">20 Apr</td>
@@ -747,7 +769,7 @@
                             <td>4 runs</td>
                             <td style="background-color: red; color: white;">SRH (204-7)</td>
                             <td style="background-color: green; color: white;">KKR (208-7)</td>
-                            <td style="background-color: blue; color: white;">Russell (64 runs, 2 wkts)</td>
+                            <td style="background-color: blue; color: white;">Andre Russell (64 runs, 2 wkts)</td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 02</td>
@@ -843,6 +865,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 37</td>
+                            <td>21 Apr</td>
+                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>PBKS</sup></td>
+                            <td>PBKS vs GT</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 36</td>
+                            <td>21 Apr</td>
+                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>KKR</sup></td>
+                            <td>KKR vs RCB</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 35</td>
                             <td>20 Apr</td>
@@ -1073,14 +1107,13 @@
             </div>
         </div>
         <div class="circle">
-            <div class="section" id="section1" style="font-size: 15px;"></div>
-            <div class="section" id="section2" style="font-size: 15px;"></div>
-            <div class="section" id="section3" style="font-size: 15px;"></div>
-            <div class="section" id="section4" style="font-size: 15px;"></div>
-            <div class="section" id="section5" style="font-size: 15px;"></div>
-            <div class="section" id="section6" style="font-size: 15px;"></div>
+            <div class="section font-size" id="section1"></div>
+            <div class="section font-size" id="section2"></div>
+            <div class="section font-size" id="section3"></div>
+            <div class="section font-size" id="section4"></div>
+            <div class="section font-size" id="section5"></div>
+            <div class="section font-size" id="section6"></div>
         </div>
-
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -1089,14 +1122,14 @@
         var teamName = "";
         var noError = true;
         var noNameError = true;
-        var won = 10;
-        var lost = 4;
+        var won = 11; //
+        var lost = 4; //
 
         var gopeshTotalEnc = 2200 + 1000 + 3200 + 1000;
         var vivekTotalEnc = 3000;
         var investment = 1150 + 150 + 1200;
         var overall = gopeshTotalEnc - (vivekTotalEnc + investment);
-        var currentVal = 2000;
+        var currentVal = 2000 + 700; //
 
         var gopeshTotal = 2200 - 1000 + 1000 + 3200 + 1000 - 1000 - 1000; // Abh, -Viv, +Viv, Abh, +Viv, -Viv, -Viv
 
@@ -1151,6 +1184,8 @@
             { date: 'Apr 18', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs MI' },
             { date: 'Apr 19', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs LSG' },
             { date: 'Apr 20', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs SRH' },
+            { date: 'Apr 21', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs KKR' },
+            { date: 'Apr 21', gopeshProfit: +250, vivekProfit: -250, teams: 'PBKS vs GT' },
         ];
 
         var dailyData2 = [
@@ -1176,6 +1211,7 @@
             { date: 'Apr 1', gopeshProfit: -1000, teams: 'MI vs RR', Status: 'Lost' },
             { date: 'Apr 2', gopeshProfit: -1000, teams: 'RCB vs LSG', Status: 'Lost' },
             { date: 'Apr 20', gopeshProfit: +800, teams: 'DC vs SRH', Status: 'Won' },
+            { date: 'Apr 21', gopeshProfit: +700, teams: 'DC vs SRH', Status: 'Won' },
 
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
