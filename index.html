@@ -398,6 +398,10 @@
         .font-size {
             font-size: 13px;
         }
+
+        .imp-cls {
+            background-color: rebeccapurple;
+        }
     </style>
 </head>
 <body>
@@ -422,6 +426,16 @@
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
+                            <td class="imp-cls">Match - 42 <span style="display:none">Highest score chase</span></td>
+                            <td class="selected-date">26 Apr</td>
+                            <td>PBKS <span style="display:none">KKR Red PBKS Green (IPL24)</span></td>
+                            <td>Ball</td>
+                            <td>8 wkts</td>
+                            <td style="background-color: red; color: white;">KKR (261-6)</td>
+                            <td style="background-color: green; color: white;">PBKS (262-2)</td>
+                            <td style="background-color: blue; color: white;">Jonny Bairstow (108 runs)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
                             <td>Match - 41</td>
                             <td class="selected-date">25 Apr</td>
                             <td>RCB <span style="display:none">SRH Red RCB Green (IPL24)</span></td>
@@ -442,7 +456,7 @@
                             <td style="background-color: blue; color: white;">Rishabh Pant (88 runs)</td>
                         </tr>
                         <tr class="no-wrap-cls">
-                            <td>Match - 39</td>
+                            <td class="imp-cls">Match - 39 <span style="display:none">Highest chase in Chennai</span></td>
                             <td class="selected-date">23 Apr</td>
                             <td>LSG <span style="display:none">CSK Red LSG Green (IPL24)</span></td>
                             <td>Ball</td>
@@ -452,7 +466,7 @@
                             <td style="background-color: blue; color: white;">Marcus Stoinis (124 runs) <span style="display:none">Highest Score</span></td>
                         </tr>
                         <tr class="no-wrap-cls">
-                            <td>Match - 38 <span style="display:none">Chahal Completed his 200 wickets in IPL</span></td>
+                            <td class="imp-cls">Match - 38 <span style="display:none">Chahal Completed his 200 wickets in IPL</span></td>
                             <td class="selected-date">22 Apr</td>
                             <td>MI <span style="display:none">MI Red RR Green (IPL24)</span></td>
                             <td>Bat</td>
@@ -512,7 +526,7 @@
                             <td style="background-color: blue; color: white;">Jasprit Bumrah (3 wkts)</td>
                         </tr>
                         <tr class="no-wrap-cls">
-                            <td>Match - 32 <span style="display:none">Lowest</span></td>
+                            <td class="imp-cls">Match - 32 <span style="display:none">Lowest</span></td>
                             <td class="selected-date">17 Apr</td>
                             <td>DC <span style="display:none">GT Red DC Green (IPL24)</span></td>
                             <td>Ball</td>
@@ -532,7 +546,7 @@
                             <td style="background-color: blue; color: white;">Jos Buttler (107 runs)</td>
                         </tr>
                         <tr class="no-wrap-cls">
-                            <td>Match - 30 <span style="display:none">Highest</span></td>
+                            <td class="imp-cls">Match - 30 <span style="display:none">Highest</span></td>
                             <td class="selected-date">15 Apr</td>
                             <td>RCB <span style="display:none">RCB Red SRH Green (IPL24)</span></td>
                             <td>Ball</td>
@@ -672,7 +686,7 @@
                             <td style="background-color: blue; color: white;">Shashank Singh (61 runs)</td>
                         </tr>
                         <tr class="no-wrap-cls">
-                            <td>Match - 16 <span style="display:none">Highest</span></td>
+                            <td class="imp-cls">Match - 16 <span style="display:none">Highest</span></td>
                             <td class="selected-date">03 Apr</td>
                             <td>KKR <span style="display:none">DC Red KKR Green (IPL24)</span></td>
                             <td>Bat</td>
@@ -692,7 +706,7 @@
                             <td style="background-color: blue; color: white;">Mayank Yadav (3 wkts)</td>
                         </tr>
                         <tr class="no-wrap-cls">
-                            <td>Match - 14 <span style="display:none">Lowest</span></td>
+                            <td>Match - 14</td>
                             <td class="selected-date">01 Apr</td>
                             <td>RR <span style="display:none">MI Red RR Green (IPL24)</span></td>
                             <td>Ball</td>
@@ -752,7 +766,7 @@
                             <td style="background-color: blue; color: white;">Riyan Parag (84 runs)</td>
                         </tr>
                         <tr class="no-wrap-cls">
-                            <td>Match - 08 <span style="display:none">Highest</span></td>
+                            <td class="imp-cls">Match - 08 <span style="display:none">Highest</span></td>
                             <td class="selected-date">27 Mar</td>
                             <td>MI <span style="display:none">MI Red SRH Green (IPL24)</span></td>
                             <td>Ball</td>
@@ -863,7 +877,7 @@
                         <span>Encash:</span> 2000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 17/41
+                        <span>Won:</span> 17/42
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_gps"></span>
@@ -881,7 +895,7 @@
                         <span>Encash:</span> 3000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 24/41
+                        <span>Won:</span> 25/42
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_viv"></span>
@@ -905,6 +919,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td colspan="5" style="background-color: brown; color: white; ">Encash 1000 by Vivek</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 42</td>
+                            <td>26 Apr</td>
+                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>KKR</sup></td>
+                            <td>KKR vs PBKS</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 41</td>
                             <td>25 Apr</td>
@@ -1190,12 +1213,12 @@
         var lost = 7; //
 
         var gopeshTotalEnc = 2200 + 1000 + 3200 + 1000;
-        var vivekTotalEnc = 3000;
+        var vivekTotalEnc = 4000;
         var investment = 1150 + 150 + 1200 + 400;
         var overall = gopeshTotalEnc - (vivekTotalEnc + investment);
         var currentVal = 0; //
 
-        var gopeshTotal = 2200 - 1000 + 1000 + 3200 + 1000 - 1000 - 1000; // Abh, -Viv, +Viv, Abh, +Viv, -Viv, -Viv
+        var gopeshTotal = 2200 - 1000 + 1000 + 3200 + 1000 - 1000 - 1000 - 1000; // Abh, -Viv, +Viv, Abh, +Viv, -Viv, -Viv, -Viv
 
         var dailyData = [
             { date: 'Mar 22', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs CSK' },
@@ -1254,6 +1277,9 @@
             { date: 'Apr 23', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs LSG' },
             { date: 'Apr 24', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs DC' },
             { date: 'Apr 25', gopeshProfit: -250, vivekProfit: +250, teams: 'SRH vs RCB' },
+            { date: 'Apr 26', gopeshProfit: -250, vivekProfit: +250, teams: 'KKR vs LSG' },
+
+            { date: 'Apr 26', gopeshProfit: +1000, vivekProfit: -1000, teams: 'Vivek - Encash' },
         ];
 
         var dailyData2 = [
