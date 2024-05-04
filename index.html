@@ -427,6 +427,16 @@
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
+                            <td class="imp-cls" onclick="imptEvent('KKR won after 12 years at Wankhede')">Match - 51</td>
+                            <td class="selected-date">03 May</td>
+                            <td>MI <span style="display:none">MI Red KKR Green (IPL24)</span></td>
+                            <td>Ball</td>
+                            <td>24 runs</td>
+                            <td style="background-color: red; color: white;">MI (145-10)</td>
+                            <td style="background-color: green; color: white;">KKR (169-10)</td>
+                            <td style="background-color: blue; color: white;"> Venkatesh Iyer (70 runs)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
                             <td>Match - 50</td>
                             <td class="selected-date">02 May</td>
                             <td>SRH <span style="display:none">RR Red SRH Green (IPL24)</span></td>
@@ -958,7 +968,7 @@
                         <span>Encash:</span> 2000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 22/50
+                        <span>Won:</span> 22/51
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_gps"></span>
@@ -976,7 +986,7 @@
                         <span>Encash:</span> 4000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 28/50
+                        <span>Won:</span> 29/51
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_viv"></span>
@@ -1000,6 +1010,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 51</td>
+                            <td>03 May</td>
+                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>KKR</sup></td>
+                            <td>KKR vs MI</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 50</td>
                             <td>02 May</td>
@@ -1369,22 +1385,22 @@
             { date: 'Mar 30', gopeshProfit: +250, vivekProfit: -250, teams: 'PBKS vs LSG' },
             { date: 'Mar 31', gopeshProfit: +250, vivekProfit: -250, teams: 'SRH vs GT' },
             { date: 'Mar 31', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs DC' },
-            { date: 'Apr 1', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs RR' },
-            { date: 'Apr 2', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs LSG' },
-            { date: 'Apr 3', gopeshProfit: +250, vivekProfit: -250, teams: 'DC vs KKR' },
+            { date: 'Apr 01', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs RR' },
+            { date: 'Apr 02', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs LSG' },
+            { date: 'Apr 03', gopeshProfit: +250, vivekProfit: -250, teams: 'DC vs KKR' },
 
-            { date: 'Apr 3', gopeshProfit: -1000, vivekProfit: +1000, teams: 'Gopesh - Encash' },
+            { date: 'Apr 03', gopeshProfit: -1000, vivekProfit: +1000, teams: 'Gopesh - Encash' },
 
-            { date: 'Apr 4', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs PBKS' },
-            { date: 'Apr 5', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs SRH' },
-            { date: 'Apr 6', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs RR' },
-            { date: 'Apr 7', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs MI' },
+            { date: 'Apr 04', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs PBKS' },
+            { date: 'Apr 05', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs SRH' },
+            { date: 'Apr 06', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs RR' },
+            { date: 'Apr 07', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs MI' },
 
-            { date: 'Apr 7', gopeshProfit: +1000, vivekProfit: -1000, teams: 'Vivek - Encash' },
+            { date: 'Apr 07', gopeshProfit: +1000, vivekProfit: -1000, teams: 'Vivek - Encash' },
 
-            { date: 'Apr 7', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs LSG' },
-            { date: 'Apr 8', gopeshProfit: +250, vivekProfit: -250, teams: 'KKR vs CSK' },
-            { date: 'Apr 9', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs SRH' },
+            { date: 'Apr 07', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs LSG' },
+            { date: 'Apr 08', gopeshProfit: +250, vivekProfit: -250, teams: 'KKR vs CSK' },
+            { date: 'Apr 09', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs SRH' },
             { date: 'Apr 10', gopeshProfit: -250, vivekProfit: +250, teams: 'RR vs GT' },
             { date: 'Apr 11', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs MI' },
             { date: 'Apr 12', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs LSG' },
@@ -1410,14 +1426,15 @@
 
             { date: 'Apr 26', gopeshProfit: +1000, vivekProfit: -1000, teams: 'Vivek - Encash' },
 
-            { date: 'Apr 27', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs DC' }, // viv -> 250, gps -> -250 || win -> (1, 0, Diff => 1)
-            { date: 'Apr 27', gopeshProfit: +250, vivekProfit: -250, teams: 'LSG vs RR' }, // viv -> 0, gps -> 0 || win -> (1, 1, Diff => 0)
-            { date: 'Apr 28', gopeshProfit: +250, vivekProfit: -250, teams: 'GT vs RCB' }, // viv -> -250, gps -> +250 || win -> (2, 1, Diff => 1)
-            { date: 'Apr 28', gopeshProfit: -250, vivekProfit: +250, teams: 'SRH vs CSK' }, // viv -> 0, gps -> 0 || win -> (2, 2 , Diff => 0)
-            { date: 'Apr 29', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs KKR' }, // viv -> 250, gps -> -250 || win -> (3, 2 , Diff => 1)
-            { date: 'Apr 30', gopeshProfit: +250, vivekProfit: -250, teams: 'MI vs LSG' }, // viv -> 0, gps -> 0 || win -> (3, 3 , Diff => 0)
-            { date: 'May 1', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs PBKS' }, // viv -> -250, gps -> +250 || win -> (3, 4 , Diff => 1)
-            { date: 'May 2', gopeshProfit: +250, vivekProfit: -250, teams: 'SRH vs RR' }, // viv -> 0, gps -> 0 || win -> (3, 5 , Diff => 2)
+            { date: 'Apr 27', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs DC' },
+            { date: 'Apr 27', gopeshProfit: +250, vivekProfit: -250, teams: 'LSG vs RR' },
+            { date: 'Apr 28', gopeshProfit: +250, vivekProfit: -250, teams: 'GT vs RCB' },
+            { date: 'Apr 28', gopeshProfit: -250, vivekProfit: +250, teams: 'SRH vs CSK' },
+            { date: 'Apr 29', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs KKR' },
+            { date: 'Apr 30', gopeshProfit: +250, vivekProfit: -250, teams: 'MI vs LSG' },
+            { date: 'May 01', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs PBKS' },
+            { date: 'May 02', gopeshProfit: +250, vivekProfit: -250, teams: 'RR vs SRH' },
+            { date: 'May 03', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs KKR' }, // viv -> -250, gps -> +250 || win -> (4, 5 , Diff => 1)
         ];
 
         var dailyData2 = [
@@ -1440,8 +1457,8 @@
 
             { date: 'Mar 31', gopeshProfit: +850, teams: 'SRH vs GT', Status: 'Won' },
             { date: 'Mar 31', gopeshProfit: -1000, teams: 'CSK vs DC', Status: 'Lost' },
-            { date: 'Apr 1', gopeshProfit: -1000, teams: 'MI vs RR', Status: 'Lost' },
-            { date: 'Apr 2', gopeshProfit: -1000, teams: 'RCB vs LSG', Status: 'Lost' },
+            { date: 'Apr 01', gopeshProfit: -1000, teams: 'MI vs RR', Status: 'Lost' },
+            { date: 'Apr 02', gopeshProfit: -1000, teams: 'RCB vs LSG', Status: 'Lost' },
             { date: 'Apr 20', gopeshProfit: +800, teams: 'DC vs SRH', Status: 'Won' },
             { date: 'Apr 21', gopeshProfit: +700, teams: 'DC vs SRH', Status: 'Won' },
             { date: 'Apr 22', gopeshProfit: -1000, teams: 'MI vs RR', Status: 'Lost' },
