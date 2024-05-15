@@ -194,7 +194,7 @@
             margin-bottom: 10px;
         }
 
-        .green-triangle, .red-triangle {
+        .green-triangle, .red-triangle, .yellow-triangle {
             display: inline-block;
             width: 0;
             height: 0;
@@ -210,6 +210,12 @@
         .red-triangle {
             border-width: 20px 10px 0 10px;
             border-color: red transparent transparent transparent;
+            margin-right: 5px;
+        }
+
+        .yellow-triangle {
+            border-width: 0 10px 20px 10px;
+            border-color: transparent transparent yellow transparent;
             margin-right: 5px;
         }
 
@@ -426,6 +432,57 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 64</td>
+                            <td class="selected-date">14 May</td>
+                            <td>LSG <span style="display:none">LSG Red DC Green (IPL24)</span></td>
+                            <td>Ball</td>
+                            <td>19 runs</td>
+                            <td style="background-color: red; color: white;">LSG (189-9)</td>
+                            <td style="background-color: green; color: white;">DC (208-4)</td>
+                            <td style="background-color: blue; color: white;"> Ishant Sharma (3 wkts)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 63</td>
+                            <td class="selected-date">13 May</td>
+                            <td colspan="3" style="background-color: yellow; color: black;">No record</td>
+                            <td>GT</td>
+                            <td>KKR</td>
+                            <td style="background-color: yellow; color: black;">Match Abandoned</td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" style="background-color: black; color: white;">Eight Week</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 62</td>
+                            <td class="selected-date">12 May</td>
+                            <td>DC <span style="display:none">DC Red RCB Green (IPL24)</span></td>
+                            <td>Ball</td>
+                            <td>47 runs</td>
+                            <td style="background-color: red; color: white;">DC (140-10)</td>
+                            <td style="background-color: green; color: white;">RCB (187-9)</td>
+                            <td style="background-color: blue; color: white;"> Cameron Green (32 runs, 1 wkt)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 61</td>
+                            <td class="selected-date">12 May</td>
+                            <td>RR <span style="display:none">RR Red CSK Green (IPL24)</span></td>
+                            <td>Bat</td>
+                            <td>5 wkts</td>
+                            <td style="background-color: red; color: white;">RR (141-5)</td>
+                            <td style="background-color: green; color: white; cursor: pointer;" onclick="imptEvent('Did not bat... 10/13')">CSK (145-5)</td>
+                            <td style="background-color: blue; color: white;"> Simarjeet Singh (3 wkts)</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 60</td>
+                            <td class="selected-date">11 May</td>
+                            <td>MI <span style="display:none">MI Red KKR Green (IPL24)</span></td>
+                            <td>Ball</td>
+                            <td>18 runs</td>
+                            <td style="background-color: red; color: white;">MI (139-8)</td>
+                            <td style="background-color: green; color: white;">KKR (157-7)</td>
+                            <td style="background-color: blue; color: white;"> Varun Chakaravarthy (2 wkts)</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 59</td>
                             <td class="selected-date">10 May</td>
@@ -1069,7 +1126,7 @@
                         <span>Encash:</span> 2000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 25/59
+                        <span>Won:</span> 27/64
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_gps"></span>
@@ -1087,7 +1144,7 @@
                         <span>Encash:</span> 4000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 34/59
+                        <span>Won:</span> 36/64
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_viv"></span>
@@ -1111,6 +1168,36 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 64</td>
+                            <td>14 May</td>
+                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>LSG</sup></td>
+                            <td>LSG vs DC</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 63</td>
+                            <td>13 May</td>
+                            <td class="gps-cls">Gopesh <span class="yellow-triangle"></span><sup>Abandon</sup></td>
+                            <td>KKR vs GT</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 62</td>
+                            <td>12 May</td>
+                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>RCB</sup></td>
+                            <td>RCB vs DC</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 61</td>
+                            <td>12 May</td>
+                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>CSK</sup></td>
+                            <td>CSK vs RR</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 60</td>
+                            <td>11 May</td>
+                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>KKR</sup></td>
+                            <td>KKR vs MI</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 59</td>
                             <td>10 May</td>
@@ -1592,6 +1679,11 @@
             { date: 'May 08', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs SRH' },
             { date: 'May 09', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs RCB' },
             { date: 'May 10', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs GT' },
+            { date: 'May 11', gopeshProfit: +250, vivekProfit: -250, teams: 'MI vs KKR' },
+            { date: 'May 12', gopeshProfit: +250, vivekProfit: -250, teams: 'RR vs CSK' },
+            { date: 'May 12', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs RCB' },
+            { date: 'May 13', gopeshProfit: 0, vivekProfit: 0, teams: 'GT vs KKR' }, // Abandoned
+            { date: 'May 14', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs DC' },
         ];
 
         var dailyData2 = [
