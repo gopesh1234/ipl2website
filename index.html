@@ -217,6 +217,7 @@
             border-width: 0 10px 20px 10px;
             border-color: transparent transparent yellow transparent;
             margin-right: 5px;
+            rotate: 72deg;
         }
 
         .align-text-center {
@@ -433,6 +434,24 @@
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
+                            <td>Match - 66</td>
+                            <td class="selected-date">16 May</td>
+                            <td colspan="3" style="background-color: yellow; color: black;">No record</td>
+                            <td>GT</td>
+                            <td>SRH</td>
+                            <td style="background-color: yellow; color: black;">Match Abandoned</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 65</td>
+                            <td class="selected-date">15 May</td>
+                            <td>RR <span style="display:none">RR Red PBKS Green (IPL24)</span></td>
+                            <td>Bat</td>
+                            <td>5 wkts</td>
+                            <td style="background-color: red; color: white;">RR (144-9)</td>
+                            <td style="background-color: green; color: white;">PBKS (145-5)</td>
+                            <td style="background-color: blue; color: white;"> Sam Curran (63 runs, 2 wkts) <span style="display:none">50+</span></td>
+                        </tr>
+                        <tr class="no-wrap-cls">
                             <td>Match - 64</td>
                             <td class="selected-date">14 May</td>
                             <td>LSG <span style="display:none">LSG Red DC Green (IPL24)</span></td>
@@ -451,7 +470,7 @@
                             <td style="background-color: yellow; color: black;">Match Abandoned</td>
                         </tr>
                         <tr>
-                            <td colspan="8" style="background-color: black; color: white;">Eight Week</td>
+                            <td colspan="8" style="background-color: black; color: white;">Eighth Week</td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 62</td>
@@ -491,7 +510,7 @@
                             <td>35 runs</td>
                             <td style="background-color: red; color: white; cursor: pointer;" onclick="imptEvent('Scored 26 runs(not out) in 11 balls(4s(1) and 6s(3))... 10/12')">CSK (196-8)</td>
                             <td style="background-color: green; color: white;">GT (231-3)</td>
-                            <td style="background-color: blue; color: white;"> Shubman Gill (104 runs)</td>
+                            <td style="background-color: blue; color: white;"> Shubman Gill (104 runs) <span style="display:none">100+</span></td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 58</td>
@@ -501,7 +520,7 @@
                             <td>60 runs</td>
                             <td style="background-color: red; color: white;">PBKS (181-10)</td>
                             <td style="background-color: green; color: white;">RCB (241-7)</td>
-                            <td style="background-color: blue; color: white;"> Virat Kohli (92 runs)</td>
+                            <td style="background-color: blue; color: white;"> Virat Kohli (92 runs) <span style="display:none">50+</span></td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td class="imp-cls" onclick="imptEvent('Chased down 165 at 9.4 overs with 10 wickets')">Match - 57</td>
@@ -1126,7 +1145,7 @@
                         <span>Encash:</span> 2000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 27/64
+                        <span>Won:</span> 28/66
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_gps"></span>
@@ -1144,7 +1163,7 @@
                         <span>Encash:</span> 4000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 36/64
+                        <span>Won:</span> 36/66
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_viv"></span>
@@ -1169,6 +1188,18 @@
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
+                            <td>Match - 66</td>
+                            <td>16 May</td>
+                            <td class="gps-cls">Gopesh <span class="yellow-triangle"></span><sup>Abandon</sup></td>
+                            <td>GT vs SRH</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 65</td>
+                            <td>15 May</td>
+                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>RR</sup></td>
+                            <td>RR vs PBKS</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
                             <td>Match - 64</td>
                             <td>14 May</td>
                             <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>LSG</sup></td>
@@ -1178,7 +1209,7 @@
                             <td>Match - 63</td>
                             <td>13 May</td>
                             <td class="gps-cls">Gopesh <span class="yellow-triangle"></span><sup>Abandon</sup></td>
-                            <td>KKR vs GT</td>
+                            <td>GT vs KKR</td>
                         </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 62</td>
@@ -1684,6 +1715,8 @@
             { date: 'May 12', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs RCB' },
             { date: 'May 13', gopeshProfit: 0, vivekProfit: 0, teams: 'GT vs KKR' }, // Abandoned
             { date: 'May 14', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs DC' },
+            { date: 'May 15', gopeshProfit: +250, vivekProfit: -250, teams: 'RR vs PBKS' },
+            { date: 'May 16', gopeshProfit: 0, vivekProfit: 0, teams: 'GT vs SRH' }, // Abandoned
         ];
 
         var dailyData2 = [
