@@ -241,6 +241,10 @@
             display: none;
         }
 
+        .none-cls {
+            background-color: rosybrown;
+        }
+
         .gps-cls {
             background-color: darkblue;
         }
@@ -433,6 +437,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td class="imp-cls" onclick="imptEvent('Match abandoned with toss')">Match - 70</td>
+                            <td class="selected-date">19 May</td>
+                            <td>KKR <span style="display:none">CSK Red RCB Green (IPL24)</span></td>
+                            <td>Ball</td>
+                            <td style="background-color: yellow; color: black;">No record</td>
+                            <td>RR</td>
+                            <td>KKR</td>
+                            <td style="background-color: yellow; color: black;">Match Abandoned</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 69</td>
+                            <td class="selected-date">19 May</td>
+                            <td>PBKS <span style="display:none">PBKS Red SRH Green (IPL24)</span></td>
+                            <td>Bat</td>
+                            <td>4 wkts</td>
+                            <td style="background-color: red; color: white;">PBKS (214-5)</td>
+                            <td style="background-color: green; color: white;">SRH (215-6)</td>
+                            <td style="background-color: blue; color: white;"> Abhishek Sharma (66 runs) <span style="display:none">50+</span></td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 68</td>
                             <td class="selected-date">18 May</td>
@@ -1165,7 +1189,7 @@
                         <span>Encash:</span> 2000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 29/68
+                        <span>Won:</span> 29/70
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_gps"></span>
@@ -1183,7 +1207,7 @@
                         <span>Encash:</span> 4000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 37/68
+                        <span>Won:</span> 37/70
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_viv"></span>
@@ -1208,6 +1232,18 @@
                     </thead>
                     <tbody>
                         <tr class="no-wrap-cls">
+                            <td>Match - 70</td>
+                            <td>19 May</td>
+                            <td class="none-cls">None <span class="yellow-triangle"></span><sup>Abandoned</sup></td>
+                            <td>RR vs KKR</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 69</td>
+                            <td>19 May</td>
+                            <td class="none-cls">None <span class="yellow-triangle"></span><sup>Skipped</sup></td>
+                            <td>PBKS vs SRH</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
                             <td>Match - 68</td>
                             <td>18 May</td>
                             <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>CSK</sup></td>
@@ -1222,7 +1258,7 @@
                         <tr class="no-wrap-cls">
                             <td>Match - 66</td>
                             <td>16 May</td>
-                            <td class="gps-cls">Gopesh <span class="yellow-triangle"></span><sup>Abandon</sup></td>
+                            <td class="none-cls">None <span class="yellow-triangle"></span><sup>Abandoned</sup></td>
                             <td>GT vs SRH</td>
                         </tr>
                         <tr class="no-wrap-cls">
@@ -1240,7 +1276,7 @@
                         <tr class="no-wrap-cls">
                             <td>Match - 63</td>
                             <td>13 May</td>
-                            <td class="gps-cls">Gopesh <span class="yellow-triangle"></span><sup>Abandon</sup></td>
+                            <td class="none-cls">None <span class="yellow-triangle"></span><sup>Abandoned</sup></td>
                             <td>GT vs KKR</td>
                         </tr>
                         <tr class="no-wrap-cls">
@@ -1751,6 +1787,8 @@
             { date: 'May 16', gopeshProfit: 0, vivekProfit: 0, teams: 'GT vs SRH' }, // Abandoned
             { date: 'May 17', gopeshProfit: +250, vivekProfit: -250, teams: 'MI vs LSG' },
             { date: 'May 18', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs RCB' },
+            { date: 'May 19', gopeshProfit: 0, vivekProfit: 0, teams: 'PBKS vs SRH' }, // Skipped
+            { date: 'May 19', gopeshProfit: 0, vivekProfit: 0, teams: 'RR vs KKR' }, // Abandoned
         ];
 
         var dailyData2 = [
