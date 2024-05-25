@@ -1189,7 +1189,7 @@
                         <span>Encash:</span> 2000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 29/70
+                        <span>Won:</span> 31/73
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_gps"></span>
@@ -1207,7 +1207,7 @@
                         <span>Encash:</span> 4000
                     </div>
                     <div class="stat-item">
-                        <span>Won:</span> 37/70
+                        <span>Won:</span> 38/73
                     </div>
                     <div class="stat-item">
                         <span id="profit_loss_viv"></span>
@@ -1231,6 +1231,24 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 73</td>
+                            <td>24 May</td>
+                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>RR</sup></td>
+                            <td>RR vs SRH</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 72</td>
+                            <td>22 May</td>
+                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>RCB</sup></td>
+                            <td>RCB vs RR</td>
+                        </tr>
+                        <tr class="no-wrap-cls">
+                            <td>Match - 71</td>
+                            <td>21 May</td>
+                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>KKR</sup></td>
+                            <td>KKR vs SRH</td>
+                        </tr>
                         <tr class="no-wrap-cls">
                             <td>Match - 70</td>
                             <td>19 May</td>
@@ -1689,14 +1707,14 @@
         var teamName = "";
         var noError = true;
         var noNameError = true;
-        var won = 12; //
-        var lost = 7; //
+        var won = 14; //
+        var lost = 8; //
 
         var gopeshTotalEnc = 2200 + 1000 + 3200 + 1000;
         var vivekTotalEnc = 4000;
-        var investment = 1150 + 150 + 1200 + 400;
-        var overall = gopeshTotalEnc - (vivekTotalEnc + investment);
-        var currentVal = 0; //
+        var investment = 1150 + 150 + 1200 + 400 + 2000;
+        var currentVal = 3500; //
+        var overall = (gopeshTotalEnc + currentVal) - (vivekTotalEnc + investment);
 
         var gopeshTotal = 2200 - 1000 + 1000 + 3200 + 1000 - 1000 - 1000 - 1000; // Abh, -Viv, +Viv, Abh, +Viv, -Viv, -Viv, -Viv
 
@@ -1789,6 +1807,10 @@
             { date: 'May 18', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs RCB' },
             { date: 'May 19', gopeshProfit: 0, vivekProfit: 0, teams: 'PBKS vs SRH' }, // Skipped
             { date: 'May 19', gopeshProfit: 0, vivekProfit: 0, teams: 'RR vs KKR' }, // Abandoned
+
+            { date: 'May 21', gopeshProfit: +250, vivekProfit: -250, teams: 'SRH vs KKR' },
+            { date: 'May 22', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs RR' },
+            { date: 'May 24', gopeshProfit: -250, vivekProfit: +250, teams: 'RR vs SRH' },
         ];
 
         var dailyData2 = [
@@ -1819,6 +1841,10 @@
             { date: 'Apr 23', gopeshProfit: -1000, teams: 'CSK vs LSG', Status: 'Lost' },
             { date: 'Apr 24', gopeshProfit: +900, teams: 'GT vs DC', Status: 'Won' },
             { date: 'Apr 25', gopeshProfit: -2000, teams: 'SRH vs RCB', Status: 'Lost' },
+
+            { date: 'May 21', gopeshProfit: +1800, teams: 'KKR vs SRH', Status: 'Won' },
+            { date: 'May 22', gopeshProfit: -2000, teams: 'RCB vs RR', Status: 'Lost' },
+            { date: 'May 24', gopeshProfit: +1700, teams: 'RR vs SRH', Status: 'Won' },
 
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
             //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
@@ -2085,7 +2111,7 @@
             sec1.innerHTML = 'Other Details';
             sec2.innerHTML = 'Won: <span class="green-triangle"></span> ' + won + ' || Lost: <span class="red-triangle"></span> ' + lost;
             sec3.innerHTML = 'Investment: <span class="red-triangle"></span> ' + investment + ' || Vivek: <span class="red-triangle"></span> ' + vivekTotalEnc;
-            sec4.innerHTML = 'Current Value: <span class="red-triangle"></span> ' + currentVal;
+            sec4.innerHTML = 'Current Value: <span class="green-triangle"></span> ' + currentVal;
             sec5.innerHTML = 'Encash: <span class="green-triangle"></span> ' + gopeshTotalEnc;
             sec6.innerHTML = 'Overall: <span class="green-triangle"></span> ' + overall;
 
@@ -2197,7 +2223,7 @@
         });
 
         document.getElementById('section6').addEventListener('click', function () {
-            var overallData = "Encash: " + gopeshTotalEnc + " || Vivek: -" + vivekTotalEnc + " || Investment: -" + investment;
+            var overallData = "Encash: " + gopeshTotalEnc + " || Current Value: " + currentVal + " || Vivek: -" + vivekTotalEnc + " || Investment: -" + investment;
             Swal.fire(overallData);
         });
 
