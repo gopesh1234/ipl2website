@@ -5,1228 +5,676 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Study Progress Tracker</title>
     <style>
-            :root {
-                --bg: #0b1020;
-                --panel: rgba(20, 29, 54, .82);
-                --panel-2: rgba(255,255,255,.055);
-                --line: rgba(255,255,255,.11);
-                --text: #f4f7ff;
-                --muted: #9ba9c7;
-                --accent: #8b5cf6;
-                --accent2: #22d3ee;
-                --good: #34d399;
-                --warn: #fbbf24;
-                --danger: #fb7185;
-                --shadow: 0 24px 70px rgba(0,0,0,.28);
-            }
-
-            * {
-                box-sizing: border-box;
-            }
-
-            body {
-                margin: 0;
-                min-height: 100vh;
-                color: var(--text);
-                font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-                background: radial-gradient(ellipse at 10% 0%, rgba(139,92,246,.22), transparent 34%), radial-gradient(ellipse at 95% 12%, rgba(34,211,238,.14), transparent 32%), var(--bg);
-            }
-
-            button, input, select {
-                font: inherit;
-            }
-
-            button {
-                cursor: pointer;
-            }
-
-            .app {
-                max-width: 1440px;
-                margin: 0 auto;
-                padding: 28px clamp(14px, 3vw, 42px) 48px;
-            }
-
-            .topbar {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 18px;
-                flex-wrap: wrap;
-                margin-bottom: 28px;
-            }
-
-            .brand {
-                display: flex;
-                gap: 14px;
-                align-items: center;
-            }
-
-            .logo {
-                width: 52px;
-                height: 52px;
-                display: grid;
-                place-items: center;
-                border-radius: 17px;
-                font-size: 25px;
-                background: linear-gradient(135deg,var(--accent),var(--accent2));
-                box-shadow: 0 10px 30px #8b5cf64d;
-            }
-
-            h1 {
-                font-size: clamp(24px,3vw,36px);
-                margin: 0;
-                letter-spacing: -1.1px;
-            }
-
-            .subtitle {
-                margin: 6px 0 0;
-                color: var(--muted);
-                font-size: 14px;
-            }
-
-            .actions {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 9px;
-            }
-
-            .btn {
-                border: 1px solid var(--line);
-                border-radius: 12px;
-                padding: 10px 14px;
-                color: var(--text);
-                background: rgba(255,255,255,.06);
-                transition: .2s;
-                font-weight: 650;
-                font-size: 13px;
-            }
-
-                .btn:hover {
-                    transform: translateY(-1px);
-                    background: rgba(255,255,255,.11);
-                }
-
-                .btn.primary {
-                    border: 0;
-                    background: linear-gradient(135deg,var(--accent),#6d5dfc);
-                    box-shadow: 0 8px 22px #8b5cf633;
-                }
-
-                .btn.export {
-                    border-color: #34d39966;
-                    color: #a7f3d0;
-                }
-
-                .btn.danger {
-                    color: #fecdd3;
-                    border-color: #fb718566;
-                }
-
-            .stats {
-                display: grid;
-                grid-template-columns: repeat(4,minmax(0,1fr));
-                gap: 14px;
-                margin-bottom: 22px;
-            }
-
-            .stat, .panel {
-                border: 1px solid var(--line);
-                background: var(--panel);
-                backdrop-filter: blur(18px);
-                box-shadow: var(--shadow);
-                border-radius: 20px;
-            }
-
-            .stat {
-                padding: 19px 20px;
-                position: relative;
-                overflow: hidden;
-            }
-
-                .stat:after {
-                    content: "";
-                    position: absolute;
-                    width: 100px;
-                    height: 100px;
-                    right: -35px;
-                    top: -40px;
-                    border-radius: 50%;
-                    background: var(--glow, #8b5cf6);
-                    opacity: .12;
-                    filter: blur(2px);
-                }
-
-            .stat-label {
-                color: var(--muted);
-                font-size: 12px;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: .8px;
-            }
-
-            .stat-value {
-                font-size: 29px;
-                font-weight: 800;
-                margin-top: 9px;
-                letter-spacing: -.7px;
-            }
-
-            .stat-note {
-                color: var(--muted);
-                font-size: 12px;
-                margin-top: 4px;
-            }
-
-            .toolbar {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 14px;
-                margin: 22px 0 16px;
-                flex-wrap: wrap;
-            }
-
-                .toolbar h2 {
-                    margin: 0;
-                    font-size: 20px;
-                    letter-spacing: -.4px;
-                }
-
-            .toolbar-right {
-                display: flex;
-                gap: 9px;
-                flex-wrap: wrap;
-            }
-
-            .search {
-                min-width: min(270px,80vw);
-                background: var(--panel-2);
-                color: var(--text);
-                border: 1px solid var(--line);
-                padding: 10px 13px;
-                border-radius: 11px;
-                outline: none;
-            }
-
-                .search:focus, .field:focus {
-                    border-color: #8b5cf6;
-                    box-shadow: 0 0 0 3px #8b5cf622;
-                }
-
-            .subject-grid {
-                display: grid;
-                grid-template-columns: repeat(2,minmax(0,1fr));
-                gap: 17px;
-            }
-
-            .subject-card {
-                border: 1px solid var(--line);
-                background: var(--panel);
-                border-radius: 20px;
-                overflow: hidden;
-                box-shadow: var(--shadow);
-                min-width: 0;
-            }
-
-            .subject-head {
-                padding: 18px 19px 15px;
-                display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
-                gap: 12px;
-                border-bottom: 1px solid var(--line);
-            }
-
-            .subject-title-wrap {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                min-width: 0;
-            }
-
-            .subject-icon {
-                width: 43px;
-                height: 43px;
-                flex: 0 0 43px;
-                border-radius: 14px;
-                display: grid;
-                place-items: center;
-                font-size: 21px;
-                background: var(--tint);
-            }
-
-            .subject-name {
-                font-weight: 800;
-                font-size: 17px;
-                overflow-wrap: anywhere;
-            }
-
-            .subject-meta {
-                color: var(--muted);
-                font-size: 12px;
-                margin-top: 4px;
-            }
-
-            .subject-percent {
-                font-weight: 850;
-                font-size: 20px;
-                white-space: nowrap;
-            }
-
-            .subject-progress {
-                padding: 0 19px 16px;
-            }
-
-            .progress-track {
-                height: 7px;
-                background: rgba(255,255,255,.09);
-                border-radius: 99px;
-                overflow: hidden;
-            }
-
-            .progress-fill {
-                height: 100%;
-                border-radius: 99px;
-                background: linear-gradient(90deg,var(--accent),var(--accent2));
-                transition: width .25s ease;
-            }
-
-            .topic-list {
-                padding: 0 14px 13px;
-            }
-
-            .topic {
-                padding: 12px 5px;
-                border-top: 1px solid rgba(255,255,255,.065);
-            }
-
-            .topic-top {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 12px;
-                margin-bottom: 9px;
-            }
-
-            .topic-name {
-                font-size: 13px;
-                font-weight: 650;
-                overflow-wrap: anywhere;
-            }
-
-            .topic-value {
-                color: #c4b5fd;
-                font-size: 12px;
-                font-weight: 800;
-                min-width: 38px;
-                text-align: right;
-            }
-
-            .topic-controls {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            input[type="range"] {
-                width: 100%;
-                accent-color: #a78bfa;
-                cursor: pointer;
-            }
-
-            .topic-actions {
-                display: flex;
-                gap: 6px;
-            }
-
-            .icon-btn {
-                border: 1px solid var(--line);
-                background: rgba(255,255,255,.04);
-                color: var(--muted);
-                width: 28px;
-                height: 28px;
-                border-radius: 8px;
-                display: grid;
-                place-items: center;
-                font-size: 14px;
-            }
-
-                .icon-btn:hover {
-                    color: var(--text);
-                    background: rgba(255,255,255,.1);
-                }
-
-                .icon-btn.delete:hover {
-                    color: var(--danger);
-                    border-color: #fb718566;
-                }
-
-            .add-topic-row {
-                display: flex;
-                gap: 8px;
-                padding: 0 19px 18px;
-            }
-
-            .field {
-                min-width: 0;
-                width: 100%;
-                color: var(--text);
-                background: rgba(255,255,255,.055);
-                border: 1px solid var(--line);
-                border-radius: 10px;
-                padding: 10px 11px;
-                outline: none;
-                font-size: 13px;
-            }
-
-            .add-topic-row .btn {
-                white-space: nowrap;
-                padding: 9px 12px;
-            }
-
-            .empty {
-                grid-column: 1/-1;
-                text-align: center;
-                padding: 55px 20px;
-                border: 1px dashed var(--line);
-                border-radius: 20px;
-                color: var(--muted);
-            }
-
-                .empty strong {
-                    display: block;
-                    color: var(--text);
-                    font-size: 18px;
-                    margin-bottom: 8px;
-                }
-
-            .footer-note {
-                color: var(--muted);
-                font-size: 12px;
-                line-height: 1.6;
-                margin-top: 24px;
-            }
-
-            .toast {
-                position: fixed;
-                right: 20px;
-                bottom: 20px;
-                z-index: 20;
-                padding: 13px 17px;
-                border-radius: 13px;
-                background: #17233e;
-                color: #e8fff5;
-                border: 1px solid #34d39966;
-                box-shadow: var(--shadow);
-                opacity: 0;
-                transform: translateY(12px);
-                pointer-events: none;
-                transition: .25s;
-                font-size: 13px;
-            }
-
-                .toast.show {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-
-            .modal-backdrop {
-                position: fixed;
-                inset: 0;
-                z-index: 30;
-                background: #030712b8;
-                display: none;
-                place-items: center;
-                padding: 18px;
-            }
-
-                .modal-backdrop.open {
-                    display: grid;
-                }
-
-            .modal {
-                width: min(460px,100%);
-                background: #121b32;
-                border: 1px solid var(--line);
-                border-radius: 20px;
-                padding: 22px;
-                box-shadow: var(--shadow);
-            }
-
-                .modal h3 {
-                    margin: 0 0 7px;
-                    font-size: 20px;
-                }
-
-                .modal p {
-                    margin: 0 0 17px;
-                    color: var(--muted);
-                    font-size: 13px;
-                    line-height: 1.5;
-                }
-
-                .modal .field {
-                    margin-bottom: 12px;
-                }
-
-            .modal-actions {
-                display: flex;
-                justify-content: flex-end;
-                gap: 8px;
-                margin-top: 5px;
-            }
-
-            .storage-status {
-                display: inline-flex;
-                align-items: center;
-                gap: 7px;
-                color: #a7f3d0;
-                font-size: 12px;
-                margin-top: 8px;
-            }
-
-            .dot {
-                width: 7px;
-                height: 7px;
-                border-radius: 50%;
-                background: var(--good);
-                box-shadow: 0 0 10px #34d39988;
-            }
-            @@media(max - width:900px) {
-                .stats {
-                    grid-template-columns: repeat(2,minmax(0,1fr));
-                }
-
-                .subject-grid {
-                    grid-template-columns: 1fr;
-                }
-            }
-            /* Mobile-first refinements: comfortable touch targets, no horizontal overflow,
-                       and stacked controls on narrow screens. */
-            html {
-                -webkit-text-size-adjust: 100%;
-            }
-
-            body {
-                overflow-x: hidden;
-            }
-
-            button, input, select {
-                touch-action: manipulation;
-            }
-
-                input[type="range"] {
-                    min-height: 28px;
-                }
-
-            .subject-card, .stat {
-                min-width: 0;
-            }
-
+        :root {
+            --bg: #0b1020;
+            --panel: rgba(20, 29, 54, .82);
+            --panel-2: rgba(255,255,255,.055);
+            --line: rgba(255,255,255,.11);
+            --text: #f4f7ff;
+            --muted: #9ba9c7;
+            --accent: #8b5cf6;
+            --accent2: #22d3ee;
+            --good: #34d399;
+            --warn: #fbbf24;
+            --danger: #fb7185;
+            --shadow: 0 24px 70px rgba(0,0,0,.28);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; min-height: 100vh; color: var(--text);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(ellipse at 10% 0%, rgba(139,92,246,.22), transparent 34%),
+                radial-gradient(ellipse at 95% 12%, rgba(34,211,238,.14), transparent 32%),
+                var(--bg);
+        }
+        button, input, select { font: inherit; }
+        button { cursor: pointer; }
+        .app { max-width: 1440px; margin: 0 auto; padding: 28px clamp(14px, 3vw, 42px) 48px; }
+        .topbar { display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:28px; }
+        .brand { display:flex; gap:14px; align-items:center; }
+        .logo { width:52px; height:52px; display:grid; place-items:center; border-radius:17px; font-size:25px;
+            background:linear-gradient(135deg,var(--accent),var(--accent2)); box-shadow:0 10px 30px #8b5cf64d; }
+        h1 { font-size:clamp(24px,3vw,36px); margin:0; letter-spacing:-1.1px; }
+        .subtitle { margin:6px 0 0; color:var(--muted); font-size:14px; }
+        .actions { display:flex; flex-wrap:wrap; gap:9px; }
+        .btn { border:1px solid var(--line); border-radius:12px; padding:10px 14px; color:var(--text);
+            background:rgba(255,255,255,.06); transition:.2s; font-weight:650; font-size:13px; }
+        .btn:hover { transform:translateY(-1px); background:rgba(255,255,255,.11); }
+        .btn.primary { border:0; background:linear-gradient(135deg,var(--accent),#6d5dfc); box-shadow:0 8px 22px #8b5cf633; }
+        .btn.export { border-color:#34d39966; color:#a7f3d0; }
+        .btn.danger { color:#fecdd3; border-color:#fb718566; }
+        .stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-bottom:22px; }
+        .stat, .panel { border:1px solid var(--line); background:var(--panel); backdrop-filter:blur(18px); box-shadow:var(--shadow); border-radius:20px; }
+        .stat { padding:19px 20px; position:relative; overflow:hidden; }
+        .stat:after { content:""; position:absolute; width:100px;height:100px;right:-35px;top:-40px;border-radius:50%;background:var(--glow, #8b5cf6);opacity:.12;filter:blur(2px); }
+        .stat-label { color:var(--muted); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; }
+        .stat-value { font-size:29px; font-weight:800; margin-top:9px; letter-spacing:-.7px; }
+        .stat-note { color:var(--muted); font-size:12px; margin-top:4px; }
+        .toolbar { display:flex; align-items:center; justify-content:space-between; gap:14px; margin:22px 0 16px; flex-wrap:wrap; }
+        .toolbar h2 { margin:0; font-size:20px; letter-spacing:-.4px; }
+        .toolbar-right { display:flex; gap:9px; flex-wrap:wrap; }
+        .search { min-width:min(270px,80vw); background:var(--panel-2); color:var(--text); border:1px solid var(--line); padding:10px 13px; border-radius:11px; outline:none; }
+        .search:focus, .field:focus { border-color:#8b5cf6; box-shadow:0 0 0 3px #8b5cf622; }
+        .subject-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:17px; }
+        .subject-card { border:1px solid var(--line); background:var(--panel); border-radius:20px; overflow:hidden; box-shadow:var(--shadow); min-width:0; }
+        .subject-head { padding:18px 19px 15px; display:flex; align-items:flex-start; justify-content:space-between; gap:12px; border-bottom:1px solid var(--line); }
+        .subject-title-wrap { display:flex; align-items:center; gap:12px; min-width:0; }
+        .subject-icon { width:43px;height:43px; flex:0 0 43px; border-radius:14px; display:grid;place-items:center;font-size:21px;background:var(--tint); }
+        .subject-name { font-weight:800; font-size:17px; overflow-wrap:anywhere; }
+        .subject-meta { color:var(--muted); font-size:12px; margin-top:4px; }
+        .subject-percent { font-weight:850; font-size:20px; white-space:nowrap; }
+        .subject-progress { padding:0 19px 16px; }
+        .progress-track { height:7px; background:rgba(255,255,255,.09); border-radius:99px; overflow:hidden; }
+        .progress-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,var(--accent),var(--accent2)); transition:width .25s ease; }
+        .topic-list { padding:0 14px 13px; }
+        .topic { padding:12px 5px; border-top:1px solid rgba(255,255,255,.065); }
+        .topic-top { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:9px; }
+        .topic-name { font-size:13px; font-weight:650; overflow-wrap:anywhere; }
+        .topic-value { color:#c4b5fd; font-size:12px; font-weight:800; min-width:38px; text-align:right; }
+        .topic-controls { display:flex; align-items:center; gap:10px; }
+        input[type="range"] { width:100%; accent-color:#a78bfa; cursor:pointer; }
+        .topic-actions { display:flex; gap:6px; }
+        .icon-btn { border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--muted); width:28px;height:28px;border-radius:8px; display:grid;place-items:center;font-size:14px; }
+        .icon-btn:hover { color:var(--text); background:rgba(255,255,255,.1); }
+        .icon-btn.delete:hover { color:var(--danger); border-color:#fb718566; }
+        .add-topic-row { display:flex; gap:8px; padding:0 19px 18px; }
+        .field { min-width:0; width:100%; color:var(--text); background:rgba(255,255,255,.055); border:1px solid var(--line); border-radius:10px; padding:10px 11px; outline:none; font-size:13px; }
+        .add-topic-row .btn { white-space:nowrap; padding:9px 12px; }
+        .empty { grid-column:1/-1; text-align:center; padding:55px 20px; border:1px dashed var(--line); border-radius:20px; color:var(--muted); }
+        .empty strong { display:block; color:var(--text); font-size:18px; margin-bottom:8px; }
+        .footer-note { color:var(--muted); font-size:12px; line-height:1.6; margin-top:24px; }
+        .toast { position:fixed; right:20px; bottom:20px; z-index:20; padding:13px 17px; border-radius:13px; background:#17233e; color:#e8fff5; border:1px solid #34d39966; box-shadow:var(--shadow); opacity:0; transform:translateY(12px); pointer-events:none; transition:.25s; font-size:13px; }
+        .toast.show { opacity:1; transform:translateY(0); }
+        .modal-backdrop { position:fixed; inset:0; z-index:30; background:#030712b8; display:none; place-items:center; padding:18px; }
+        .modal-backdrop.open { display:grid; }
+        .modal { width:min(460px,100%); background:#121b32; border:1px solid var(--line); border-radius:20px; padding:22px; box-shadow:var(--shadow); }
+        .modal h3 { margin:0 0 7px; font-size:20px; }
+        .modal p { margin:0 0 17px; color:var(--muted); font-size:13px; line-height:1.5; }
+        .modal .field { margin-bottom:12px; }
+        .modal-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:5px; }
+        .storage-status { display:inline-flex; align-items:center; gap:7px; color:#a7f3d0; font-size:12px; margin-top:8px; }
+        .dot { width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 10px #34d39988; }
+        @@media(max-width:900px) { .stats { grid-template-columns:repeat(2,minmax(0,1fr)); } .subject-grid { grid-template-columns:1fr; } }
+        /* Mobile-first refinements: comfortable touch targets, no horizontal overflow,
+           and stacked controls on narrow screens. */
+        html { -webkit-text-size-adjust:100%; }
+        body { overflow-x:hidden; }
+        button, input, select { touch-action: manipulation; }
+        input[type="range"] { min-height:28px; }
+        .subject-card, .stat { min-width:0; }
+        .subject-head > div:last-child { flex-shrink:0; }
+        .subject-name, .topic-name { overflow-wrap:anywhere; }
+        @@media(max-width:520px) {
+            .app { padding:16px 10px 28px; }
+            .topbar { align-items:flex-start; gap:16px; margin-bottom:20px; }
+            .brand { align-items:flex-start; gap:10px; }
+            .logo { width:43px; height:43px; flex:0 0 43px; border-radius:14px; font-size:21px; }
+            h1 { font-size:23px; line-height:1.15; letter-spacing:-.6px; }
+            .subtitle { font-size:12px; line-height:1.45; }
+            .storage-status { font-size:11px; }
+            .actions { width:100%; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+            .actions .btn { min-height:42px; padding:10px 8px; font-size:12px; }
+            .stats { gap:9px; margin-bottom:20px; }
+            .stat { padding:13px 12px; border-radius:15px; }
+            .stat-label { font-size:10px; letter-spacing:.5px; }
+            .stat-value { font-size:24px; margin-top:7px; }
+            .stat-note { font-size:11px; line-height:1.35; }
+            .toolbar { align-items:stretch; margin:18px 0 12px; gap:11px; }
+            .toolbar h2 { font-size:19px; }
+            .toolbar-right { width:100%; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:7px; }
+            .search { min-width:0; width:100%; font-size:13px; }
+            #resetSearchBtn { padding:9px 10px; font-size:12px; }
+            .subject-grid { gap:12px; }
+            .subject-card { border-radius:17px; }
+            .subject-head { padding:13px 11px 12px; gap:7px; }
+            .subject-title-wrap { gap:9px; }
+            .subject-icon { width:37px; height:37px; flex-basis:37px; border-radius:12px; font-size:18px; }
+            .subject-name { font-size:15px; }
+            .subject-meta { font-size:10px; line-height:1.4; }
+            .subject-percent { font-size:17px; }
+            .subject-head > div:last-child { gap:5px !important; }
+            .icon-btn { width:27px; height:29px; flex-shrink:0; }
+            .subject-progress { padding:0 11px 12px; }
+            .topic-list { padding:0 10px 10px; }
+            .topic { padding:11px 2px; }
+            .topic-top { gap:7px; }
+            .topic-name { font-size:12px; }
+            .topic-value { font-size:12px; min-width:34px; }
+            .topic-controls { gap:5px; }
+            .add-topic-row { padding:0 11px 13px; gap:6px; }
+            .add-topic-row .field { padding:10px 9px; font-size:12px; }
+            .add-topic-row .btn { padding:9px 10px; font-size:12px; }
+            .footer-note { font-size:11px; margin-top:18px; }
+            .modal { padding:18px; }
+            .toast { left:12px; right:12px; bottom:12px; text-align:center; }
+        }
+
+
+        .mock-score-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:14px 0; }
+        .mock-score-grid label { color:var(--muted); font-size:12px; font-weight:700; display:block; }
+        .mock-score-grid .field { margin-top:7px; }
+        .mock-total-preview { padding:12px 14px; border:1px solid #34d39955; background:#34d39912; border-radius:12px; color:#a7f3d0; font-weight:800; font-size:14px; }
+        .mock-records { padding:0 15px 16px; }
+        .mock-record { border:1px solid var(--line); background:rgba(255,255,255,.035); border-radius:13px; padding:12px; margin-top:9px; }
+        .mock-record-top { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+        .mock-record-name { font-size:13px; font-weight:800; }
+        .mock-record-score { color:#a7f3d0; font-size:13px; font-weight:800; white-space:nowrap; }
+        .mock-record-detail { color:var(--muted); font-size:11px; line-height:1.6; margin-top:6px; }
+        @@media(max-width:520px) { .mock-score-grid { grid-template-columns:1fr; gap:9px; } .mock-records { padding:0 11px 13px; } }
+
+        /* Final mobile layout polish: single-column cards and non-overlapping headers. */
+        @@media (max-width: 700px) {
+            .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .subject-grid { grid-template-columns: minmax(0, 1fr); }
+            .toolbar { align-items: flex-start; }
+            .toolbar-right { display: grid; grid-template-columns: minmax(0, 1fr) auto; width: 100%; }
+            .subject-head { align-items: center; flex-wrap: nowrap; }
+            .subject-title-wrap { flex: 1 1 auto; min-width: 0; }
             .subject-head > div:last-child {
-                flex-shrink: 0;
+                display: flex !important;
+                align-items: center;
+                gap: 5px !important;
+                flex: 0 0 auto;
+                margin-left: 4px;
             }
-
-            .subject-name, .topic-name {
-                overflow-wrap: anywhere;
-            }
-            @@media(max - width:520px) {
-                .app {
-                    padding: 16px 10px 28px;
-                }
-
-                .topbar {
-                    align-items: flex-start;
-                    gap: 16px;
-                    margin-bottom: 20px;
-                }
-
-                .brand {
-                    align-items: flex-start;
-                    gap: 10px;
-                }
-
-                .logo {
-                    width: 43px;
-                    height: 43px;
-                    flex: 0 0 43px;
-                    border-radius: 14px;
-                    font-size: 21px;
-                }
-
-                h1 {
-                    font-size: 23px;
-                    line-height: 1.15;
-                    letter-spacing: -.6px;
-                }
-
-                .subtitle {
-                    font-size: 12px;
-                    line-height: 1.45;
-                }
-
-                .storage-status {
-                    font-size: 11px;
-                }
-
-                .actions {
-                    width: 100%;
-                    display: grid;
-                    grid-template-columns: repeat(2,minmax(0,1fr));
-                }
-
-                    .actions .btn {
-                        min-height: 42px;
-                        padding: 10px 8px;
-                        font-size: 12px;
-                    }
-
-                .stats {
-                    gap: 9px;
-                    margin-bottom: 20px;
-                }
-
-                .stat {
-                    padding: 13px 12px;
-                    border-radius: 15px;
-                }
-
-                .stat-label {
-                    font-size: 10px;
-                    letter-spacing: .5px;
-                }
-
-                .stat-value {
-                    font-size: 24px;
-                    margin-top: 7px;
-                }
-
-                .stat-note {
-                    font-size: 11px;
-                    line-height: 1.35;
-                }
-
-                .toolbar {
-                    align-items: stretch;
-                    margin: 18px 0 12px;
-                    gap: 11px;
-                }
-
-                    .toolbar h2 {
-                        font-size: 19px;
-                    }
-
-                .toolbar-right {
-                    width: 100%;
-                    display: grid;
-                    grid-template-columns: minmax(0,1fr) auto;
-                    gap: 7px;
-                }
-
-                .search {
-                    min-width: 0;
-                    width: 100%;
-                    font-size: 13px;
-                }
-
-                #resetSearchBtn {
-                    padding: 9px 10px;
-                    font-size: 12px;
-                }
-
-                .subject-grid {
-                    gap: 12px;
-                }
-
-                .subject-card {
-                    border-radius: 17px;
-                }
-
-                .subject-head {
-                    padding: 13px 11px 12px;
-                    gap: 7px;
-                }
-
-                .subject-title-wrap {
-                    gap: 9px;
-                }
-
-                .subject-icon {
-                    width: 37px;
-                    height: 37px;
-                    flex-basis: 37px;
-                    border-radius: 12px;
-                    font-size: 18px;
-                }
-
-                .subject-name {
-                    font-size: 15px;
-                }
-
-                .subject-meta {
-                    font-size: 10px;
-                    line-height: 1.4;
-                }
-
-                .subject-percent {
-                    font-size: 17px;
-                }
-
-                .subject-head > div:last-child {
-                    gap: 5px !important;
-                }
-
-                .icon-btn {
-                    width: 27px;
-                    height: 29px;
-                    flex-shrink: 0;
-                }
-
-                .subject-progress {
-                    padding: 0 11px 12px;
-                }
-
-                .topic-list {
-                    padding: 0 10px 10px;
-                }
-
-                .topic {
-                    padding: 11px 2px;
-                }
-
-                .topic-top {
-                    gap: 7px;
-                }
-
-                .topic-name {
-                    font-size: 12px;
-                }
-
-                .topic-value {
-                    font-size: 12px;
-                    min-width: 34px;
-                }
-
-                .topic-controls {
-                    gap: 5px;
-                }
-
-                .add-topic-row {
-                    padding: 0 11px 13px;
-                    gap: 6px;
-                }
-
-                    .add-topic-row .field {
-                        padding: 10px 9px;
-                        font-size: 12px;
-                    }
-
-                    .add-topic-row .btn {
-                        padding: 9px 10px;
-                        font-size: 12px;
-                    }
-
-                .footer-note {
-                    font-size: 11px;
-                    margin-top: 18px;
-                }
-
-                .modal {
-                    padding: 18px;
-                }
-
-                .toast {
-                    left: 12px;
-                    right: 12px;
-                    bottom: 12px;
-                    text-align: center;
-                }
-            }
-
-            /* Final mobile layout polish: single-column cards and non-overlapping headers. */
-            @@media (max-width: 700px) {
-                .stats {
-                    grid-template-columns: repeat(2, minmax(0, 1fr));
-                }
-
-                .subject-grid {
-                    grid-template-columns: minmax(0, 1fr);
-                }
-
-                .toolbar {
-                    align-items: flex-start;
-                }
-
-                .toolbar-right {
-                    display: grid;
-                    grid-template-columns: minmax(0, 1fr) auto;
-                    width: 100%;
-                }
-
-                .subject-head {
-                    align-items: center;
-                    flex-wrap: nowrap;
-                }
-
-                .subject-title-wrap {
-                    flex: 1 1 auto;
-                    min-width: 0;
-                }
-
-                .subject-head > div:last-child {
-                    display: flex !important;
-                    align-items: center;
-                    gap: 5px !important;
-                    flex: 0 0 auto;
-                    margin-left: 4px;
-                }
-
-                .subject-percent {
-                    font-size: 18px;
-                }
-
-                .subject-name {
-                    font-size: 16px;
-                    line-height: 1.3;
-                }
-
-                .subject-meta {
-                    line-height: 1.45;
-                }
-
-                .subject-icon {
-                    flex: 0 0 42px;
-                    width: 42px;
-                    height: 42px;
-                }
-
-                .subject-head .icon-btn {
-                    width: 30px;
-                    height: 30px;
-                }
-
-                .stat {
-                    min-width: 0;
-                }
-
-                .stat-value {
-                    overflow-wrap: anywhere;
-                }
-            }
-            @@media (max-width: 420px) {
-                .app {
-                    padding: 14px 12px 26px;
-                }
-
-                .stats {
-                    gap: 10px;
-                }
-
-                .stat {
-                    padding: 14px 13px;
-                }
-
-                .stat-label {
-                    font-size: 10px;
-                }
-
-                .stat-value {
-                    font-size: 25px;
-                }
-
-                .stat-note {
-                    font-size: 12px;
-                }
-
-                .toolbar-right {
-                    grid-template-columns: minmax(0, 1fr);
-                }
-
-                #resetSearchBtn {
-                    width: 100%;
-                }
-
-                .subject-head {
-                    padding: 14px 13px 12px;
-                }
-
-                .subject-percent {
-                    font-size: 17px;
-                }
-
-                .subject-name {
-                    font-size: 15px;
-                }
-
-                .topic-list {
-                    padding-left: 12px;
-                    padding-right: 12px;
-                }
-
-                .add-topic-row {
-                    display: grid;
-                    grid-template-columns: minmax(0, 1fr) auto;
-                }
-
-                    .add-topic-row .field {
-                        min-width: 0;
-                    }
-            }
-
-            @@media(max - width:360px) {
-                .app {
-                    padding-left: 8px;
-                    padding-right: 8px;
-                }
-
-                .actions {
-                    grid-template-columns: 1fr 1fr;
-                }
-
-                .subject-head {
-                    flex-wrap: wrap;
-                }
-
-                    .subject-head > div:last-child {
-                        margin-left: auto;
-                    }
-
-                .subject-percent {
-                    font-size: 16px;
-                }
-
-                .toolbar-right {
-                    grid-template-columns: 1fr;
-                }
-
-                #resetSearchBtn {
-                    width: 100%;
-                }
-
-                .add-topic-row {
-                    display: grid;
-                    grid-template-columns: minmax(0,1fr) auto;
-                }
-
-                    .add-topic-row .field {
-                        min-width: 0;
-                    }
-
-                    .add-topic-row .btn {
-                        width: auto;
-                    }
-            }
+            .subject-percent { font-size: 18px; }
+            .subject-name { font-size: 16px; line-height: 1.3; }
+            .subject-meta { line-height: 1.45; }
+            .subject-icon { flex: 0 0 42px; width: 42px; height: 42px; }
+            .subject-head .icon-btn { width: 30px; height: 30px; }
+            .stat { min-width: 0; }
+            .stat-value { overflow-wrap: anywhere; }
+        }
+        @@media (max-width: 420px) {
+            .app { padding: 14px 12px 26px; }
+            .stats { gap: 10px; }
+            .stat { padding: 14px 13px; }
+            .stat-label { font-size: 10px; }
+            .stat-value { font-size: 25px; }
+            .stat-note { font-size: 12px; }
+            .toolbar-right { grid-template-columns: minmax(0, 1fr); }
+            #resetSearchBtn { width: 100%; }
+            .subject-head { padding: 14px 13px 12px; }
+            .subject-percent { font-size: 17px; }
+            .subject-name { font-size: 15px; }
+            .topic-list { padding-left: 12px; padding-right: 12px; }
+            .add-topic-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+            .add-topic-row .field { min-width: 0; }
+        }
+
+        @@media(max-width:360px) {
+            .app { padding-left:8px; padding-right:8px; }
+            .actions { grid-template-columns:1fr 1fr; }
+            .subject-head { flex-wrap:wrap; }
+            .subject-head > div:last-child { margin-left:auto; }
+            .subject-percent { font-size:16px; }
+            .toolbar-right { grid-template-columns:1fr; }
+            #resetSearchBtn { width:100%; }
+            .add-topic-row { display:grid; grid-template-columns:minmax(0,1fr) auto; }
+            .add-topic-row .field { min-width:0; }
+            .add-topic-row .btn { width:auto; }
+        }
     </style>
 </head>
 <body>
-    <div class="app">
-        <header class="topbar">
-            <div class="brand">
-                <div class="logo">✦</div>
-                <div>
-                    <h1>Study Progress Tracker</h1>
-                    <p class="subtitle">Small progress every day. Big results over time.</p>
-                    <div class="storage-status"><span class="dot"></span><span id="saveStatus">Autosave enabled on this device</span></div>
+<div class="app">
+    <header class="topbar">
+        <div class="brand">
+            <div class="logo">✦</div>
+            <div>
+                <h1>Study Progress Tracker</h1>
+                <p class="subtitle">Small progress every day. Big results over time.</p>
+                <div class="storage-status"><span class="dot"></span><span id="saveStatus">Autosave enabled on this device</span></div>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="btn" id="addSubjectBtn">＋ Add subject</button>
+            <button class="btn export" id="exportBtn">↓ Export JSON</button>
+            <button class="btn" id="importBtn">↑ Import JSON</button>
+            <input type="file" id="importFile" accept=".json,application/json" hidden />
+        </div>
+    </header>
+
+    <section class="stats">
+        <div class="stat" style="--glow:#8b5cf6"><div class="stat-label">Overall progress</div><div class="stat-value" id="overallPercent">0%</div><div class="stat-note">Average across all topics</div></div>
+        <div class="stat" style="--glow:#22d3ee"><div class="stat-label">Subjects</div><div class="stat-value" id="subjectCount">6</div><div class="stat-note">Your study areas</div></div>
+        <div class="stat" style="--glow:#34d399"><div class="stat-label">Topics tracked</div><div class="stat-value" id="topicCount">0</div><div class="stat-note">Across all subjects</div></div>
+        <div class="stat" style="--glow:#fbbf24"><div class="stat-label">Completed topics</div><div class="stat-value" id="completedCount">0</div><div class="stat-note">Topics at 100%</div></div>
+    </section>
+
+    <div class="toolbar">
+        <h2>Your subjects</h2>
+        <div class="toolbar-right">
+            <input class="search" id="searchInput" type="search" placeholder="Search subjects or topics…" aria-label="Search subjects or topics" />
+            <button class="btn" id="resetSearchBtn">Clear search</button>
+        </div>
+    </div>
+    <main class="subject-grid" id="subjectGrid"></main>
+    <p class="footer-note">🔒 Your tracker autosaves to this browser's local storage. Export a JSON backup regularly and keep it somewhere safe. Importing a backup replaces the current tracker data after confirmation. Browser storage can be cleared by browser settings, so JSON backups are recommended.</p>
+</div>
+
+
+<div class="modal-backdrop" id="mockModal">
+    <div class="modal mock-modal" role="dialog" aria-modal="true" aria-labelledby="mockModalTitle">
+        <h3 id="mockModalTitle">Enter mock marks</h3>
+        <p>Enter scores for Maths, Reasoning, English and GS. These four sections make up the total of 390 marks. Computer is optional and is not included in the total or average.</p>
+        <input class="field" id="mockNameInput" maxlength="80" placeholder="Mock name (e.g. Mock 1)" />
+        <div class="mock-score-grid">
+            <label>Maths <input class="field mock-score" id="mockMaths" type="number" min="0" max="390" step="0.5" required placeholder="Marks" /></label>
+            <label>Reasoning <input class="field mock-score" id="mockReas" type="number" min="0" max="390" step="0.5" required placeholder="Marks" /></label>
+            <label>English <input class="field mock-score" id="mockEnglish" type="number" min="0" max="390" step="0.5" required placeholder="Marks" /></label>
+            <label>GS <input class="field mock-score" id="mockGs" type="number" min="0" max="390" step="0.5" required placeholder="Marks" /></label>
+            <label>Computer (optional) <input class="field mock-score" id="mockComputer" type="number" min="0" max="390" step="0.5" placeholder="Optional marks" /></label>
+        </div>
+        <div class="mock-total-preview" id="mockTotalPreview">Overall: 0 / 390 · 0%</div>
+        <div class="modal-actions"><button class="btn" id="cancelMockBtn">Cancel</button><button class="btn primary" id="saveMockBtn">Save mock</button></div>
+    </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="modal-backdrop" id="subjectModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <h3 id="modalTitle">Add a subject</h3>
+        <p>Create a new study area. You can add topics and adjust each topic's completion percentage afterwards.</p>
+        <input class="field" id="subjectNameInput" maxlength="60" placeholder="Subject name (e.g. Current Affairs)" />
+        <select class="field" id="subjectIconInput" aria-label="Choose subject icon">
+            <option value="📘">📘 Book</option><option value="🧮">🧮 Maths</option><option value="✍️">✍️ English</option>
+            <option value="🌍">🌍 General Studies</option><option value="🧠">🧠 Reasoning</option><option value="💻">💻 Computer</option>
+            <option value="📝">📝 Mock tests</option><option value="🎯">🎯 Other</option>
+        </select>
+        <div class="modal-actions"><button class="btn" id="cancelSubjectBtn">Cancel</button><button class="btn primary" id="saveSubjectBtn">Add subject</button></div>
+    </div>
+</div>
+
+<script>
+(() => {
+    "use strict";
+    const STORAGE_KEY = "studyProgressTracker.v1";
+    const defaultSubjects = [
+        { id: makeId(), name: "Maths", icon: "🧮", color: "#a78bfa", topics: [] },
+        { id: makeId(), name: "English", icon: "✍️", color: "#fb7185", topics: [] },
+        { id: makeId(), name: "GS", icon: "🌍", color: "#34d399", topics: [] },
+        { id: makeId(), name: "Reas", icon: "🧠", color: "#fbbf24", topics: [] },
+        { id: makeId(), name: "Computer", icon: "💻", color: "#22d3ee", topics: [] },
+        { id: makeId(), name: "Mocks", icon: "📝", color: "#f472b6", topics: [] }
+    ];
+    let state = loadState();
+    let toastTimer;
+
+    function makeId() { return "id_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 9); }
+    function clampScore(value) { const n = Number(value); return Number.isFinite(n) ? Math.max(0, Math.min(390, n)) : 0; }
+    function safeText(value) { return String(value ?? "").replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch])); }
+    function clone(value) { return JSON.parse(JSON.stringify(value)); }
+
+    function loadState() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return { version: 1, updatedAt: new Date().toISOString(), subjects: clone(defaultSubjects), mocks: [] };
+            const parsed = JSON.parse(raw);
+            if (parsed && Array.isArray(parsed.subjects)) return normalizeState(parsed);
+        } catch (error) { console.warn("Could not load tracker data:", error); }
+        return { version: 1, updatedAt: new Date().toISOString(), subjects: clone(defaultSubjects) };
+    }
+    function normalizeState(input) {
+        const subjects = input.subjects.filter(s => s && typeof s.name === "string").map(s => ({
+            id: String(s.id || makeId()),
+            name: String(s.name).slice(0, 60),
+            icon: String(s.icon || "📘"),
+            color: String(s.color || "#8b5cf6"),
+            topics: Array.isArray(s.topics) ? s.topics.filter(t => t && typeof t.name === "string").map(t => ({
+                id: String(t.id || makeId()),
+                name: String(t.name).slice(0, 120),
+                progress: Math.max(0, Math.min(100, Number(t.progress) || 0))
+            })) : []
+        }));
+        const mocks = Array.isArray(input.mocks) ? input.mocks.filter(m => m && typeof m.name === "string").map(m => ({
+            id: String(m.id || makeId()),
+            name: String(m.name).slice(0, 80),
+            maths: clampScore(m.maths),
+            reas: clampScore(m.reas),
+            english: clampScore(m.english),
+            gs: clampScore(m.gs),
+            computer: m.computer === "" || m.computer == null ? "" : clampScore(m.computer),
+            createdAt: m.createdAt || new Date().toISOString()
+        })) : [];
+        return { version: 1, updatedAt: input.updatedAt || new Date().toISOString(), subjects, mocks };
+    }
+    function persist(showStatus = false) {
+        state.updatedAt = new Date().toISOString();
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            document.getElementById("saveStatus").textContent = "Saved locally · " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        } catch (error) {
+            document.getElementById("saveStatus").textContent = "Local save failed — export a JSON backup";
+            notify("Browser storage is full or unavailable. Export a JSON backup.", true);
+            console.error(error);
+        }
+        if (showStatus) notify("Progress saved on this device.");
+    }
+    function notify(message, isError = false) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.style.borderColor = isError ? "#fb718566" : "#34d39966";
+        toast.style.color = isError ? "#fecdd3" : "#e8fff5";
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+    function allTopics() { return state.subjects.flatMap(s => s.topics); }
+    function average(topics) { return topics.length ? Math.round(topics.reduce((sum, t) => sum + t.progress, 0) / topics.length) : 0; }
+    function subjectAverage(subject) { return average(subject.topics); }
+
+    function render() {
+        const query = document.getElementById("searchInput").value.trim().toLowerCase();
+        const topics = allTopics();
+        document.getElementById("overallPercent").textContent = average(topics) + "%";
+        document.getElementById("subjectCount").textContent = state.subjects.length;
+        document.getElementById("topicCount").textContent = topics.length;
+        document.getElementById("completedCount").textContent = topics.filter(t => t.progress === 100).length;
+
+        const visible = state.subjects.map(s => ({
+            ...s,
+            topics: s.topics.filter(t => !query || t.name.toLowerCase().includes(query) || s.name.toLowerCase().includes(query))
+        })).filter(s => !query || s.name.toLowerCase().includes(query) || s.topics.length);
+        const grid = document.getElementById("subjectGrid");
+        if (!visible.length) {
+            grid.innerHTML = '<div class="empty"><strong>No matching subjects or topics</strong>Try a different search, or add a new subject.</div>';
+            return;
+        }
+        grid.innerHTML = visible.map(subject => {
+            const full = state.subjects.find(s => s.id === subject.id);
+            const percent = subjectAverage(full);
+            const total = full.topics.length;
+            return `
+            <article class="subject-card" data-subject-id="${safeText(full.id)}">
+                <div class="subject-head">
+                    <div class="subject-title-wrap">
+                        <div class="subject-icon" style="--tint:${safeText(full.color)}22">${safeText(full.icon)}</div>
+                        <div><div class="subject-name">${safeText(full.name)}</div><div class="subject-meta">${full.name.toLowerCase() === "mocks" ? `${(state.mocks || []).length} mock records` : `${total} topic${total === 1 ? "" : "s"} · ${full.topics.filter(t => t.progress === 100).length} completed`}</div></div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:9px">
+                        <div class="subject-percent">${percent}%</div>
+                        <button class="icon-btn" title="Rename subject" aria-label="Rename ${safeText(full.name)}" data-action="rename-subject" data-id="${safeText(full.id)}">✎</button>
+                        <button class="icon-btn delete" title="Delete subject" aria-label="Delete ${safeText(full.name)}" data-action="delete-subject" data-id="${safeText(full.id)}">×</button>
+                    </div>
                 </div>
-            </div>
-            <div class="actions">
-                <button class="btn" id="addSubjectBtn">＋ Add subject</button>
-                <button class="btn export" id="exportBtn">↓ Export JSON</button>
-                <button class="btn" id="importBtn">↑ Import JSON</button>
-                <input type="file" id="importFile" accept=".json,application/json" hidden />
-            </div>
-        </header>
-
-        <section class="stats">
-            <div class="stat" style="--glow:#8b5cf6"><div class="stat-label">Overall progress</div><div class="stat-value" id="overallPercent">0%</div><div class="stat-note">Average across all topics</div></div>
-            <div class="stat" style="--glow:#22d3ee"><div class="stat-label">Subjects</div><div class="stat-value" id="subjectCount">6</div><div class="stat-note">Your study areas</div></div>
-            <div class="stat" style="--glow:#34d399"><div class="stat-label">Topics tracked</div><div class="stat-value" id="topicCount">0</div><div class="stat-note">Across all subjects</div></div>
-            <div class="stat" style="--glow:#fbbf24"><div class="stat-label">Completed topics</div><div class="stat-value" id="completedCount">0</div><div class="stat-note">Topics at 100%</div></div>
-        </section>
-
-        <div class="toolbar">
-            <h2>Your subjects</h2>
-            <div class="toolbar-right">
-                <input class="search" id="searchInput" type="search" placeholder="Search subjects or topics…" aria-label="Search subjects or topics" />
-                <button class="btn" id="resetSearchBtn">Clear search</button>
-            </div>
-        </div>
-        <main class="subject-grid" id="subjectGrid"></main>
-        <p class="footer-note">🔒 Your tracker autosaves to this browser's local storage. Export a JSON backup regularly and keep it somewhere safe. Importing a backup replaces the current tracker data after confirmation. Browser storage can be cleared by browser settings, so JSON backups are recommended.</p>
-    </div>
-
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <div class="modal-backdrop" id="subjectModal">
-        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-            <h3 id="modalTitle">Add a subject</h3>
-            <p>Create a new study area. You can add topics and adjust each topic's completion percentage afterwards.</p>
-            <input class="field" id="subjectNameInput" maxlength="60" placeholder="Subject name (e.g. Current Affairs)" />
-            <select class="field" id="subjectIconInput" aria-label="Choose subject icon">
-                <option value="📘">📘 Book</option>
-                <option value="🧮">🧮 Maths</option>
-                <option value="✍️">✍️ English</option>
-                <option value="🌍">🌍 General Studies</option>
-                <option value="🧠">🧠 Reasoning</option>
-                <option value="💻">💻 Computer</option>
-                <option value="📝">📝 Mock tests</option>
-                <option value="🎯">🎯 Other</option>
-            </select>
-            <div class="modal-actions"><button class="btn" id="cancelSubjectBtn">Cancel</button><button class="btn primary" id="saveSubjectBtn">Add subject</button></div>
-        </div>
-    </div>
-
-    <script>
-            (() => {
-                "use strict";
-                const STORAGE_KEY = "studyProgressTracker.v1";
-                const defaultSubjects = [
-                    { id: makeId(), name: "Maths", icon: "🧮", color: "#a78bfa", topics: [] },
-                    { id: makeId(), name: "English", icon: "✍️", color: "#fb7185", topics: [] },
-                    { id: makeId(), name: "GS", icon: "🌍", color: "#34d399", topics: [] },
-                    { id: makeId(), name: "Reas", icon: "🧠", color: "#fbbf24", topics: [] },
-                    { id: makeId(), name: "Computer", icon: "💻", color: "#22d3ee", topics: [] },
-                    { id: makeId(), name: "Mocks", icon: "📝", color: "#f472b6", topics: [] }
-                ];
-                let state = loadState();
-                let toastTimer;
-
-                function makeId() { return "id_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 9); }
-                function safeText(value) { return String(value ?? "").replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch])); }
-                function clone(value) { return JSON.parse(JSON.stringify(value)); }
-
-                function loadState() {
-                    try {
-                        const raw = localStorage.getItem(STORAGE_KEY);
-                        if (!raw) return { version: 1, updatedAt: new Date().toISOString(), subjects: clone(defaultSubjects) };
-                        const parsed = JSON.parse(raw);
-                        if (parsed && Array.isArray(parsed.subjects)) return normalizeState(parsed);
-                    } catch (error) { console.warn("Could not load tracker data:", error); }
-                    return { version: 1, updatedAt: new Date().toISOString(), subjects: clone(defaultSubjects) };
-                }
-                function normalizeState(input) {
-                    const subjects = input.subjects.filter(s => s && typeof s.name === "string").map(s => ({
-                        id: String(s.id || makeId()),
-                        name: String(s.name).slice(0, 60),
-                        icon: String(s.icon || "📘"),
-                        color: String(s.color || "#8b5cf6"),
-                        topics: Array.isArray(s.topics) ? s.topics.filter(t => t && typeof t.name === "string").map(t => ({
-                            id: String(t.id || makeId()),
-                            name: String(t.name).slice(0, 120),
-                            progress: Math.max(0, Math.min(100, Number(t.progress) || 0))
-                        })) : []
-                    }));
-                    return { version: 1, updatedAt: input.updatedAt || new Date().toISOString(), subjects };
-                }
-                function persist(showStatus = false) {
-                    state.updatedAt = new Date().toISOString();
-                    try {
-                        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-                        document.getElementById("saveStatus").textContent = "Saved locally · " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-                    } catch (error) {
-                        document.getElementById("saveStatus").textContent = "Local save failed — export a JSON backup";
-                        notify("Browser storage is full or unavailable. Export a JSON backup.", true);
-                        console.error(error);
-                    }
-                    if (showStatus) notify("Progress saved on this device.");
-                }
-                function notify(message, isError = false) {
-                    const toast = document.getElementById("toast");
-                    toast.textContent = message;
-                    toast.style.borderColor = isError ? "#fb718566" : "#34d39966";
-                    toast.style.color = isError ? "#fecdd3" : "#e8fff5";
-                    toast.classList.add("show");
-                    clearTimeout(toastTimer);
-                    toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
-                }
-                function allTopics() { return state.subjects.flatMap(s => s.topics); }
-                function average(topics) { return topics.length ? Math.round(topics.reduce((sum, t) => sum + t.progress, 0) / topics.length) : 0; }
-                function subjectAverage(subject) { return average(subject.topics); }
-
-                function render() {
-                    const query = document.getElementById("searchInput").value.trim().toLowerCase();
-                    const topics = allTopics();
-                    document.getElementById("overallPercent").textContent = average(topics) + "%";
-                    document.getElementById("subjectCount").textContent = state.subjects.length;
-                    document.getElementById("topicCount").textContent = topics.length;
-                    document.getElementById("completedCount").textContent = topics.filter(t => t.progress === 100).length;
-
-                    const visible = state.subjects.map(s => ({
-                        ...s,
-                        topics: s.topics.filter(t => !query || t.name.toLowerCase().includes(query) || s.name.toLowerCase().includes(query))
-                    })).filter(s => !query || s.name.toLowerCase().includes(query) || s.topics.length);
-                    const grid = document.getElementById("subjectGrid");
-                    if (!visible.length) {
-                        grid.innerHTML = '<div class="empty"><strong>No matching subjects or topics</strong>Try a different search, or add a new subject.</div>';
-                        return;
-                    }
-                    grid.innerHTML = visible.map(subject => {
-                        const full = state.subjects.find(s => s.id === subject.id);
-                        const percent = subjectAverage(full);
-                        const total = full.topics.length;
-                        return `
-                        <article class="subject-card" data-subject-id="${safeText(full.id)}">
-                            <div class="subject-head">
-                                <div class="subject-title-wrap">
-                                    <div class="subject-icon" style="--tint:${safeText(full.color)}22">${safeText(full.icon)}</div>
-                                    <div><div class="subject-name">${safeText(full.name)}</div><div class="subject-meta">${total} topic${total === 1 ? "" : "s"} · ${full.topics.filter(t => t.progress === 100).length} completed</div></div>
-                                </div>
-                                <div style="display:flex;align-items:center;gap:9px">
-                                    <div class="subject-percent">${percent}%</div>
-                                    <button class="icon-btn" title="Rename subject" aria-label="Rename ${safeText(full.name)}" data-action="rename-subject" data-id="${safeText(full.id)}">✎</button>
-                                    <button class="icon-btn delete" title="Delete subject" aria-label="Delete ${safeText(full.name)}" data-action="delete-subject" data-id="${safeText(full.id)}">×</button>
+                <div class="subject-progress"><div class="progress-track"><div class="progress-fill" style="width:${percent}%;background:linear-gradient(90deg,${safeText(full.color)},#22d3ee)"></div></div></div>
+                ${full.name.toLowerCase() === "mocks" ? "" : `<div class="topic-list">
+                    ${subject.topics.length ? subject.topics.map(topic => `
+                        <div class="topic">
+                            <div class="topic-top">
+                                <span class="topic-name">${safeText(topic.name)}</span>
+                                <div class="topic-actions">
+                                    <span class="topic-value">${topic.progress}%</span>
+                                    <button class="icon-btn delete" title="Delete topic" aria-label="Delete ${safeText(topic.name)}" data-action="delete-topic" data-subject-id="${safeText(full.id)}" data-id="${safeText(topic.id)}">×</button>
                                 </div>
                             </div>
-                            <div class="subject-progress"><div class="progress-track"><div class="progress-fill" style="width:${percent}%;background:linear-gradient(90deg,${safeText(full.color)},#22d3ee)"></div></div></div>
-                            <div class="topic-list">
-                                ${subject.topics.length ? subject.topics.map(topic => `
-                                    <div class="topic">
-                                        <div class="topic-top">
-                                            <span class="topic-name">${safeText(topic.name)}</span>
-                                            <div class="topic-actions">
-                                                <span class="topic-value">${topic.progress}%</span>
-                                                <button class="icon-btn delete" title="Delete topic" aria-label="Delete ${safeText(topic.name)}" data-action="delete-topic" data-subject-id="${safeText(full.id)}" data-id="${safeText(topic.id)}">×</button>
-                                            </div>
-                                        </div>
-                                        <div class="topic-controls">
-                                            <input type="range" min="0" max="100" step="5" value="${topic.progress}" aria-label="${safeText(topic.name)} completion percentage" data-action="progress" data-subject-id="${safeText(full.id)}" data-id="${safeText(topic.id)}" />
-                                        </div>
-                                    </div>`).join("") : `<div style="padding:13px 5px;color:var(--muted);font-size:13px">No topics yet. Add one below to start tracking.</div>`}
+                            <div class="topic-controls">
+                                <input type="range" min="0" max="100" step="5" value="${topic.progress}" aria-label="${safeText(topic.name)} completion percentage" data-action="progress" data-subject-id="${safeText(full.id)}" data-id="${safeText(topic.id)}" />
                             </div>
-                            <form class="add-topic-row" data-action="add-topic" data-subject-id="${safeText(full.id)}">
-                                <input class="field" name="topicName" maxlength="120" placeholder="Add a topic (e.g. Percentage)" aria-label="New topic for ${safeText(full.name)}" required />
-                                <button class="btn primary" type="submit">＋ Add</button>
-                            </form>
-                        </article>`;
-                    }).join("");
+                        </div>`).join("") : `<div style="padding:13px 5px;color:var(--muted);font-size:13px">No topics yet. Add one below to start tracking.</div>`}
+                </div>`}
+                ${full.name.toLowerCase() === "mocks" ? `
+                    <div class="mock-records">
+                        ${(state.mocks || []).map(mock => {
+                            const score = mock.maths + mock.reas + mock.english + mock.gs;
+                            const pct = Math.round(score / 390 * 100);
+                            return `<div class="mock-record">
+                                <div class="mock-record-top"><span class="mock-record-name">${safeText(mock.name)}</span><span class="mock-record-score">${score} / 390 · ${pct}%</span>
+                                <button class="icon-btn" title="Edit mock" aria-label="Edit ${safeText(mock.name)}" data-action="edit-mock" data-id="${safeText(mock.id)}">✎</button><button class="icon-btn delete" title="Delete mock" aria-label="Delete ${safeText(mock.name)}" data-action="delete-mock" data-id="${safeText(mock.id)}">×</button></div>
+                                <div class="mock-record-detail">Maths: ${mock.maths} · Reas: ${mock.reas} · English: ${mock.english} · GS: ${mock.gs}${mock.computer !== "" ? ` · Computer (not counted): ${mock.computer}` : ""}</div>
+                            </div>`;
+                        }).join("")}
+                        <div class="mock-record" style="border-color:#8b5cf655">
+                            <div class="mock-record-top"><span class="mock-record-name">Overall average</span><span class="mock-record-score">${(state.mocks || []).length ? Math.round((state.mocks.reduce((sum, m) => sum + m.maths + m.reas + m.english + m.gs, 0) / (state.mocks.length * 390)) * 100) : 0}%</span></div>
+                            <div class="mock-record-detail">${(state.mocks || []).length ? (state.mocks.reduce((sum, m) => sum + m.maths + m.reas + m.english + m.gs, 0) / state.mocks.length).toFixed(1) : "0"} average marks out of 390 across ${(state.mocks || []).length} mock(s). Computer is excluded.</div>
+                        </div>
+                    </div>
+                    <div class="add-topic-row mock-add-row">
+                        <input class="field" id="newMockNameInput" maxlength="80" placeholder="Mock name (e.g. Mock 1)" aria-label="New mock name" />
+                        <button class="btn primary" type="button" data-action="open-mock-modal">＋ Add</button>
+                    </div>
+                ` : `
+                    <form class="add-topic-row" data-action="add-topic" data-subject-id="${safeText(full.id)}">
+                        <input class="field" name="topicName" maxlength="120" placeholder="Add a topic (e.g. Percentage)" aria-label="New topic for ${safeText(full.name)}" required />
+                        <button class="btn primary" type="submit">＋ Add</button>
+                    </form>
+                `}
+            </article>`;
+        }).join("");
+    }
+
+    document.getElementById("subjectGrid").addEventListener("input", event => {
+        const input = event.target;
+        if (input.dataset.action !== "progress") return;
+        const subject = state.subjects.find(s => s.id === input.dataset.subjectId);
+        const topic = subject?.topics.find(t => t.id === input.dataset.id);
+        if (!topic) return;
+        topic.progress = Number(input.value);
+        persist();
+        // Update labels and card averages without moving the slider while the user drags it.
+        const card = input.closest(".subject-card");
+        const topicValue = input.closest(".topic")?.querySelector(".topic-value");
+        if (topicValue) topicValue.textContent = topic.progress + "%";
+        const subjectPercent = card?.querySelector(".subject-percent");
+        if (subjectPercent) subjectPercent.textContent = subjectAverage(subject) + "%";
+        const fill = card?.querySelector(".progress-fill");
+        if (fill) fill.style.width = subjectAverage(subject) + "%";
+        const meta = card?.querySelector(".subject-meta");
+        if (meta) meta.textContent = `${subject.topics.length} topic${subject.topics.length === 1 ? "" : "s"} · ${subject.topics.filter(t => t.progress === 100).length} completed`;
+        const topics = allTopics();
+        document.getElementById("overallPercent").textContent = average(topics) + "%";
+        document.getElementById("topicCount").textContent = topics.length;
+        document.getElementById("completedCount").textContent = topics.filter(t => t.progress === 100).length;
+    });
+
+    document.getElementById("subjectGrid").addEventListener("submit", event => {
+        const mockForm = event.target.closest('form[data-action="add-mock"]');
+        if (mockForm) {
+            event.preventDefault();
+            let name = mockForm.elements.mockName.value.trim();
+            if (!name) {
+                let n = (state.mocks || []).length + 1;
+                name = "Mock " + n;
+                while ((state.mocks || []).some(m => m.name.toLowerCase() === name.toLowerCase())) {
+                    n++;
+                    name = "Mock " + n;
                 }
+            }
+            if ((state.mocks || []).some(m => m.name.toLowerCase() === name.toLowerCase())) {
+                notify("That mock name already exists. Enter a different mock name.", true); return;
+            }
+            openMockModal({ name });
+            return;
+        }
+        const form = event.target.closest('form[data-action="add-topic"]');
+        if (!form) return;
+        event.preventDefault();
+        const input = form.elements.topicName;
+        const name = input.value.trim();
+        if (!name) return;
+        const subject = state.subjects.find(s => s.id === form.dataset.subjectId);
+        if (!subject) return;
+        if (subject.topics.some(t => t.name.toLowerCase() === name.toLowerCase())) {
+            notify("That topic already exists in this subject.", true); return;
+        }
+        subject.topics.push({ id: makeId(), name, progress: 0 });
+        persist();
+        render();
+        notify("Topic added.");
+    });
 
-                document.getElementById("subjectGrid").addEventListener("input", event => {
-                    const input = event.target;
-                    if (input.dataset.action !== "progress") return;
-                    const subject = state.subjects.find(s => s.id === input.dataset.subjectId);
-                    const topic = subject?.topics.find(t => t.id === input.dataset.id);
-                    if (!topic) return;
-                    topic.progress = Number(input.value);
-                    persist();
-                    // Update labels and card averages without moving the slider while the user drags it.
-                    const card = input.closest(".subject-card");
-                    const topicValue = input.closest(".topic")?.querySelector(".topic-value");
-                    if (topicValue) topicValue.textContent = topic.progress + "%";
-                    const subjectPercent = card?.querySelector(".subject-percent");
-                    if (subjectPercent) subjectPercent.textContent = subjectAverage(subject) + "%";
-                    const fill = card?.querySelector(".progress-fill");
-                    if (fill) fill.style.width = subjectAverage(subject) + "%";
-                    const meta = card?.querySelector(".subject-meta");
-                    if (meta) meta.textContent = `${subject.topics.length} topic${subject.topics.length === 1 ? "" : "s"} · ${subject.topics.filter(t => t.progress === 100).length} completed`;
-                    const topics = allTopics();
-                    document.getElementById("overallPercent").textContent = average(topics) + "%";
-                    document.getElementById("topicCount").textContent = topics.length;
-                    document.getElementById("completedCount").textContent = topics.filter(t => t.progress === 100).length;
-                });
+    document.getElementById("subjectGrid").addEventListener("click", event => {
+        const button = event.target.closest("button[data-action]");
+        if (!button) return;
+        const { action, id, subjectId } = button.dataset;
+        if (action === "open-mock-modal") {
+            let name = document.getElementById("newMockNameInput")?.value.trim() || "";
+            if (!name) {
+                let n = (state.mocks || []).length + 1;
+                name = "Mock " + n;
+                while ((state.mocks || []).some(m => m.name.toLowerCase() === name.toLowerCase())) {
+                    n++;
+                    name = "Mock " + n;
+                }
+            }
+            if ((state.mocks || []).some(m => m.name.toLowerCase() === name.toLowerCase())) {
+                notify("That mock name already exists. Enter a different name.", true);
+                return;
+            }
+            openMockModal({ name });
+        } else if (action === "rename-subject") {
+            const subject = state.subjects.find(s => s.id === id);
+            if (!subject) return;
+            const next = prompt("Rename subject:", subject.name);
+            if (next === null) return;
+            const name = next.trim();
+            if (!name) { notify("Subject name cannot be empty.", true); return; }
+            if (state.subjects.some(s => s.id !== id && s.name.toLowerCase() === name.toLowerCase())) { notify("A subject with that name already exists.", true); return; }
+            subject.name = name.slice(0, 60); persist(); render(); notify("Subject renamed.");
+        } else if (action === "delete-subject") {
+            const subject = state.subjects.find(s => s.id === id);
+            if (!subject) return;
+            if (!confirm(`Delete "${subject.name}" and all ${subject.topics.length} topic(s)? This cannot be undone unless you have a backup.`)) return;
+            state.subjects = state.subjects.filter(s => s.id !== id); persist(); render(); notify("Subject deleted.");
+        } else if (action === "edit-mock") {
+            const mock = (state.mocks || []).find(m => m.id === id);
+            if (mock) openMockModal(mock);
+        } else if (action === "delete-mock") {
+            const mock = (state.mocks || []).find(m => m.id === id);
+            if (!mock) return;
+            if (!confirm(`Delete ${mock.name}?`)) return;
+            state.mocks = state.mocks.filter(m => m.id !== id); persist(); render(); notify("Mock deleted.");
+        } else if (action === "delete-topic") {
+            const subject = state.subjects.find(s => s.id === subjectId);
+            const topic = subject?.topics.find(t => t.id === id);
+            if (!subject || !topic) return;
+            if (!confirm(`Delete topic "${topic.name}"?`)) return;
+            subject.topics = subject.topics.filter(t => t.id !== id); persist(); render(); notify("Topic deleted.");
+        }
+    });
 
-                document.getElementById("subjectGrid").addEventListener("submit", event => {
-                    const form = event.target.closest('form[data-action="add-topic"]');
-                    if (!form) return;
-                    event.preventDefault();
-                    const input = form.elements.topicName;
-                    const name = input.value.trim();
-                    if (!name) return;
-                    const subject = state.subjects.find(s => s.id === form.dataset.subjectId);
-                    if (!subject) return;
-                    if (subject.topics.some(t => t.name.toLowerCase() === name.toLowerCase())) {
-                        notify("That topic already exists in this subject.", true); return;
-                    }
-                    subject.topics.push({ id: makeId(), name, progress: 0 });
-                    persist();
-                    render();
-                    notify("Topic added.");
-                });
+    const modal = document.getElementById("subjectModal");
+    function openModal() { modal.classList.add("open"); document.getElementById("subjectNameInput").focus(); }
+    function closeModal() { modal.classList.remove("open"); document.getElementById("subjectNameInput").value = ""; }
+    document.getElementById("addSubjectBtn").addEventListener("click", openModal);
+    document.getElementById("cancelSubjectBtn").addEventListener("click", closeModal);
+    modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+    document.getElementById("saveSubjectBtn").addEventListener("click", () => {
+        const name = document.getElementById("subjectNameInput").value.trim();
+        const icon = document.getElementById("subjectIconInput").value;
+        if (!name) { notify("Enter a subject name first.", true); return; }
+        if (state.subjects.some(s => s.name.toLowerCase() === name.toLowerCase())) { notify("That subject already exists.", true); return; }
+        const colors = ["#a78bfa", "#fb7185", "#34d399", "#fbbf24", "#22d3ee", "#f472b6"];
+        state.subjects.push({ id: makeId(), name: name.slice(0, 60), icon, color: colors[state.subjects.length % colors.length], topics: [] });
+        persist(); render(); closeModal(); notify("Subject added.");
+    });
+    document.getElementById("subjectNameInput").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("saveSubjectBtn").click(); });
 
-                document.getElementById("subjectGrid").addEventListener("click", event => {
-                    const button = event.target.closest("button[data-action]");
-                    if (!button) return;
-                    const { action, id, subjectId } = button.dataset;
-                    if (action === "rename-subject") {
-                        const subject = state.subjects.find(s => s.id === id);
-                        if (!subject) return;
-                        const next = prompt("Rename subject:", subject.name);
-                        if (next === null) return;
-                        const name = next.trim();
-                        if (!name) { notify("Subject name cannot be empty.", true); return; }
-                        if (state.subjects.some(s => s.id !== id && s.name.toLowerCase() === name.toLowerCase())) { notify("A subject with that name already exists.", true); return; }
-                        subject.name = name.slice(0, 60); persist(); render(); notify("Subject renamed.");
-                    } else if (action === "delete-subject") {
-                        const subject = state.subjects.find(s => s.id === id);
-                        if (!subject) return;
-                        if (!confirm(`Delete "${subject.name}" and all ${subject.topics.length} topic(s)? This cannot be undone unless you have a backup.`)) return;
-                        state.subjects = state.subjects.filter(s => s.id !== id); persist(); render(); notify("Subject deleted.");
-                    } else if (action === "delete-topic") {
-                        const subject = state.subjects.find(s => s.id === subjectId);
-                        const topic = subject?.topics.find(t => t.id === id);
-                        if (!subject || !topic) return;
-                        if (!confirm(`Delete topic "${topic.name}"?`)) return;
-                        subject.topics = subject.topics.filter(t => t.id !== id); persist(); render(); notify("Topic deleted.");
-                    }
-                });
+    const mockModal = document.getElementById("mockModal");
+    let pendingMockName = "";
+    function openMockModal(mock = {}) {
+        pendingMockName = mock.name || "";
+        document.getElementById("mockModalTitle").textContent = mock.id ? "Edit mock marks" : "Enter mock marks";
+        document.getElementById("mockNameInput").value = mock.name || "";
+        document.getElementById("mockMaths").value = mock.maths ?? "";
+        document.getElementById("mockReas").value = mock.reas ?? "";
+        document.getElementById("mockEnglish").value = mock.english ?? "";
+        document.getElementById("mockGs").value = mock.gs ?? "";
+        document.getElementById("mockComputer").value = mock.computer ?? "";
+        mockModal.dataset.editId = mock.id || "";
+        mockModal.classList.add("open");
+        updateMockPreview();
+        document.getElementById("mockMaths").focus();
+    }
+    function closeMockModal() { mockModal.classList.remove("open"); mockModal.dataset.editId = ""; }
+    function readMockNumber(id, optional = false) {
+        const el = document.getElementById(id);
+        const raw = el.value.trim();
+        if (optional && raw === "") return "";
+        if (raw === "" || !Number.isFinite(Number(raw)) || Number(raw) < 0 || Number(raw) > 390) {
+            el.focus(); throw new Error((el.previousElementSibling?.textContent || "Score") + " must be between 0 and 390.");
+        }
+        return Number(raw);
+    }
+    function updateMockPreview() {
+        const ids = ["mockMaths", "mockReas", "mockEnglish", "mockGs"];
+        const values = ids.map(id => Number(document.getElementById(id).value) || 0);
+        const total = values.reduce((a, b) => a + b, 0);
+        document.getElementById("mockTotalPreview").textContent = `Overall: ${total} / 390 · ${Math.round(total / 390 * 100)}% (Computer excluded)`;
+    }
+    ["mockMaths", "mockReas", "mockEnglish", "mockGs", "mockComputer"].forEach(id => {
+        document.getElementById(id).addEventListener("input", updateMockPreview);
+    });
+    document.getElementById("cancelMockBtn").addEventListener("click", closeMockModal);
+    mockModal.addEventListener("click", e => { if (e.target === mockModal) closeMockModal(); });
+    document.getElementById("saveMockBtn").addEventListener("click", () => {
+        try {
+            const name = document.getElementById("mockNameInput").value.trim();
+            if (!name) { document.getElementById("mockNameInput").focus(); throw new Error("Enter a mock name."); }
+            const editId = mockModal.dataset.editId;
+            if ((state.mocks || []).some(m => m.id !== editId && m.name.toLowerCase() === name.toLowerCase())) throw new Error("That mock name already exists.");
+            const maths = readMockNumber("mockMaths");
+            const reas = readMockNumber("mockReas");
+            const english = readMockNumber("mockEnglish");
+            const gs = readMockNumber("mockGs");
+            const computer = readMockNumber("mockComputer", true);
+            if (maths + reas + english + gs > 390) throw new Error("Maths + Reasoning + English + GS cannot exceed 390 marks.");
+            const mock = {
+                id: editId || makeId(), name: name.slice(0, 80),
+                maths, reas, english, gs, computer,
+                createdAt: new Date().toISOString()
+            };
+            state.mocks = state.mocks || [];
+            if (editId) state.mocks = state.mocks.map(m => m.id === editId ? mock : m);
+            else state.mocks.push(mock);
+            persist(); render(); closeMockModal(); notify("Mock marks saved.");
+        } catch (error) { notify(error.message || "Please check the marks.", true); }
+    });
 
-                const modal = document.getElementById("subjectModal");
-                function openModal() { modal.classList.add("open"); document.getElementById("subjectNameInput").focus(); }
-                function closeModal() { modal.classList.remove("open"); document.getElementById("subjectNameInput").value = ""; }
-                document.getElementById("addSubjectBtn").addEventListener("click", openModal);
-                document.getElementById("cancelSubjectBtn").addEventListener("click", closeModal);
-                modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
-                document.getElementById("saveSubjectBtn").addEventListener("click", () => {
-                    const name = document.getElementById("subjectNameInput").value.trim();
-                    const icon = document.getElementById("subjectIconInput").value;
-                    if (!name) { notify("Enter a subject name first.", true); return; }
-                    if (state.subjects.some(s => s.name.toLowerCase() === name.toLowerCase())) { notify("That subject already exists.", true); return; }
-                    const colors = ["#a78bfa", "#fb7185", "#34d399", "#fbbf24", "#22d3ee", "#f472b6"];
-                    state.subjects.push({ id: makeId(), name: name.slice(0, 60), icon, color: colors[state.subjects.length % colors.length], topics: [] });
-                    persist(); render(); closeModal(); notify("Subject added.");
-                });
-                document.getElementById("subjectNameInput").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("saveSubjectBtn").click(); });
-                document.getElementById("searchInput").addEventListener("input", render);
-                document.getElementById("resetSearchBtn").addEventListener("click", () => { document.getElementById("searchInput").value = ""; render(); });
+    document.getElementById("searchInput").addEventListener("input", render);
+    document.getElementById("resetSearchBtn").addEventListener("click", () => { document.getElementById("searchInput").value = ""; render(); });
 
-                document.getElementById("exportBtn").addEventListener("click", () => {
-                    const backup = { ...clone(state), exportedAt: new Date().toISOString(), app: "Study Progress Tracker" };
-                    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json;charset=utf-8" });
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement("a");
-                    link.href = url;
-                    link.download = `study-progress-backup-${new Date().toISOString().slice(0, 10)}.json`;
-                    document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url);
-                    notify("JSON backup exported.");
-                });
-                document.getElementById("importBtn").addEventListener("click", () => document.getElementById("importFile").click());
-                document.getElementById("importFile").addEventListener("change", async event => {
-                    const file = event.target.files?.[0];
-                    if (!file) return;
-                    try {
-                        const text = await file.text();
-                        const parsed = JSON.parse(text);
-                        if (!parsed || !Array.isArray(parsed.subjects)) throw new Error("This file does not contain a valid subjects array.");
-                        const imported = normalizeState(parsed);
-                        if (!confirm(`Import ${imported.subjects.length} subject(s) and ${imported.subjects.reduce((n, s) => n + s.topics.length, 0)} topic(s)? This replaces the current tracker data.`)) return;
-                        state = imported;
-                        persist(); render(); notify("Backup imported successfully.");
-                    } catch (error) {
-                        notify("Import failed: " + (error.message || "Invalid JSON file"), true);
-                    } finally {
-                        event.target.value = "";
-                    }
-                });
+    document.getElementById("exportBtn").addEventListener("click", () => {
+        const backup = { ...clone(state), exportedAt: new Date().toISOString(), app: "Study Progress Tracker" };
+        const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `study-progress-backup-${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url);
+        notify("JSON backup exported.");
+    });
+    document.getElementById("importBtn").addEventListener("click", () => document.getElementById("importFile").click());
+    document.getElementById("importFile").addEventListener("change", async event => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        try {
+            const text = await file.text();
+            const parsed = JSON.parse(text);
+            if (!parsed || !Array.isArray(parsed.subjects)) throw new Error("This file does not contain a valid subjects array.");
+            const imported = normalizeState(parsed);
+            if (!confirm(`Import ${imported.subjects.length} subject(s) and ${imported.subjects.reduce((n, s) => n + s.topics.length, 0)} topic(s)? This replaces the current tracker data.`)) return;
+            state = imported;
+            persist(); render(); notify("Backup imported successfully.");
+        } catch (error) {
+            notify("Import failed: " + (error.message || "Invalid JSON file"), true);
+        } finally {
+            event.target.value = "";
+        }
+    });
 
-                window.addEventListener("storage", event => {
-                    if (event.key === STORAGE_KEY && event.newValue) {
-                        try { state = normalizeState(JSON.parse(event.newValue)); render(); notify("Tracker updated in another browser tab."); }
-                        catch (error) { console.warn("Could not sync tracker tab:", error); }
-                    }
-                });
-                render();
-                // Save the initial default subjects so the app starts with persistent data.
-                if (!localStorage.getItem(STORAGE_KEY)) persist();
-            })();
-    </script>
+    window.addEventListener("storage", event => {
+        if (event.key === STORAGE_KEY && event.newValue) {
+            try { state = normalizeState(JSON.parse(event.newValue)); render(); notify("Tracker updated in another browser tab."); }
+            catch (error) { console.warn("Could not sync tracker tab:", error); }
+        }
+    });
+    render();
+    // Save the initial default subjects so the app starts with persistent data.
+    if (!localStorage.getItem(STORAGE_KEY)) persist();
+})();
+</script>
 </body>
 </html>
