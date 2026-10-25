@@ -2,2443 +2,864 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IPL24</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Study Progress Tracker</title>
     <style>
-        /* General styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        main {
-            padding: 20px;
-        }
-
-        /* Team selection styles */
-        .team-selection {
-            background-color: #f9f9f9;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-            .team-selection h2 {
-                font-size: 1.5rem;
-                margin-top: 0;
+            :root {
+                --bg: #0b1020;
+                --panel: rgba(20, 29, 54, .82);
+                --panel-2: rgba(255,255,255,.055);
+                --line: rgba(255,255,255,.11);
+                --text: #f4f7ff;
+                --muted: #9ba9c7;
+                --accent: #8b5cf6;
+                --accent2: #22d3ee;
+                --good: #34d399;
+                --warn: #fbbf24;
+                --danger: #fb7185;
+                --shadow: 0 24px 70px rgba(0,0,0,.28);
             }
 
-            .team-selection .team table {
-                width: 100%;
-                border-collapse: collapse;
+            * {
+                box-sizing: border-box;
             }
 
-            .team-selection th, .team-selection td {
-                border: 1px solid #ddd;
-                padding: 8px;
-                text-align: center;
+            body {
+                margin: 0;
+                min-height: 100vh;
+                color: var(--text);
+                font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+                background: radial-gradient(ellipse at 10% 0%, rgba(139,92,246,.22), transparent 34%), radial-gradient(ellipse at 95% 12%, rgba(34,211,238,.14), transparent 32%), var(--bg);
             }
 
-            .team-selection th {
-                background-color: #f2f2f2;
+            button, input, select {
+                font: inherit;
             }
 
-            .team-selection button {
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                padding: 8px 12px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 14px;
-                border-radius: 5px;
+            button {
                 cursor: pointer;
-                transition: background-color 0.3s ease;
             }
 
-                .team-selection button:hover {
-                    background-color: #45a049;
+            .app {
+                max-width: 1440px;
+                margin: 0 auto;
+                padding: 28px clamp(14px, 3vw, 42px) 48px;
+            }
+
+            .topbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 18px;
+                flex-wrap: wrap;
+                margin-bottom: 28px;
+            }
+
+            .brand {
+                display: flex;
+                gap: 14px;
+                align-items: center;
+            }
+
+            .logo {
+                width: 52px;
+                height: 52px;
+                display: grid;
+                place-items: center;
+                border-radius: 17px;
+                font-size: 25px;
+                background: linear-gradient(135deg,var(--accent),var(--accent2));
+                box-shadow: 0 10px 30px #8b5cf64d;
+            }
+
+            h1 {
+                font-size: clamp(24px,3vw,36px);
+                margin: 0;
+                letter-spacing: -1.1px;
+            }
+
+            .subtitle {
+                margin: 6px 0 0;
+                color: var(--muted);
+                font-size: 14px;
+            }
+
+            .actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 9px;
+            }
+
+            .btn {
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                padding: 10px 14px;
+                color: var(--text);
+                background: rgba(255,255,255,.06);
+                transition: .2s;
+                font-weight: 650;
+                font-size: 13px;
+            }
+
+                .btn:hover {
+                    transform: translateY(-1px);
+                    background: rgba(255,255,255,.11);
                 }
 
-        .team-selection2 {
-            background-color: #f9f9f9;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-            .team-selection2 h2 {
-                font-size: 1.5rem;
-                margin-top: 0;
-            }
-
-            .team-selection2 .team table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            .team-selection2 th, .team-selection2 td {
-                border: 1px solid #ddd;
-                padding: 8px;
-                text-align: center;
-            }
-
-            .team-selection2 th {
-                background-color: #f2f2f2;
-            }
-
-            .team-selection2 button {
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                padding: 8px 12px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 14px;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-
-                .team-selection2 button:hover {
-                    background-color: #45a049;
+                .btn.primary {
+                    border: 0;
+                    background: linear-gradient(135deg,var(--accent),#6d5dfc);
+                    box-shadow: 0 8px 22px #8b5cf633;
                 }
 
-        .team-selection3 {
-            background-color: #f9f9f9;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
+                .btn.export {
+                    border-color: #34d39966;
+                    color: #a7f3d0;
+                }
 
-        .team-selection3 h2 {
-            font-size: 1.5rem;
-            margin-top: 0;
-        }
+                .btn.danger {
+                    color: #fecdd3;
+                    border-color: #fb718566;
+                }
 
-        .team-selection3 .team table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .team-selection3 th, .team-selection3 td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-
-        .team-selection3 th {
-            background-color: #f2f2f2;
-        }
-
-        .team-selection3 button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-            .team-selection3 button:hover {
-                background-color: #45a049;
+            .stats {
+                display: grid;
+                grid-template-columns: repeat(4,minmax(0,1fr));
+                gap: 14px;
+                margin-bottom: 22px;
             }
 
-        /* Selected team styles */
-        .selected-team {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #f2f2f2;
-            border-radius: 8px;
-        }
-
-        /* Highlighted cell styles */
-        .highlighted {
-            background-color: green;
-            color: white;
-        }
-
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 9999;
-        }
-
-            .popup p {
-                margin: 10px 0;
+            .stat, .panel {
+                border: 1px solid var(--line);
+                background: var(--panel);
+                backdrop-filter: blur(18px);
+                box-shadow: var(--shadow);
+                border-radius: 20px;
             }
 
-            .popup input[type="checkbox"] {
-                margin-right: 10px;
+            .stat {
+                padding: 19px 20px;
+                position: relative;
+                overflow: hidden;
             }
 
-        #profit_loss {
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 400px;
-            margin: 50px auto;
-            box-shadow: 10px 10px 5px lightblue;
-        }
+                .stat:after {
+                    content: "";
+                    position: absolute;
+                    width: 100px;
+                    height: 100px;
+                    right: -35px;
+                    top: -40px;
+                    border-radius: 50%;
+                    background: var(--glow, #8b5cf6);
+                    opacity: .12;
+                    filter: blur(2px);
+                }
 
-        #profit_loss2 {
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 400px;
-            margin: 50px auto;
-            box-shadow: 10px 10px 5px lightblue;
-        }
+            .stat-label {
+                color: var(--muted);
+                font-size: 12px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: .8px;
+            }
 
-        #profit_loss3 {
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 400px;
-            margin: 50px auto;
-            box-shadow: 10px 10px 5px lightblue;
-        }
+            .stat-value {
+                font-size: 29px;
+                font-weight: 800;
+                margin-top: 9px;
+                letter-spacing: -.7px;
+            }
 
-        #total-data {
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 400px;
-            margin: 50px auto;
-            box-shadow: 10px 10px 5px lightblue;
-        }
+            .stat-note {
+                color: var(--muted);
+                font-size: 12px;
+                margin-top: 4px;
+            }
 
-        .profit_label {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+            .toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 14px;
+                margin: 22px 0 16px;
+                flex-wrap: wrap;
+            }
 
-        .green-triangle, .red-triangle, .yellow-triangle {
-            display: inline-block;
-            width: 0;
-            height: 0;
-            border-style: solid;
-        }
+                .toolbar h2 {
+                    margin: 0;
+                    font-size: 20px;
+                    letter-spacing: -.4px;
+                }
 
-        .green-triangle {
-            border-width: 0 10px 20px 10px;
-            border-color: transparent transparent green transparent;
-            margin-right: 5px;
-        }
+            .toolbar-right {
+                display: flex;
+                gap: 9px;
+                flex-wrap: wrap;
+            }
 
-        .red-triangle {
-            border-width: 20px 10px 0 10px;
-            border-color: red transparent transparent transparent;
-            margin-right: 5px;
-        }
+            .search {
+                min-width: min(270px,80vw);
+                background: var(--panel-2);
+                color: var(--text);
+                border: 1px solid var(--line);
+                padding: 10px 13px;
+                border-radius: 11px;
+                outline: none;
+            }
 
-        .yellow-triangle {
-            border-width: 0 10px 20px 10px;
-            border-color: transparent transparent yellow transparent;
-            margin-right: 5px;
-            rotate: 72deg;
-        }
+                .search:focus, .field:focus {
+                    border-color: #8b5cf6;
+                    box-shadow: 0 0 0 3px #8b5cf622;
+                }
 
-        .align-text-center {
-            text-align: center;
-        }
+            .subject-grid {
+                display: grid;
+                grid-template-columns: repeat(2,minmax(0,1fr));
+                gap: 17px;
+            }
 
-        .common-info {
-            text-align: center;
-            background-color: darkgrey;
-            font-weight: bold;
-            color: white;
-        }
+            .subject-card {
+                border: 1px solid var(--line);
+                background: var(--panel);
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: var(--shadow);
+                min-width: 0;
+            }
 
-        .no-wrap-cls {
-            background-color: grey;
-            white-space: nowrap;
-            color: white
-        }
+            .subject-head {
+                padding: 18px 19px 15px;
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 12px;
+                border-bottom: 1px solid var(--line);
+            }
 
-        .hidden-cls {
-            display: none;
-        }
+            .subject-title-wrap {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                min-width: 0;
+            }
 
-        .none-cls {
-            background-color: rosybrown;
-        }
+            .subject-icon {
+                width: 43px;
+                height: 43px;
+                flex: 0 0 43px;
+                border-radius: 14px;
+                display: grid;
+                place-items: center;
+                font-size: 21px;
+                background: var(--tint);
+            }
 
-        .gps-cls {
-            background-color: darkblue;
-        }
+            .subject-name {
+                font-weight: 800;
+                font-size: 17px;
+                overflow-wrap: anywhere;
+            }
 
-        .viv-cls {
-            background-color: black;
-        }
+            .subject-meta {
+                color: var(--muted);
+                font-size: 12px;
+                margin-top: 4px;
+            }
 
-        .lose-cls {
-            background-color: red;
-            color: white;
-        }
+            .subject-percent {
+                font-weight: 850;
+                font-size: 20px;
+                white-space: nowrap;
+            }
 
-        .win-cls {
-            background-color: green;
-            color: white;
-        }
+            .subject-progress {
+                padding: 0 19px 16px;
+            }
 
-        .container {
-            max-width: 1000px;
-            margin: 50px auto;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            /*overflow-x: auto;
-            white-space: nowrap;*/
-        }
+            .progress-track {
+                height: 7px;
+                background: rgba(255,255,255,.09);
+                border-radius: 99px;
+                overflow: hidden;
+            }
 
-        .batsman {
-            display: inline-block;
-            width: 45%;
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+            .progress-fill {
+                height: 100%;
+                border-radius: 99px;
+                background: linear-gradient(90deg,var(--accent),var(--accent2));
+                transition: width .25s ease;
+            }
 
-            .batsman img {
-                width: 100px;
-                height: 100px;
+            .topic-list {
+                padding: 0 14px 13px;
+            }
+
+            .topic {
+                padding: 12px 5px;
+                border-top: 1px solid rgba(255,255,255,.065);
+            }
+
+            .topic-top {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 9px;
+            }
+
+            .topic-name {
+                font-size: 13px;
+                font-weight: 650;
+                overflow-wrap: anywhere;
+            }
+
+            .topic-value {
+                color: #c4b5fd;
+                font-size: 12px;
+                font-weight: 800;
+                min-width: 38px;
+                text-align: right;
+            }
+
+            .topic-controls {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            input[type="range"] {
+                width: 100%;
+                accent-color: #a78bfa;
+                cursor: pointer;
+            }
+
+            .topic-actions {
+                display: flex;
+                gap: 6px;
+            }
+
+            .icon-btn {
+                border: 1px solid var(--line);
+                background: rgba(255,255,255,.04);
+                color: var(--muted);
+                width: 28px;
+                height: 28px;
+                border-radius: 8px;
+                display: grid;
+                place-items: center;
+                font-size: 14px;
+            }
+
+                .icon-btn:hover {
+                    color: var(--text);
+                    background: rgba(255,255,255,.1);
+                }
+
+                .icon-btn.delete:hover {
+                    color: var(--danger);
+                    border-color: #fb718566;
+                }
+
+            .add-topic-row {
+                display: flex;
+                gap: 8px;
+                padding: 0 19px 18px;
+            }
+
+            .field {
+                min-width: 0;
+                width: 100%;
+                color: var(--text);
+                background: rgba(255,255,255,.055);
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 10px 11px;
+                outline: none;
+                font-size: 13px;
+            }
+
+            .add-topic-row .btn {
+                white-space: nowrap;
+                padding: 9px 12px;
+            }
+
+            .empty {
+                grid-column: 1/-1;
+                text-align: center;
+                padding: 55px 20px;
+                border: 1px dashed var(--line);
+                border-radius: 20px;
+                color: var(--muted);
+            }
+
+                .empty strong {
+                    display: block;
+                    color: var(--text);
+                    font-size: 18px;
+                    margin-bottom: 8px;
+                }
+
+            .footer-note {
+                color: var(--muted);
+                font-size: 12px;
+                line-height: 1.6;
+                margin-top: 24px;
+            }
+
+            .toast {
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                z-index: 20;
+                padding: 13px 17px;
+                border-radius: 13px;
+                background: #17233e;
+                color: #e8fff5;
+                border: 1px solid #34d39966;
+                box-shadow: var(--shadow);
+                opacity: 0;
+                transform: translateY(12px);
+                pointer-events: none;
+                transition: .25s;
+                font-size: 13px;
+            }
+
+                .toast.show {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+            .modal-backdrop {
+                position: fixed;
+                inset: 0;
+                z-index: 30;
+                background: #030712b8;
+                display: none;
+                place-items: center;
+                padding: 18px;
+            }
+
+                .modal-backdrop.open {
+                    display: grid;
+                }
+
+            .modal {
+                width: min(460px,100%);
+                background: #121b32;
+                border: 1px solid var(--line);
+                border-radius: 20px;
+                padding: 22px;
+                box-shadow: var(--shadow);
+            }
+
+                .modal h3 {
+                    margin: 0 0 7px;
+                    font-size: 20px;
+                }
+
+                .modal p {
+                    margin: 0 0 17px;
+                    color: var(--muted);
+                    font-size: 13px;
+                    line-height: 1.5;
+                }
+
+                .modal .field {
+                    margin-bottom: 12px;
+                }
+
+            .modal-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 8px;
+                margin-top: 5px;
+            }
+
+            .storage-status {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                color: #a7f3d0;
+                font-size: 12px;
+                margin-top: 8px;
+            }
+
+            .dot {
+                width: 7px;
+                height: 7px;
                 border-radius: 50%;
-                margin-bottom: 10px;
+                background: var(--good);
+                box-shadow: 0 0 10px #34d39988;
             }
 
-        .name {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
+            @@media(max - width:900px) {
+                .stats {
+                    grid-template-columns: repeat(2,minmax(0,1fr));
+                }
 
-        .stats {
-            margin-top: 20px;
-            padding-top: 10px;
-            border-top: 1px solid #ccc;
-        }
-
-        .stat-item {
-            margin-bottom: 10px;
-        }
-
-            .stat-item span {
-                font-weight: bold;
+                .subject-grid {
+                    grid-template-columns: 1fr;
+                }
             }
 
-        .bungee-spice-regular {
-            font-family: "Bungee Spice", sans-serif;
-            font-style: normal;
-            font-size: 36px;
-            font-weight: bold;
-        }
+            @@media(max - width:520px) {
+                .app {
+                    padding: 19px 12px 32px;
+                }
 
-        /*.tick {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background-color: green;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 20px;
-            color: white;
-            font-size: 16px;
-            margin-right: 5px;
-        }
+                .topbar {
+                    align-items: flex-start;
+                }
 
-        .cross {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 20px;
-            color: white;
-            font-size: 16px;
-            margin-right: 5px;
-        }
+                .actions {
+                    width: 100%;
+                }
 
-        .cursor {
-            cursor: pointer;
-        }
+                    .actions .btn {
+                        flex: 1;
+                    }
 
-        .circular-icon {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: gainsboro;
-            text-align: center;
-            line-height: 30px;
-        }*/
+                .stat {
+                    padding: 15px;
+                    border-radius: 16px;
+                }
 
-        /* Styles for circle container */
-        .circle {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background-color: #f0f0f0;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            margin: 50px auto;
-        }
+                .stat-value {
+                    font-size: 25px;
+                }
 
-        /* Styles for sections */
-        .section {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5em;
-            color: white;
-            position: relative;
-        }
+                .subject-head {
+                    padding: 15px 14px 13px;
+                }
 
-        /* Define different background colors for each section */
-        #section1 {
-            background-color: #FF5733;
-        }
-        /* Orange */
-        #section2 {
-            background-color: darkblue;
-        }
-        /* Red */
-        #section3 {
-            background-color: #4BAFC5;
-        }
-        /* Dark Red */
-        #section4 {
-            background-color: #B04BC5;
-        }
-        /* Purple */
-        #section5 {
-            background-color: black;
-        }
-        #section6 {
-            background-color: brown;
-            cursor:pointer;
-        }
-        /* Indigo */
+                .subject-progress {
+                    padding: 0 14px 14px;
+                }
 
-        .font-size {
-            font-size: 13px;
-        }
+                .add-topic-row {
+                    padding: 0 14px 15px;
+                }
 
-        .imp-cls {
-            background-color: rebeccapurple;
-            cursor:pointer;
-        }
+                .search {
+                    width: 100%;
+                }
+
+                .toolbar-right {
+                    width: 100%;
+                }
+            }
     </style>
 </head>
 <body>
-    <main>
-        <span class="bungee-spice-regular">IPL 2024</span>
-        <div class="team-selection3">
-            <div class="team" style="max-height: 312px; overflow-y: scroll;">
-                <table>
-                    <thead>
-                        <tr style="white-space: nowrap;">
-                            <th class="column-1"></th>
-                            <th class="column-2"></th>
-                            <th class="column-3"></th>
-                            <th class="column-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="no-wrap-cls" style="background-color:green;color:white;">
-                            <td>Winner</td>
-                            <td class="selected-date">KKR</td>
-                            <td>Captain</td>
-                            <td>Shreyas Iyer</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Runner-Up</td>
-                            <td class="selected-date">SRH</td>
-                            <td>Captain</td>
-                            <td>Pat Cummins</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Player of the series</td>
-                            <td>488 runs</td>
-                            <td>17 wkts</td>
-                            <td class="selected-date">Sunil Narine (KKR)</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Most Valuable Player</td>
-                            <td>488 runs</td>
-                            <td>17 wkts</td>
-                            <td class="selected-date">Sunil Narine (KKR)</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Most Hundreds</td>
-                            <td>RR</td>
-                            <td>2 times</td>
-                            <td class="selected-date">Joss Buttler (RR)</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Most Runs</td>
-                            <td>15 Match</td>
-                            <td>741 runs</td>
-                            <td class="selected-date">Virat Kohli (RCB)</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Most 50s</td>
-                            <td>15 Match</td>
-                            <td>5</td>
-                            <td class="selected-date">Virat Kohli (RCB)</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Highest Score</td>
-                            <td>LSG</td>
-                            <td>124 runs</td>
-                            <td class="selected-date">Marcus Stoinis</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Most Wickets</td>
-                            <td>14 Match</td>
-                            <td>24 wkts</td>
-                            <td class="selected-date">Harshal Patel (PBKS)</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Most 4s</td>
-                            <td>15 Match</td>
-                            <td>64</td>
-                            <td class="selected-date">Travis Head (SRH)</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Most 6s</td>
-                            <td>16 Match</td>
-                            <td>42</td>
-                            <td class="selected-date">Abhishek Sharma (SRH)</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Emerging Player of the Season</td>
-                            <td>Team</td>
-                            <td>SRH</td>
-                            <td class="selected-date">Nitish Reddy</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="team-selection">
-            <input value="" id="filter-team" placeholder="Search..." style="border-radius: 25px; text-align: center; margin-bottom: 11px; width: 207px; height: 42px; background-color: aliceblue;" />
-            <span id="ranking-website" style="box-shadow: 10px 10px 5px lightblue; margin-left: 18px; cursor: pointer; color: blue; font-size: 17px;">Ranking</span>
-            <div class="team" style="max-height: 312px; overflow-y: scroll;">
-                <table>
-                    <thead>
-                        <tr style="white-space: nowrap;">
-                            <th class="column-1">SNo</th>
-                            <th class="column-2">Date</th>
-                            <th class="column-3">Toss</th>
-                            <th class="column-4">Bat/Ball</th>
-                            <th class="column-5">Won By</th>
-                            <th class="column-6">Team1</th>
-                            <th class="column-7">Team2</th>
-                            <th class="column-8">MoM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="8" style="background-color: black; color: white;">FINAL</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 74</td>
-                            <td class="selected-date">26 May</td>
-                            <td>SRH <span style="display:none">SRH Red KKR Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>8 wkts</td>
-                            <td style="background-color: red; color: white;">SRH (113-10)</td>
-                            <td style="background-color: green; color: white;">KKR (114-2)</td>
-                            <td style="background-color: blue; color: white;"> Mitchell Starc (2 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr>
-                            <td colspan="8" style="background-color: black; color: white;">Last Week : Playoffs</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 73</td>
-                            <td class="selected-date">24 May</td>
-                            <td>RR <span style="display:none">RR Red SRH Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>36 runs</td>
-                            <td style="background-color: red; color: white;">RR (139-7)</td>
-                            <td style="background-color: green; color: white;">SRH (175-9)</td>
-                            <td style="background-color: blue; color: white;"> Shahbaz Ahmed (18 runs, 3 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 72</td>
-                            <td class="selected-date">22 May</td>
-                            <td>RR <span style="display:none">RCB Red RR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>4 wkts</td>
-                            <td style="background-color: red; color: white;">RCB (172-8)</td>
-                            <td style="background-color: green; color: white;">RR (174-6)</td>
-                            <td style="background-color: blue; color: white;"> Ravichandran Ashwin (2 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 71</td>
-                            <td class="selected-date">21 May</td>
-                            <td>SRH <span style="display:none">SRH Red KKR Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>8 wkts</td>
-                            <td style="background-color: red; color: white;">SRH (159-10)</td>
-                            <td style="background-color: green; color: white;">KKR (164-2)</td>
-                            <td style="background-color: blue; color: white;"> Mitchell Starc (3 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr>
-                            <td colspan="8" style="background-color: black; color: white;">Ninth Week</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('Match abandoned with toss')">Match - 70</td>
-                            <td class="selected-date">19 May</td>
-                            <td>KKR <span style="display:none">CSK Red RCB Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td style="background-color: yellow; color: black;">No record</td>
-                            <td>RR</td>
-                            <td>KKR</td>
-                            <td style="background-color: yellow; color: black;">Match Abandoned</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 69</td>
-                            <td class="selected-date">19 May</td>
-                            <td>PBKS <span style="display:none">PBKS Red SRH Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>4 wkts</td>
-                            <td style="background-color: red; color: white;">PBKS (214-5)</td>
-                            <td style="background-color: green; color: white;">SRH (215-6)</td>
-                            <td style="background-color: blue; color: white;"> Abhishek Sharma (66 runs) <sup>2 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 68</td>
-                            <td class="selected-date">18 May</td>
-                            <td>CSK <span style="display:none">CSK Red RCB Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>27 runs</td>
-                            <td style="background-color: red; color: white; cursor: pointer;" onclick="imptEvent('Scored 25 runs(run out) in 13 balls(4s(3) and 6s(1))... 11/14')">CSK (191-7)</td>
-                            <td style="background-color: green; color: white;">RCB (218-5)</td>
-                            <td style="background-color: blue; color: white;">Faf du Plessis (54 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 67</td>
-                            <td class="selected-date">17 May</td>
-                            <td>MI <span style="display:none">MI Red LSG Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>18 runs</td>
-                            <td style="background-color: red; color: white;">MI (196-6)</td>
-                            <td style="background-color: green; color: white;">LSG (214-6)</td>
-                            <td style="background-color: blue; color: white;"> Nicholas Pooran (75 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('Match abandoned without toss')">Match - 66</td>
-                            <td class="selected-date">16 May</td>
-                            <td colspan="3" style="background-color: yellow; color: black;">No record</td>
-                            <td>GT</td>
-                            <td>SRH</td>
-                            <td style="background-color: yellow; color: black;">Match Abandoned</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 65</td>
-                            <td class="selected-date">15 May</td>
-                            <td>RR <span style="display:none">RR Red PBKS Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>5 wkts</td>
-                            <td style="background-color: red; color: white;">RR (144-9)</td>
-                            <td style="background-color: green; color: white;">PBKS (145-5)</td>
-                            <td style="background-color: blue; color: white;"> Sam Curran (63 runs, 2 wkts) <sup>2 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 64</td>
-                            <td class="selected-date">14 May</td>
-                            <td>LSG <span style="display:none">LSG Red DC Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>19 runs</td>
-                            <td style="background-color: red; color: white;">LSG (189-9)</td>
-                            <td style="background-color: green; color: white;">DC (208-4)</td>
-                            <td style="background-color: blue; color: white;"> Ishant Sharma (3 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('Match abandoned without toss')">Match - 63</td>
-                            <td class="selected-date">13 May</td>
-                            <td colspan="3" style="background-color: yellow; color: black;">No record</td>
-                            <td>GT</td>
-                            <td>KKR</td>
-                            <td style="background-color: yellow; color: black;">Match Abandoned</td>
-                        </tr>
-                        <tr>
-                            <td colspan="8" style="background-color: black; color: white;">Eighth Week</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 62</td>
-                            <td class="selected-date">12 May</td>
-                            <td>DC <span style="display:none">DC Red RCB Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>47 runs</td>
-                            <td style="background-color: red; color: white;">DC (140-10)</td>
-                            <td style="background-color: green; color: white;">RCB (187-9)</td>
-                            <td style="background-color: blue; color: white;"> Cameron Green (32 runs, 1 wkt) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 61</td>
-                            <td class="selected-date">12 May</td>
-                            <td>RR <span style="display:none">RR Red CSK Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>5 wkts</td>
-                            <td style="background-color: red; color: white;">RR (141-5)</td>
-                            <td style="background-color: green; color: white; cursor: pointer;" onclick="imptEvent('Did not bat... 10/13')">CSK (145-5)</td>
-                            <td style="background-color: blue; color: white;"> Simarjeet Singh (3 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 60</td>
-                            <td class="selected-date">11 May</td>
-                            <td>MI <span style="display:none">MI Red KKR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>18 runs</td>
-                            <td style="background-color: red; color: white;">MI (139-8)</td>
-                            <td style="background-color: green; color: white;">KKR (157-7)</td>
-                            <td style="background-color: blue; color: white;"> Varun Chakaravarthy (2 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 59</td>
-                            <td class="selected-date">10 May</td>
-                            <td>CSK <span style="display:none">CSK Red GT Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>35 runs</td>
-                            <td style="background-color: red; color: white; cursor: pointer;" onclick="imptEvent('Scored 26 runs(not out) in 11 balls(4s(1) and 6s(3))... 10/12')">CSK (196-8)</td>
-                            <td style="background-color: green; color: white;">GT (231-3)</td>
-                            <td style="background-color: blue; color: white;"> Shubman Gill (104 runs) <sup>1 time</sup> <span style="display:none">100+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 58</td>
-                            <td class="selected-date">09 May</td>
-                            <td>PBKS <span style="display:none">PBKS Red RCB Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>60 runs</td>
-                            <td style="background-color: red; color: white;">PBKS (181-10)</td>
-                            <td style="background-color: green; color: white;">RCB (241-7)</td>
-                            <td style="background-color: blue; color: white;"> Virat Kohli (92 runs) <sup>2 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('Chased down 165 at 9.4 overs with 10 wickets')">Match - 57</td>
-                            <td class="selected-date">08 May</td>
-                            <td>LSG <span style="display:none">LSG Red SRH Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>10 wkts</td>
-                            <td style="background-color: red; color: white;">LSG (165-4)</td>
-                            <td style="background-color: green; color: white;">SRH (167-0)</td>
-                            <td style="background-color: blue; color: white;">Travis Head (89 runs) <sup>3 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 56</td>
-                            <td class="selected-date">07 May</td>
-                            <td>RR <span style="display:none">RR Red DC Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>20 runs</td>
-                            <td style="background-color: red; color: white;">RR (201-8)</td>
-                            <td style="background-color: green; color: white;">DC (221-8)</td>
-                            <td style="background-color: blue; color: white;"> Kuldeep Yadav (5 runs, 2 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 55</td>
-                            <td class="selected-date">06 May</td>
-                            <td>MI <span style="display:none">SRH Red MI Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>7 wkts</td>
-                            <td style="background-color: red; color: white;">SRH (173-8)</td>
-                            <td style="background-color: green; color: white;">MI (174-3)</td>
-                            <td style="background-color: blue; color: white;"> Surya Kumar Yadav (102 runs) <sup>1 time</sup> <span style="display:none">100+</span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="8" style="background-color: black; color: white;">Seventh Week</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 54</td>
-                            <td class="selected-date">05 May</td>
-                            <td>LSG <span style="display:none">LSG Red KKR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>98 runs</td>
-                            <td style="background-color: red; color: white;">LSG (137-10)</td>
-                            <td style="background-color: green; color: white;">KKR (235-6)</td>
-                            <td style="background-color: blue; color: white;"> Sunil Narine (81 runs, 1 wkt) <sup>3 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 53</td>
-                            <td class="selected-date">05 May</td>
-                            <td>PBKS <span style="display:none">PBKS Red CSK Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>28 runs</td>
-                            <td style="background-color: red; color: white;">PBKS (139-9)</td>
-                            <td style="background-color: green; color: white; cursor: pointer;" onclick="imptEvent('Bowled on the very first delivery... 9/11')">CSK (167-9)</td>
-                            <td style="background-color: blue; color: white;"> Ravindra Jadeja (43 runs, 3 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 52</td>
-                            <td class="selected-date">04 May</td>
-                            <td>RCB <span style="display:none">GT Red RCB Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>4 wkts</td>
-                            <td style="background-color: red; color: white;">GT (147-10)</td>
-                            <td style="background-color: green; color: white;">RCB (152-6)</td>
-                            <td style="background-color: blue; color: white;"> Mohammed Siraj (2 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('KKR won after 12 years at Wankhede')">Match - 51</td>
-                            <td class="selected-date">03 May</td>
-                            <td>MI <span style="display:none">MI Red KKR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>24 runs</td>
-                            <td style="background-color: red; color: white;">MI (145-10)</td>
-                            <td style="background-color: green; color: white;">KKR (169-10)</td>
-                            <td style="background-color: blue; color: white;"> Venkatesh Iyer (70 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 50</td>
-                            <td class="selected-date">02 May</td>
-                            <td>SRH <span style="display:none">RR Red SRH Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>1 run</td>
-                            <td style="background-color: red; color: white;">RR (200-7)</td>
-                            <td style="background-color: green; color: white;">SRH (201-3)</td>
-                            <td style="background-color: blue; color: white;"> Bhuvneshwar Kumar (3 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 49</td>
-                            <td class="selected-date">01 May</td>
-                            <td>PBKS <span style="display:none">CSK Red PBKS Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>7 wkts</td>
-                            <td style="background-color: red; color: white; cursor: pointer;" onclick="imptEvent('Scored 14 runs(not out) in 11 balls(4s(1) and 6s(1))... 8/10')">CSK (162-7)</td>
-                            <td style="background-color: green; color: white;">PBKS (163-2)</td>
-                            <td style="background-color: blue; color: white;"> Harpreet Brar (2 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 48</td>
-                            <td class="selected-date">30 Apr</td>
-                            <td>LSG <span style="display:none">MI Red LSG Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>4 wkts</td>
-                            <td style="background-color: red; color: white;">MI (144-7)</td>
-                            <td style="background-color: green; color: white;">LSG (145-6)</td>
-                            <td style="background-color: blue; color: white;"> Marcus Stoinis (62 runs, 1 wkt) <sup>2 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('One match ban and 100% fine to Harshit Rana')">Match - 47</td>
-                            <td class="selected-date">29 Apr</td>
-                            <td>DC <span style="display:none">DC Red KKR Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>7 wkts</td>
-                            <td style="background-color: red; color: white;">DC (153-9)</td>
-                            <td style="background-color: green; color: white;">KKR (157-3)</td>
-                            <td style="background-color: blue; color: white;">Varun Chakaravarthy (3 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr>
-                            <td colspan="8" style="background-color: black; color: white;">Sixth Week</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 46</td>
-                            <td class="selected-date">28 Apr</td>
-                            <td>SRH <span style="display:none">SRH Red CSK Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>78 runs</td>
-                            <td style="background-color: red; color: white;">SRH (134-10)</td>
-                            <td style="background-color: green; color: white; cursor: pointer;" onclick="imptEvent('Scored 5 runs(not out) in 2 balls(4s(1) and 6s(0))... 7/9')">CSK (212-3)</td>
-                            <td style="background-color: blue; color: white;">Ruturaj Gaikwad (98 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('200 chase in 16 overs')">Match - 45</td>
-                            <td class="selected-date">28 Apr</td>
-                            <td>RCB <span style="display:none">GT Red RCB Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>9 wkts</td>
-                            <td style="background-color: red; color: white;">GT (200-3)</td>
-                            <td style="background-color: green; color: white;">RCB (206-1)</td>
-                            <td style="background-color: blue; color: white;">Will Jacks (100 runs) <sup>1 time</sup> <span style="display:none">100+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 44</td>
-                            <td class="selected-date">27 Apr</td>
-                            <td>RR <span style="display:none">LSG Red RR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>7 wkts</td>
-                            <td style="background-color: red; color: white;">LSG (196-5)</td>
-                            <td style="background-color: green; color: white;">RR (199-3)</td>
-                            <td style="background-color: blue; color: white;">Sanju Samson (71 runs) <sup>2 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 43</td>
-                            <td class="selected-date">27 Apr</td>
-                            <td>MI <span style="display:none">MI Red DC Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>10 runs</td>
-                            <td style="background-color: red; color: white;">MI (247-9)</td>
-                            <td style="background-color: green; color: white;">DC (257-4)</td>
-                            <td style="background-color: blue; color: white;">Jake McGurk (84 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('Highest score chase')">Match - 42</td>
-                            <td class="selected-date">26 Apr</td>
-                            <td>PBKS <span style="display:none">KKR Red PBKS Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>8 wkts</td>
-                            <td style="background-color: red; color: white;">KKR (261-6)</td>
-                            <td style="background-color: green; color: white;">PBKS (262-2)</td>
-                            <td style="background-color: blue; color: white;">Jonny Bairstow (108 runs) <sup>1 time</sup> <span style="display:none">100+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 41</td>
-                            <td class="selected-date">25 Apr</td>
-                            <td>RCB <span style="display:none">SRH Red RCB Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>35 runs</td>
-                            <td style="background-color: red; color: white;">SRH (171-8)</td>
-                            <td style="background-color: green; color: white;">RCB (206-7)</td>
-                            <td style="background-color: blue; color: white;">Rajat Patidar (50 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 40</td>
-                            <td class="selected-date">24 Apr</td>
-                            <td>GT <span style="display:none">GT Red DC Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>4 runs</td>
-                            <td style="background-color: red; color: white;">GT (220-8)</td>
-                            <td style="background-color: green; color: white;">DC (224-4)</td>
-                            <td style="background-color: blue; color: white;">Rishabh Pant (88 runs) <sup>2 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('Highest score chase in Chennai')">Match - 39</td>
-                            <td class="selected-date">23 Apr</td>
-                            <td>LSG <span style="display:none">CSK Red LSG Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>6 wkts</td>
-                            <td style="background-color: red; color: white; cursor: pointer;" onclick="imptEvent('Scored 4 runs(not out) in 1 ball(4s(1) and 6s(0))... 6/8')">CSK (210-4)</td>
-                            <td style="background-color: green; color: white;">LSG (213-4)</td>
-                            <td style="background-color: blue; color: white;">Marcus Stoinis (124 runs) <sup>2 times</sup> <span style="display:none">Highest Score 100+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('200 wickets for Chahal in IPL')">Match - 38</td>
-                            <td class="selected-date">22 Apr</td>
-                            <td>MI <span style="display:none">MI Red RR Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>9 wkts</td>
-                            <td style="background-color: red; color: white;">MI (179-9)</td>
-                            <td style="background-color: green; color: white;">RR (183-1)</td>
-                            <td style="background-color: blue; color: white;">Sandeep Sharma (5 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr>
-                            <td colspan="8" style="background-color: black; color: white;">Fifth Week</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 37</td>
-                            <td class="selected-date">21 Apr</td>
-                            <td>PBKS <span style="display:none">PBKS Red GT Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>3 wkts</td>
-                            <td style="background-color: red; color: white;">PBKS (142-10)</td>
-                            <td style="background-color: green; color: white;">GT (146-7)</td>
-                            <td style="background-color: blue; color: white;">Ravi Sai Kishore (4 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 36</td>
-                            <td class="selected-date">21 Apr</td>
-                            <td>RCB <span style="display:none">RCB Red KKR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>1 run</td>
-                            <td style="background-color: red; color: white;">RCB (221-10)</td>
-                            <td style="background-color: green; color: white;">KKR (222-6)</td>
-                            <td style="background-color: blue; color: white;">Andre Russell (27 runs, 3 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 35</td>
-                            <td class="selected-date">20 Apr</td>
-                            <td>DC <span style="display:none">DC Red SRH Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>67 runs</td>
-                            <td style="background-color: red; color: white;">DC (199-10)</td>
-                            <td style="background-color: green; color: white;">SRH (266-7)</td>
-                            <td style="background-color: blue; color: white;">Travis Head (89 runs) <sup>3 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 34</td>
-                            <td class="selected-date">19 Apr</td>
-                            <td>LSG <span style="display:none">CSK Red LSG Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>8 wkts</td>
-                            <td style="background-color: red; color: white; cursor: pointer;" onclick="imptEvent('Scored 28 runs(not out) in 9 balls(4s(3) and 6s(2))... 5/7')">CSK (176-6)</td>
-                            <td style="background-color: green; color: white;">LSG (180-2)</td>
-                            <td style="background-color: blue; color: white;">KL Rahul (82 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 33</td>
-                            <td class="selected-date">18 Apr</td>
-                            <td>PBKS <span style="display:none">PBKS Red MI Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>9 runs</td>
-                            <td style="background-color: red; color: white;">PBKS (183-10)</td>
-                            <td style="background-color: green; color: white;">MI (192-7)</td>
-                            <td style="background-color: blue; color: white;">Jasprit Bumrah (3 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('Lowest score in this IPL')">Match - 32</td>
-                            <td class="selected-date">17 Apr</td>
-                            <td>DC <span style="display:none">GT Red DC Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>6 wkts</td>
-                            <td style="background-color: red; color: white;">GT (89-10)</td>
-                            <td style="background-color: green; color: white;">DC (92-4)</td>
-                            <td style="background-color: blue; color: white;">Rishabh Pant (16 runs) <sup>2 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 31</td>
-                            <td class="selected-date">16 Apr</td>
-                            <td>RR <span style="display:none">KKR Red RR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>2 wkts</td>
-                            <td style="background-color: red; color: white;">KKR (223-6)</td>
-                            <td style="background-color: green; color: white;">RR (224-8)</td>
-                            <td style="background-color: blue; color: white;">Jos Buttler (107 runs) <sup>2 times</sup> <span style="display:none">100+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('Highest score in this IPL')">Match - 30</td>
-                            <td class="selected-date">15 Apr</td>
-                            <td>RCB <span style="display:none">RCB Red SRH Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>25 runs</td>
-                            <td style="background-color: red; color: white;">RCB (262-7)</td>
-                            <td style="background-color: green; color: white;">SRH (287-3)</td>
-                            <td style="background-color: blue; color: white;">Travis Head (102 runs) <sup>3 times</sup> <span style="display:none">100+</span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="8" style="background-color: black; color: white;">Fourth Week</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 29</td>
-                            <td class="selected-date">14 Apr</td>
-                            <td>MI <span style="display:none">MI Red CSK Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>20 runs</td>
-                            <td style="background-color: red; color: white;">MI (186-6)</td>
-                            <td style="background-color: green; color: white; cursor: pointer;" onclick="imptEvent('Scored 20 runs(not out) in 4 balls(4s(0) and 6s(3))... 4/6')">CSK (206-4)</td>
-                            <td style="background-color: blue; color: white;">Pathirana (4 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 28</td>
-                            <td class="selected-date">14 Apr</td>
-                            <td>KKR <span style="display:none">LSG Red KKR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>8 wkts</td>
-                            <td style="background-color: red; color: white;">LSG (161-7)</td>
-                            <td style="background-color: green; color: white;">KKR (162-2)</td>
-                            <td style="background-color: blue; color: white;">Philip Salt (89 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 27</td>
-                            <td class="selected-date">13 Apr</td>
-                            <td>RR <span style="display:none">PBKS Red RR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>3 wkts</td>
-                            <td style="background-color: red; color: white;">PBKS (147-8)</td>
-                            <td style="background-color: green; color: white;">RR (152-7)</td>
-                            <td style="background-color: blue; color: white;">Shimron Hetmyer (27 runs) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 26</td>
-                            <td class="selected-date">12 Apr</td>
-                            <td>LSG <span style="display:none">LSG Red DC Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>6 wkts</td>
-                            <td style="background-color: red; color: white;">LSG (167-7)</td>
-                            <td style="background-color: green; color: white;">DC (170-4)</td>
-                            <td style="background-color: blue; color: white;">Kuldeep Yadav (3 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 25</td>
-                            <td class="selected-date">11 Apr</td>
-                            <td>MI <span style="display:none">RCB Red MI Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>7 wkts</td>
-                            <td style="background-color: red; color: white;">RCB (196-8)</td>
-                            <td style="background-color: green; color: white;">MI (199-3)</td>
-                            <td style="background-color: blue; color: white;">Jasprit Bumrah (5 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 24</td>
-                            <td class="selected-date">10 Apr</td>
-                            <td>GT <span style="display:none">RR Red GT Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>3 wkts</td>
-                            <td style="background-color: red; color: white;">RR (196-3)</td>
-                            <td style="background-color: green; color: white;">GT (199-7)</td>
-                            <td style="background-color: blue; color: white;">Rashid Khan (24 runs, 1 wkt) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 23</td>
-                            <td class="selected-date">09 Apr</td>
-                            <td>PBKS <span style="display:none">PBKS Red SRH Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>2 runs</td>
-                            <td style="background-color: red; color: white;">PBKS (180-6)</td>
-                            <td style="background-color: green; color: white;">SRH (182-9)</td>
-                            <td style="background-color: blue; color: white;">Nitish Reddy (64 runs, 1 wkt) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 22</td>
-                            <td class="selected-date">08 Apr</td>
-                            <td>CSK <span style="display:none">KKR Red CSK Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>7 wkts</td>
-                            <td style="background-color: red; color: white;">KKR (137-9)</td>
-                            <td style="background-color: green; color: white; cursor: pointer;" onclick="imptEvent('Scored 1 run(not out) in 3 balls(4s(0) and 6s(0))... 3/5')">CSK (141-3)</td>
-                            <td style="background-color: blue; color: white;">Ravindra Jadeja (3 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr>
-                            <td colspan="8" style="background-color: black; color: white;">Third Week</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 21</td>
-                            <td class="selected-date">07 Apr</td>
-                            <td>LSG <span style="display:none">GT Red LSG Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>33 runs</td>
-                            <td style="background-color: red; color: white;">GT (130-10)</td>
-                            <td style="background-color: green; color: white;">LSG (163-5)</td>
-                            <td style="background-color: blue; color: white;">Yash Thakur (5 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 20</td>
-                            <td class="selected-date">07 Apr</td>
-                            <td>DC <span style="display:none">DC Red MI Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>29 runs</td>
-                            <td style="background-color: red; color: white;">DC (205-8)</td>
-                            <td style="background-color: green; color: white;">MI (234-5)</td>
-                            <td style="background-color: blue; color: white;">Romario Shepherd (39 runs, 1 wkt) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 19</td>
-                            <td class="selected-date">06 Apr</td>
-                            <td>RR <span style="display:none">RCB Red RR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>6 wkts</td>
-                            <td style="background-color: red; color: white;">RCB (183-3)</td>
-                            <td style="background-color: green; color: white;">RR (189-4)</td>
-                            <td style="background-color: blue; color: white;">Jos Buttler (100 runs) <sup>2 times</sup> <span style="display:none">100+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 18</td>
-                            <td class="selected-date">05 Apr</td>
-                            <td>SRH <span style="display:none">CSK Red SRH Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>6 wkts</td>
-                            <td style="background-color: red; color: white; cursor: pointer;" onclick="imptEvent('Scored 1 run(not out) in 2 balls(4s(0) and 6s(0))... 2/4')">CSK (165-5)</td>
-                            <td style="background-color: green; color: white;">SRH (166-4)</td>
-                            <td style="background-color: blue; color: white;">Abhishek Sharma (37 runs) <sup>2 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 17</td>
-                            <td class="selected-date">04 Apr</td>
-                            <td>PBKS <span style="display:none">GT Red PBKS Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>3 wkts</td>
-                            <td style="background-color: red; color: white;">GT (199-4)</td>
-                            <td style="background-color: green; color: white;">PBKS (200-7)</td>
-                            <td style="background-color: blue; color: white;">Shashank Singh (61 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('Highest score by KKR')">Match - 16</td>
-                            <td class="selected-date">03 Apr</td>
-                            <td>KKR <span style="display:none">DC Red KKR Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>106 runs</td>
-                            <td style="background-color: red; color: white;">DC (166-10)</td>
-                            <td style="background-color: green; color: white;">KKR (272-7)</td>
-                            <td style="background-color: blue; color: white;">Sunil Narine (85 runs, 1 wkt) <sup>3 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 15</td>
-                            <td class="selected-date">02 Apr</td>
-                            <td>RCB <span style="display:none">RCB Red LSG Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>28 runs</td>
-                            <td style="background-color: red; color: white;">RCB (153-10)</td>
-                            <td style="background-color: green; color: white;">LSG (181-5)</td>
-                            <td style="background-color: blue; color: white;">Mayank Yadav (3 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 14</td>
-                            <td class="selected-date">01 Apr</td>
-                            <td>RR <span style="display:none">MI Red RR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>6 wkts</td>
-                            <td style="background-color: red; color: white;">MI (125-9)</td>
-                            <td style="background-color: green; color: white;">RR (127-4)</td>
-                            <td style="background-color: blue; color: white;">Trent Boult (3 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr>
-                            <td colspan="8" style="background-color: black; color: white;">Second Week</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 13</td>
-                            <td class="selected-date">31 Mar</td>
-                            <td>DC <span style="display:none">CSK Red DC Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>20 runs</td>
-                            <td style="background-color: red; color: white; cursor: pointer;" onclick="imptEvent('Scored 37 runs(not out) in 16 balls(4s(4) and 6s(3))... 1/3')">CSK (171-6)</td>
-                            <td style="background-color: green; color: white;">DC (191-5)</td>
-                            <td style="background-color: blue; color: white;">Khaleel Ahmed (2 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 12</td>
-                            <td class="selected-date">31 Mar</td>
-                            <td>SRH <span style="display:none">SRH Red GT Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>7 wkts</td>
-                            <td style="background-color: red; color: white;">SRH (162-8)</td>
-                            <td style="background-color: green; color: white;">GT (168-3)</td>
-                            <td style="background-color: blue; color: white;">Mohit Sharma (3 wkts) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 11</td>
-                            <td class="selected-date">30 Mar</td>
-                            <td>LSG <span style="display:none">PBKS Red LSG Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>21 runs</td>
-                            <td style="background-color: red; color: white;">PBKS (178-5)</td>
-                            <td style="background-color: green; color: white;">LSG (199-8)</td>
-                            <td style="background-color: blue; color: white;">Mayank Yadav (3 wkts) <sup>2 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 10</td>
-                            <td class="selected-date">29 Mar</td>
-                            <td>KKR <span style="display:none">RCB Red KKR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>7 wkts</td>
-                            <td style="background-color: red; color: white;">RCB (182-6)</td>
-                            <td style="background-color: green; color: white;">KKR (186-3)</td>
-                            <td style="background-color: blue; color: white;">Sunil Narine (47 runs, 1 wkt) <sup>3 times</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 09</td>
-                            <td class="selected-date">28 Mar</td>
-                            <td>DC <span style="display:none">DC Red RR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>12 runs</td>
-                            <td style="background-color: red; color: white;">DC (173-5)</td>
-                            <td style="background-color: green; color: white;">RR (185-5)</td>
-                            <td style="background-color: blue; color: white;">Riyan Parag (84 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td class="imp-cls" onclick="imptEvent('Second Highest score by SRH')">Match - 08</td>
-                            <td class="selected-date">27 Mar</td>
-                            <td>MI <span style="display:none">MI Red SRH Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>31 runs</td>
-                            <td style="background-color: red; color: white;">MI (246-5)</td>
-                            <td style="background-color: green; color: white;">SRH (277-3)</td>
-                            <td style="background-color: blue; color: white;">Klaasen (80 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 07</td>
-                            <td class="selected-date">26 Mar</td>
-                            <td>GT <span style="display:none">GT Red CSK Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>63 runs</td>
-                            <td style="background-color: red; color: white;">GT (206-6)</td>
-                            <td style="background-color: green; color: white; cursor: pointer;" onclick="imptEvent('Did not bat... 0/2')">CSK (143-8)</td>
-                            <td style="background-color: blue; color: white;">Shivam Dube (51 runs) <sup>1 time</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 06</td>
-                            <td class="selected-date">25 Mar</td>
-                            <td>RCB <span style="display:none">PBKS Red RCB Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>4 wkts</td>
-                            <td style="background-color: red; color: white;">PBKS (176-6)</td>
-                            <td style="background-color: green; color: white;">RCB (178-6)</td>
-                            <td style="background-color: blue; color: white;">Virat Kohli (77 runs) <sup>2 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="8" style="background-color: black; color: white;">First Week</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 05</td>
-                            <td class="selected-date">24 Mar</td>
-                            <td>MI <span style="display:none">MI Red GT Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>6 runs</td>
-                            <td style="background-color: red; color: white;">MI (162-9)</td>
-                            <td style="background-color: green; color: white;">GT (168-6)</td>
-                            <td style="background-color: blue; color: white;">Sai Sudharsan (45 runs) <sup>1 time</sup></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 04</td>
-                            <td class="selected-date">24 Mar</td>
-                            <td>RR <span style="display:none">LSG Red RR Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>20 runs</td>
-                            <td style="background-color: red; color: white;">LSG (173-6)</td>
-                            <td style="background-color: green; color: white;">RR (193-4)</td>
-                            <td style="background-color: blue; color: white;">Sanju Samson (82 runs) <sup>2 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 03</td>
-                            <td class="selected-date">23 Mar</td>
-                            <td>SRH <span style="display:none">SRH Red KKR Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>4 runs</td>
-                            <td style="background-color: red; color: white;">SRH (204-7)</td>
-                            <td style="background-color: green; color: white;">KKR (208-7)</td>
-                            <td style="background-color: blue; color: white;">Andre Russell (64 runs, 2 wkts) <sup>2 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 02</td>
-                            <td class="selected-date">23 Mar</td>
-                            <td>PBKS <span style="display:none">DC Red PBKS Green (IPL24)</span></td>
-                            <td>Ball</td>
-                            <td>4 wkts</td>
-                            <td style="background-color: red; color: white;">DC (174-9)</td>
-                            <td style="background-color: green; color: white;">PBKS (177-6)</td>
-                            <td style="background-color: blue; color: white;">Sam Curran (63 runs) <sup>2 times</sup> <span style="display:none">50+</span></td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 01</td>
-                            <td class="selected-date">22 Mar</td>
-                            <td>RCB <span style="display:none">RCB Red CSK Green (IPL24)</span></td>
-                            <td>Bat</td>
-                            <td>6 wkts</td>
-                            <td style="background-color: red; color: white;">RCB (173-6)</td>
-                            <td style="background-color: green; color: white; cursor: pointer;" onclick="imptEvent('Did not bat... 0/1')">CSK (176-4)</td>
-                            <td style="background-color: blue; color: white;">Mustafizur (4 wickets) <sup>1 time</sup></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!--<div style="text-align:center;" id="entry-count">-->
-                <!-- Footer row to show the number of entries -->
-                <!--<span id="entry-count-display">Showing 6 out of 6 entries</span>
-            </div>-->
-            </div>
-        </div>
-        <div class="popup" id="popup">
-            <h2>Users&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
-            <p><input type="radio" id="gopesh" value="Gopesh" name="pl1"> <label for="gopesh">Gopesh</label></p>
-            <p><input type="radio" id="vivek" value="Vivek" name="pl1"> <label for="vivek">Vivek</label></p>
-            <button onclick="getSelectedNames()">Your name</button>
-            <button onclick="closePopup()">Close</button>
-        </div>
-        <div class="popup" id="popup2">
-            <h2 id="second-popup"></h2>
-            <button onclick="closePopup2()">Close</button>
-        </div>
-    </main>
-    <main>
-        <div class="container" style="box-shadow: 10px 10px 10px lightblue;">
-            <div class="batsman">
-                <img src="https://domf5oio6qrcr.cloudfront.net/medialibrary/8371/bigstock-Hamburger-And-French-Fries-263887.jpg" alt="Gopesh">
-                <div class="name">
-                    Gopesh
-                </div>                     
-                <div class="stats">
-                    <div class="stat-item">
-                        <span>Encash:</span> 2000
-                    </div>
-                    <div class="stat-item">
-                        <span>Won:</span> 31/74
-                    </div>
-                    <div class="stat-item">
-                        <span id="profit_loss_gps"></span>
-                    </div>
-                    <!-- Add more stats as needed -->
+    <div class="app">
+        <header class="topbar">
+            <div class="brand">
+                <div class="logo">✦</div>
+                <div>
+                    <h1>Study Progress Tracker</h1>
+                    <p class="subtitle">Small progress every day. Big results over time.</p>
+                    <div class="storage-status"><span class="dot"></span><span id="saveStatus">Autosave enabled on this device</span></div>
                 </div>
             </div>
-            <div class="batsman" style="margin-left: 0%;">
-                <img src="https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg" alt="Vivek">
-                <div class="name">
-                    Vivek
-                </div>
-                <div class="stats">
-                    <div class="stat-item">
-                        <span>Encash:</span> 4500
-                    </div>
-                    <div class="stat-item">
-                        <span>Won:</span> 39/74
-                    </div>
-                    <div class="stat-item">
-                        <span id="profit_loss_viv"></span>
-                    </div>
-                    <!-- Add more stats as needed -->
-                </div>
+            <div class="actions">
+                <button class="btn" id="addSubjectBtn">＋ Add subject</button>
+                <button class="btn export" id="exportBtn">↓ Export JSON</button>
+                <button class="btn" id="importBtn">↑ Import JSON</button>
+                <input type="file" id="importFile" accept=".json,application/json" hidden />
+            </div>
+        </header>
+
+        <section class="stats">
+            <div class="stat" style="--glow:#8b5cf6"><div class="stat-label">Overall progress</div><div class="stat-value" id="overallPercent">0%</div><div class="stat-note">Average across all topics</div></div>
+            <div class="stat" style="--glow:#22d3ee"><div class="stat-label">Subjects</div><div class="stat-value" id="subjectCount">6</div><div class="stat-note">Your study areas</div></div>
+            <div class="stat" style="--glow:#34d399"><div class="stat-label">Topics tracked</div><div class="stat-value" id="topicCount">0</div><div class="stat-note">Across all subjects</div></div>
+            <div class="stat" style="--glow:#fbbf24"><div class="stat-label">Completed topics</div><div class="stat-value" id="completedCount">0</div><div class="stat-note">Topics at 100%</div></div>
+        </section>
+
+        <div class="toolbar">
+            <h2>Your subjects</h2>
+            <div class="toolbar-right">
+                <input class="search" id="searchInput" type="search" placeholder="Search subjects or topics…" aria-label="Search subjects or topics" />
+                <button class="btn" id="resetSearchBtn">Clear search</button>
             </div>
         </div>
-    </main>
-    <main>
-        <div class="team-selection2">
-            <input value="" id="filter-user" placeholder="Search..." style="border-radius: 25px; text-align: center; margin-bottom: 11px; width: 207px; height: 42px; background-color: aliceblue;" />
-            <div class="team" style="max-height: 312px; overflow-y: scroll;">
-                <table id="users-table">
-                    <thead>
-                        <tr>
-                            <th class="column-1">SNo</th>
-                            <th class="column-2">Date</th>
-                            <th class="column-3">Name</th>
-                            <th class="column-4">Teams</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 74</td>
-                            <td>26 May</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>KKR</sup></td>
-                            <td>KKR vs SRH</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 73</td>
-                            <td>24 May</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>RR</sup></td>
-                            <td>RR vs SRH</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 72</td>
-                            <td>22 May</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>RCB</sup></td>
-                            <td>RCB vs RR</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 71</td>
-                            <td>21 May</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>KKR</sup></td>
-                            <td>KKR vs SRH</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 70</td>
-                            <td>19 May</td>
-                            <td class="none-cls">None <span class="yellow-triangle"></span><sup>Abandoned</sup></td>
-                            <td>RR vs KKR</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 69</td>
-                            <td>19 May</td>
-                            <td class="none-cls">None <span class="yellow-triangle"></span><sup>Skipped</sup></td>
-                            <td>PBKS vs SRH</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 68</td>
-                            <td>18 May</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs RCB</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 67</td>
-                            <td>17 May</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>MI</sup></td>
-                            <td>MI vs LSG</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 66</td>
-                            <td>16 May</td>
-                            <td class="none-cls">None <span class="yellow-triangle"></span><sup>Abandoned</sup></td>
-                            <td>GT vs SRH</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 65</td>
-                            <td>15 May</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>RR</sup></td>
-                            <td>RR vs PBKS</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 64</td>
-                            <td>14 May</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>LSG</sup></td>
-                            <td>LSG vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 63</td>
-                            <td>13 May</td>
-                            <td class="none-cls">None <span class="yellow-triangle"></span><sup>Abandoned</sup></td>
-                            <td>GT vs KKR</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 62</td>
-                            <td>12 May</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>RCB</sup></td>
-                            <td>RCB vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 61</td>
-                            <td>12 May</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs RR</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 60</td>
-                            <td>11 May</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>KKR</sup></td>
-                            <td>KKR vs MI</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 59</td>
-                            <td>10 May</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs GT</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 58</td>
-                            <td>09 May</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>PBKS</sup></td>
-                            <td>PBKS vs RCB</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 57</td>
-                            <td>08 May</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>SRH</sup></td>
-                            <td>SRH vs LSG</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 56</td>
-                            <td>07 May</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>RR</sup></td>
-                            <td>RR vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 55</td>
-                            <td>06 May</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>MI</sup></td>
-                            <td>MI vs SRH</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 54</td>
-                            <td>05 May</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>KKR</sup></td>
-                            <td>KKR vs LSG</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 53</td>
-                            <td>05 May</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs PBKS</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 52</td>
-                            <td>04 May</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>RCB</sup></td>
-                            <td>RCB vs GT</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 51</td>
-                            <td>03 May</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>KKR</sup></td>
-                            <td>KKR vs MI</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 50</td>
-                            <td>02 May</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>SRH</sup></td>
-                            <td>SRH vs RR</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 49</td>
-                            <td>01 May</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs PBKS</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 48</td>
-                            <td>30 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>LSG</sup></td>
-                            <td>LSG vs MI</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 47</td>
-                            <td>29 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>KKR</sup></td>
-                            <td>KKR vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 46</td>
-                            <td>28 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>SRH</sup></td>
-                            <td>SRH vs CSK</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 45</td>
-                            <td>28 Apr</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>GT</sup></td>
-                            <td>GT vs RCB</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 44</td>
-                            <td>27 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>RR</sup></td>
-                            <td>RR vs LSG</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 43</td>
-                            <td>27 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>DC</sup></td>
-                            <td>DC vs MI</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="background-color: brown; color: white; ">Encash 1000 by Vivek</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 42</td>
-                            <td>26 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>KKR</sup></td>
-                            <td>KKR vs PBKS</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 41</td>
-                            <td>25 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>RCB</sup></td>
-                            <td>RCB vs SRH</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 40</td>
-                            <td>24 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>GT</sup></td>
-                            <td>GT vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 39</td>
-                            <td>23 Apr</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs LSG</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 38</td>
-                            <td>22 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>MI</sup></td>
-                            <td>MI vs RR</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 37</td>
-                            <td>21 Apr</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>PBKS</sup></td>
-                            <td>PBKS vs GT</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 36</td>
-                            <td>21 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>KKR</sup></td>
-                            <td>KKR vs RCB</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 35</td>
-                            <td>20 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>SRH</sup></td>
-                            <td>SRH vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 34</td>
-                            <td>19 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs LSG</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 33</td>
-                            <td>18 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>MI</sup></td>
-                            <td>MI vs PBKS</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 32</td>
-                            <td>17 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>GT</sup></td>
-                            <td>GT vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 31</td>
-                            <td>16 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>RR</sup></td>
-                            <td>RR vs KKR</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 30</td>
-                            <td>15 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>SRH</sup></td>
-                            <td>SRH vs RCB</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 29</td>
-                            <td>14 Apr</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>MI</sup></td>
-                            <td>MI vs CSK</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 28</td>
-                            <td>14 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>KKR</sup></td>
-                            <td>KKR vs LSG</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 27</td>
-                            <td>13 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>RR</sup></td>
-                            <td>RR vs PBKS</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="background-color: brown; color: white; ">Encash 1000 by Vivek</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 26</td>
-                            <td>12 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>LSG</sup></td>
-                            <td>LSG vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 25</td>
-                            <td>11 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>MI</sup></td>
-                            <td>MI vs RCB</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 24</td>
-                            <td>10 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>RR</sup></td>
-                            <td>RR vs GT</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 23</td>
-                            <td>09 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>SRH</sup></td>
-                            <td>SRH vs PBKS</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 22</td>
-                            <td>08 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs KKR</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 21</td>
-                            <td>07 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>LSG</sup></td>
-                            <td>LSG vs GT</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="background-color: brown; color: white; ">Encash 1000 by Vivek</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 20</td>
-                            <td>07 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>DC</sup></td>
-                            <td>DC vs MI</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 19</td>
-                            <td>06 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>RR</sup></td>
-                            <td>RR vs RCB</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 18</td>
-                            <td>05 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs SRH</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 17</td>
-                            <td>04 Apr</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>PBKS</sup></td>
-                            <td>PBKS vs GT</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="background-color: brown; color: white; ">Encash 1000 by Gopesh</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 16</td>
-                            <td>03 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>KKR</sup></td>
-                            <td>KKR vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 15</td>
-                            <td>02 Apr</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>RCB</sup></td>
-                            <td>RCB vs LSG</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 14</td>
-                            <td>01 Apr</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>MI</sup></td>
-                            <td>MI vs RR</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 13</td>
-                            <td>31 Mar</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 12</td>
-                            <td>31 Mar</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>GT</sup></td>
-                            <td>GT vs SRH</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 11</td>
-                            <td>30 Mar</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>LSG</sup></td>
-                            <td>LSG vs PBKS</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="background-color: brown; color: white; ">Encash 1000 by Gopesh</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 10</td>
-                            <td>29 Mar</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>RCB</sup></td>
-                            <td>RCB vs KKR</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 09</td>
-                            <td>28 Mar</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>RR</sup></td>
-                            <td>RR vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 08</td>
-                            <td>27 Mar</td>
-                            <td class="viv-cls">Vivek <span class="red-triangle"></span><sup>MI</sup></td>
-                            <td>MI vs SRH</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 07</td>
-                            <td>26 Mar</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs GT</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="background-color: brown; color: white; ">Encash 1000 by Vivek</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 06</td>
-                            <td>25 Mar</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>RCB</sup></td>
-                            <td>RCB vs PBKS</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 05</td>
-                            <td>24 Mar</td>
-                            <td class="gps-cls">Gopesh <span class="red-triangle"></span><sup>MI</sup></td>
-                            <td>MI vs GT</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 04</td>
-                            <td>24 Mar</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>RR</sup></td>
-                            <td>RR vs LSG</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 03</td>
-                            <td>23 Mar</td>
-                            <td class="gps-cls">Gopesh <span class="green-triangle"></span><sup>KKR</sup></td>
-                            <td>KKR vs SRH</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 02</td>
-                            <td>23 Mar</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>PBKS</sup></td>
-                            <td>PBKS vs DC</td>
-                        </tr>
-                        <tr class="no-wrap-cls">
-                            <td>Match - 01</td>
-                            <td>22 Mar</td>
-                            <td class="viv-cls">Vivek <span class="green-triangle"></span><sup>CSK</sup></td>
-                            <td>CSK vs RCB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <main class="subject-grid" id="subjectGrid"></main>
+        <p class="footer-note">🔒 Your tracker autosaves to this browser's local storage. Export a JSON backup regularly and keep it somewhere safe. Importing a backup replaces the current tracker data after confirmation. Browser storage can be cleared by browser settings, so JSON backups are recommended.</p>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="modal-backdrop" id="subjectModal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <h3 id="modalTitle">Add a subject</h3>
+            <p>Create a new study area. You can add topics and adjust each topic's completion percentage afterwards.</p>
+            <input class="field" id="subjectNameInput" maxlength="60" placeholder="Subject name (e.g. Current Affairs)" />
+            <select class="field" id="subjectIconInput" aria-label="Choose subject icon">
+                <option value="📘">📘 Book</option>
+                <option value="🧮">🧮 Maths</option>
+                <option value="✍️">✍️ English</option>
+                <option value="🌍">🌍 General Studies</option>
+                <option value="🧠">🧠 Reasoning</option>
+                <option value="💻">💻 Computer</option>
+                <option value="📝">📝 Mock tests</option>
+                <option value="🎯">🎯 Other</option>
+            </select>
+            <div class="modal-actions"><button class="btn" id="cancelSubjectBtn">Cancel</button><button class="btn primary" id="saveSubjectBtn">Add subject</button></div>
         </div>
-        <div class="circle">
-            <div class="section font-size" id="section1"></div>
-            <div class="section font-size" id="section2"></div>
-            <div class="section font-size" id="section3"></div>
-            <div class="section font-size" id="section5"></div>
-            <div class="section font-size" id="section6"></div>
-        </div>
-    </main>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </div>
+
     <script>
-        var selectedDate = "";
-        var userName = "";
-        var teamName = "";
-        var noError = true;
-        var noNameError = true;
-        var won = 15; //
-        var lost = 8; //
+            (() => {
+                "use strict";
+                const STORAGE_KEY = "studyProgressTracker.v1";
+                const defaultSubjects = [
+                    { id: makeId(), name: "Maths", icon: "🧮", color: "#a78bfa", topics: [] },
+                    { id: makeId(), name: "English", icon: "✍️", color: "#fb7185", topics: [] },
+                    { id: makeId(), name: "GS", icon: "🌍", color: "#34d399", topics: [] },
+                    { id: makeId(), name: "Reas", icon: "🧠", color: "#fbbf24", topics: [] },
+                    { id: makeId(), name: "Computer", icon: "💻", color: "#22d3ee", topics: [] },
+                    { id: makeId(), name: "Mocks", icon: "📝", color: "#f472b6", topics: [] }
+                ];
+                let state = loadState();
+                let toastTimer;
 
-        var gopeshTotalEnc = 2200 + 1000 + 3200 + 1000 + 9250;
-        var vivekTotalEnc = 4500;
-        var investment = 1150 + 150 + 1200 + 400 + 2000 + 1500;
-        var currentVal = 0; //
-        var overall = (gopeshTotalEnc) - (vivekTotalEnc + investment);
+                function makeId() { return "id_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 9); }
+                function safeText(value) { return String(value ?? "").replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch])); }
+                function clone(value) { return JSON.parse(JSON.stringify(value)); }
 
-        var gopeshTotal = 2200 - 1000 + 1000 + 3200 + 1000 - 1000 - 1000 - 1000 + 9250; // Abh, -Viv, +Viv, Abh, +Viv, -Viv, -Viv, -Viv
-
-        var dailyData = [
-            { date: 'Mar 22', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs CSK' },
-            { date: 'Mar 23', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs PBKS' },
-            { date: 'Mar 23', gopeshProfit: +250, vivekProfit: -250, teams: 'SRH vs KKR' },
-            { date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs RR' },
-            { date: 'Mar 24', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs GT' },
-            { date: 'Mar 25', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs RCB' },
-
-            { date: 'Mar 25', gopeshProfit: +1000, vivekProfit: -1000, teams: 'Vivek - Encash' },
-
-            { date: 'Mar 26', gopeshProfit: +250, vivekProfit: -250, teams: 'GT vs CSK' },
-            { date: 'Mar 27', gopeshProfit: +250, vivekProfit: -250, teams: 'MI vs SRH' },
-            { date: 'Mar 28', gopeshProfit: +250, vivekProfit: -250, teams: 'DC vs RR' },
-            { date: 'Mar 29', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs KKR' },
-
-            { date: 'Mar 29', gopeshProfit: -1000, vivekProfit: +1000, teams: 'Gopesh - Encash' },
-
-            { date: 'Mar 30', gopeshProfit: +250, vivekProfit: -250, teams: 'PBKS vs LSG' },
-            { date: 'Mar 31', gopeshProfit: +250, vivekProfit: -250, teams: 'SRH vs GT' },
-            { date: 'Mar 31', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs DC' },
-            { date: 'Apr 01', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs RR' },
-            { date: 'Apr 02', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs LSG' },
-            { date: 'Apr 03', gopeshProfit: +250, vivekProfit: -250, teams: 'DC vs KKR' },
-
-            { date: 'Apr 03', gopeshProfit: -1000, vivekProfit: +1000, teams: 'Gopesh - Encash' },
-
-            { date: 'Apr 04', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs PBKS' },
-            { date: 'Apr 05', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs SRH' },
-            { date: 'Apr 06', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs RR' },
-            { date: 'Apr 07', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs MI' },
-
-            { date: 'Apr 07', gopeshProfit: +1000, vivekProfit: -1000, teams: 'Vivek - Encash' },
-
-            { date: 'Apr 07', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs LSG' },
-            { date: 'Apr 08', gopeshProfit: +250, vivekProfit: -250, teams: 'KKR vs CSK' },
-            { date: 'Apr 09', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs SRH' },
-            { date: 'Apr 10', gopeshProfit: -250, vivekProfit: +250, teams: 'RR vs GT' },
-            { date: 'Apr 11', gopeshProfit: -250, vivekProfit: +250, teams: 'RCB vs MI' },
-            { date: 'Apr 12', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs LSG' },
-
-            { date: 'Apr 12', gopeshProfit: +1000, vivekProfit: -1000, teams: 'Vivek - Encash' },
-
-            { date: 'Apr 13', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs RR' },
-            { date: 'Apr 14', gopeshProfit: +250, vivekProfit: -250, teams: 'LSG vs KKR' },
-            { date: 'Apr 14', gopeshProfit: +250, vivekProfit: -250, teams: 'MI vs CSK' },
-            { date: 'Apr 15', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs SRH' },
-            { date: 'Apr 16', gopeshProfit: -250, vivekProfit: +250, teams: 'KKR vs RR' },
-            { date: 'Apr 17', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs DC' },
-            { date: 'Apr 18', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs MI' },
-            { date: 'Apr 19', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs LSG' },
-            { date: 'Apr 20', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs SRH' },
-            { date: 'Apr 21', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs KKR' },
-            { date: 'Apr 21', gopeshProfit: +250, vivekProfit: -250, teams: 'PBKS vs GT' },
-            { date: 'Apr 22', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs RR' },
-            { date: 'Apr 23', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs LSG' },
-            { date: 'Apr 24', gopeshProfit: -250, vivekProfit: +250, teams: 'GT vs DC' },
-            { date: 'Apr 25', gopeshProfit: -250, vivekProfit: +250, teams: 'SRH vs RCB' },
-            { date: 'Apr 26', gopeshProfit: -250, vivekProfit: +250, teams: 'KKR vs LSG' },
-
-            { date: 'Apr 26', gopeshProfit: +1000, vivekProfit: -1000, teams: 'Vivek - Encash' },
-
-            { date: 'Apr 27', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs DC' },
-            { date: 'Apr 27', gopeshProfit: +250, vivekProfit: -250, teams: 'LSG vs RR' },
-            { date: 'Apr 28', gopeshProfit: +250, vivekProfit: -250, teams: 'GT vs RCB' },
-            { date: 'Apr 28', gopeshProfit: -250, vivekProfit: +250, teams: 'SRH vs CSK' },
-            { date: 'Apr 29', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs KKR' },
-            { date: 'Apr 30', gopeshProfit: +250, vivekProfit: -250, teams: 'MI vs LSG' },
-            { date: 'May 01', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs PBKS' },
-            { date: 'May 02', gopeshProfit: +250, vivekProfit: -250, teams: 'RR vs SRH' },
-            { date: 'May 03', gopeshProfit: -250, vivekProfit: +250, teams: 'MI vs KKR' },
-            { date: 'May 04', gopeshProfit: +250, vivekProfit: -250, teams: 'GT vs RCB' },
-            { date: 'May 05', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs CSK' },
-            { date: 'May 05', gopeshProfit: +250, vivekProfit: -250, teams: 'LSG vs KKR' },
-            { date: 'May 06', gopeshProfit: -250, vivekProfit: +250, teams: 'SRH vs MI' },
-            { date: 'May 07', gopeshProfit: -250, vivekProfit: +250, teams: 'RR vs DC' },
-            { date: 'May 08', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs SRH' },
-            { date: 'May 09', gopeshProfit: -250, vivekProfit: +250, teams: 'PBKS vs RCB' },
-            { date: 'May 10', gopeshProfit: +250, vivekProfit: -250, teams: 'CSK vs GT' },
-            { date: 'May 11', gopeshProfit: +250, vivekProfit: -250, teams: 'MI vs KKR' },
-            { date: 'May 12', gopeshProfit: +250, vivekProfit: -250, teams: 'RR vs CSK' },
-            { date: 'May 12', gopeshProfit: -250, vivekProfit: +250, teams: 'DC vs RCB' },
-            { date: 'May 13', gopeshProfit: 0, vivekProfit: 0, teams: 'GT vs KKR' }, // Abandoned
-            { date: 'May 14', gopeshProfit: -250, vivekProfit: +250, teams: 'LSG vs DC' },
-            { date: 'May 15', gopeshProfit: +250, vivekProfit: -250, teams: 'RR vs PBKS' },
-            { date: 'May 16', gopeshProfit: 0, vivekProfit: 0, teams: 'GT vs SRH' }, // Abandoned
-            { date: 'May 17', gopeshProfit: +250, vivekProfit: -250, teams: 'MI vs LSG' },
-            { date: 'May 18', gopeshProfit: -250, vivekProfit: +250, teams: 'CSK vs RCB' },
-            { date: 'May 19', gopeshProfit: 0, vivekProfit: 0, teams: 'PBKS vs SRH' }, // Skipped
-            { date: 'May 19', gopeshProfit: 0, vivekProfit: 0, teams: 'RR vs KKR' }, // Abandoned
-
-            { date: 'May 21', gopeshProfit: +250, vivekProfit: -250, teams: 'SRH vs KKR' },
-            { date: 'May 22', gopeshProfit: +250, vivekProfit: -250, teams: 'RCB vs RR' },
-            { date: 'May 24', gopeshProfit: -250, vivekProfit: +250, teams: 'RR vs SRH' },
-            { date: 'May 26', gopeshProfit: -750, vivekProfit: +750, teams: 'SRH vs KKR' },
-
-            { date: 'May 26', gopeshProfit: +500, vivekProfit: -500, teams: 'Vivek - Encash' },
-        ];
-
-        var dailyData2 = [
-            { date: 'Mar 22', gopeshProfit: +850, teams: 'RCB vs CSK', Status: 'Won' },
-            { date: 'Mar 23', gopeshProfit: -1000, teams: 'DC vs PBKS', Status: 'Lost' },
-            { date: 'Mar 23', gopeshProfit: +800, teams: 'SRH vs KKR', Status: 'Won' },
-            { date: 'Mar 24', gopeshProfit: +900, teams: 'LSG vs RR', Status: 'Won' },
-            { date: 'Mar 24', gopeshProfit: +1500, teams: 'MI vs GT', Status: 'Won' },
-            { date: 'Mar 25', gopeshProfit: 0, teams: 'PBKS vs RCB', Status: 'Skipped' },
-
-            { date: 'Mar 25', gopeshProfit: -2200, teams: 'Encash' },
-
-            { date: 'Mar 26', gopeshProfit: +750, teams: 'GT vs CSK', Status: 'Won' },
-            { date: 'Mar 27', gopeshProfit: +900, teams: 'MI vs SRH', Status: 'Won' },
-            { date: 'Mar 28', gopeshProfit: +750, teams: 'DC vs RR', Status: 'Won' },
-            { date: 'Mar 29', gopeshProfit: 0, teams: 'RCB vs KKR', Status: 'Skipped' },
-            { date: 'Mar 30', gopeshProfit: +800, teams: 'PBKS vs LSG', Status: 'Won' },
-
-            { date: 'Mar 31', gopeshProfit: -3200, teams: 'Encash' },
-
-            { date: 'Mar 31', gopeshProfit: +850, teams: 'SRH vs GT', Status: 'Won' },
-            { date: 'Mar 31', gopeshProfit: -1000, teams: 'CSK vs DC', Status: 'Lost' },
-            { date: 'Apr 01', gopeshProfit: -1000, teams: 'MI vs RR', Status: 'Lost' },
-            { date: 'Apr 02', gopeshProfit: -1000, teams: 'RCB vs LSG', Status: 'Lost' },
-            { date: 'Apr 20', gopeshProfit: +800, teams: 'DC vs SRH', Status: 'Won' },
-            { date: 'Apr 21', gopeshProfit: +700, teams: 'DC vs SRH', Status: 'Won' },
-            { date: 'Apr 22', gopeshProfit: -1000, teams: 'MI vs RR', Status: 'Lost' },
-            { date: 'Apr 23', gopeshProfit: -1000, teams: 'CSK vs LSG', Status: 'Lost' },
-            { date: 'Apr 24', gopeshProfit: +900, teams: 'GT vs DC', Status: 'Won' },
-            { date: 'Apr 25', gopeshProfit: -2000, teams: 'SRH vs RCB', Status: 'Lost' },
-
-            { date: 'May 21', gopeshProfit: +1800, teams: 'KKR vs SRH', Status: 'Won' },
-            { date: 'May 22', gopeshProfit: -2000, teams: 'RCB vs RR', Status: 'Lost' },
-            { date: 'May 24', gopeshProfit: +1700, teams: 'RR vs SRH', Status: 'Won' },
-            { date: 'May 26', gopeshProfit: +4250, teams: 'SRH vs KKR', Status: 'Won' },
-
-            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
-            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
-            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
-            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
-            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
-            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
-            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
-            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
-            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
-            //{ date: 'Apr 1', gopeshProfit: +900, teams: 'LSG vs RR' },
-        ];
-
-        function editStatus(button) {
-            var statusCell = button.parentElement.previousElementSibling;
-            var newStatus = prompt("Enter new status:");
-
-            const fourDigitPin = newStatus.split(" ");
-
-            if (fourDigitPin.length == 2) {
-                let pin = fourDigitPin[1];
-
-                if (pin == "0000" && fourDigitPin[0] !== null) {
-                    statusCell.textContent = fourDigitPin[0];
-                    updateLocalStorage();
+                function loadState() {
+                    try {
+                        const raw = localStorage.getItem(STORAGE_KEY);
+                        if (!raw) return { version: 1, updatedAt: new Date().toISOString(), subjects: clone(defaultSubjects) };
+                        const parsed = JSON.parse(raw);
+                        if (parsed && Array.isArray(parsed.subjects)) return normalizeState(parsed);
+                    } catch (error) { console.warn("Could not load tracker data:", error); }
+                    return { version: 1, updatedAt: new Date().toISOString(), subjects: clone(defaultSubjects) };
                 }
-            }
-        }
+                function normalizeState(input) {
+                    const subjects = input.subjects.filter(s => s && typeof s.name === "string").map(s => ({
+                        id: String(s.id || makeId()),
+                        name: String(s.name).slice(0, 60),
+                        icon: String(s.icon || "📘"),
+                        color: String(s.color || "#8b5cf6"),
+                        topics: Array.isArray(s.topics) ? s.topics.filter(t => t && typeof t.name === "string").map(t => ({
+                            id: String(t.id || makeId()),
+                            name: String(t.name).slice(0, 120),
+                            progress: Math.max(0, Math.min(100, Number(t.progress) || 0))
+                        })) : []
+                    }));
+                    return { version: 1, updatedAt: input.updatedAt || new Date().toISOString(), subjects };
+                }
+                function persist(showStatus = false) {
+                    state.updatedAt = new Date().toISOString();
+                    try {
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+                        document.getElementById("saveStatus").textContent = "Saved locally · " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+                    } catch (error) {
+                        document.getElementById("saveStatus").textContent = "Local save failed — export a JSON backup";
+                        notify("Browser storage is full or unavailable. Export a JSON backup.", true);
+                        console.error(error);
+                    }
+                    if (showStatus) notify("Progress saved on this device.");
+                }
+                function notify(message, isError = false) {
+                    const toast = document.getElementById("toast");
+                    toast.textContent = message;
+                    toast.style.borderColor = isError ? "#fb718566" : "#34d39966";
+                    toast.style.color = isError ? "#fecdd3" : "#e8fff5";
+                    toast.classList.add("show");
+                    clearTimeout(toastTimer);
+                    toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+                }
+                function allTopics() { return state.subjects.flatMap(s => s.topics); }
+                function average(topics) { return topics.length ? Math.round(topics.reduce((sum, t) => sum + t.progress, 0) / topics.length) : 0; }
+                function subjectAverage(subject) { return average(subject.topics); }
 
-        function deleteRow(button) {
+                function render() {
+                    const query = document.getElementById("searchInput").value.trim().toLowerCase();
+                    const topics = allTopics();
+                    document.getElementById("overallPercent").textContent = average(topics) + "%";
+                    document.getElementById("subjectCount").textContent = state.subjects.length;
+                    document.getElementById("topicCount").textContent = topics.length;
+                    document.getElementById("completedCount").textContent = topics.filter(t => t.progress === 100).length;
 
-            var pin = prompt("Enter pin:");
+                    const visible = state.subjects.map(s => ({
+                        ...s,
+                        topics: s.topics.filter(t => !query || t.name.toLowerCase().includes(query) || s.name.toLowerCase().includes(query))
+                    })).filter(s => !query || s.name.toLowerCase().includes(query) || s.topics.length);
+                    const grid = document.getElementById("subjectGrid");
+                    if (!visible.length) {
+                        grid.innerHTML = '<div class="empty"><strong>No matching subjects or topics</strong>Try a different search, or add a new subject.</div>';
+                        return;
+                    }
+                    grid.innerHTML = visible.map(subject => {
+                        const full = state.subjects.find(s => s.id === subject.id);
+                        const percent = subjectAverage(full);
+                        const total = full.topics.length;
+                        return `
+                        <article class="subject-card" data-subject-id="${safeText(full.id)}">
+                            <div class="subject-head">
+                                <div class="subject-title-wrap">
+                                    <div class="subject-icon" style="--tint:${safeText(full.color)}22">${safeText(full.icon)}</div>
+                                    <div><div class="subject-name">${safeText(full.name)}</div><div class="subject-meta">${total} topic${total === 1 ? "" : "s"} · ${full.topics.filter(t => t.progress === 100).length} completed</div></div>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:9px">
+                                    <div class="subject-percent">${percent}%</div>
+                                    <button class="icon-btn" title="Rename subject" aria-label="Rename ${safeText(full.name)}" data-action="rename-subject" data-id="${safeText(full.id)}">✎</button>
+                                    <button class="icon-btn delete" title="Delete subject" aria-label="Delete ${safeText(full.name)}" data-action="delete-subject" data-id="${safeText(full.id)}">×</button>
+                                </div>
+                            </div>
+                            <div class="subject-progress"><div class="progress-track"><div class="progress-fill" style="width:${percent}%;background:linear-gradient(90deg,${safeText(full.color)},#22d3ee)"></div></div></div>
+                            <div class="topic-list">
+                                ${subject.topics.length ? subject.topics.map(topic => `
+                                    <div class="topic">
+                                        <div class="topic-top">
+                                            <span class="topic-name">${safeText(topic.name)}</span>
+                                            <div class="topic-actions">
+                                                <span class="topic-value">${topic.progress}%</span>
+                                                <button class="icon-btn delete" title="Delete topic" aria-label="Delete ${safeText(topic.name)}" data-action="delete-topic" data-subject-id="${safeText(full.id)}" data-id="${safeText(topic.id)}">×</button>
+                                            </div>
+                                        </div>
+                                        <div class="topic-controls">
+                                            <input type="range" min="0" max="100" step="5" value="${topic.progress}" aria-label="${safeText(topic.name)} completion percentage" data-action="progress" data-subject-id="${safeText(full.id)}" data-id="${safeText(topic.id)}" />
+                                        </div>
+                                    </div>`).join("") : `<div style="padding:13px 5px;color:var(--muted);font-size:13px">No topics yet. Add one below to start tracking.</div>`}
+                            </div>
+                            <form class="add-topic-row" data-action="add-topic" data-subject-id="${safeText(full.id)}">
+                                <input class="field" name="topicName" maxlength="120" placeholder="Add a topic (e.g. Percentage)" aria-label="New topic for ${safeText(full.name)}" required />
+                                <button class="btn primary" type="submit">＋ Add</button>
+                            </form>
+                        </article>`;
+                    }).join("");
+                }
 
-            if (pin == "0000") {
-                var row = button.parentElement.parentElement;
-                row.remove();
-                updateLocalStorage();
-            }
-        }
-
-        function updateLocalStorage() {
-            // Update localStorage with the updated status values
-            var rows = document.querySelectorAll('#users-table tbody tr');
-            var updatedData = {};
-            rows.forEach(function (row) {
-                var date = row.cells[0].textContent;
-                var team = row.cells[2].textContent;
-                var status = row.cells[3].textContent;
-                updatedData[date + team] = JSON.stringify({
-                    'date': date,
-                    'name': row.cells[1].textContent,
-                    'team': team,
-                    'status': status
+                document.getElementById("subjectGrid").addEventListener("input", event => {
+                    const input = event.target;
+                    if (input.dataset.action !== "progress") return;
+                    const subject = state.subjects.find(s => s.id === input.dataset.subjectId);
+                    const topic = subject?.topics.find(t => t.id === input.dataset.id);
+                    if (!topic) return;
+                    topic.progress = Number(input.value);
+                    persist();
+                    // Update labels and card averages without moving the slider while the user drags it.
+                    const card = input.closest(".subject-card");
+                    const topicValue = input.closest(".topic")?.querySelector(".topic-value");
+                    if (topicValue) topicValue.textContent = topic.progress + "%";
+                    const subjectPercent = card?.querySelector(".subject-percent");
+                    if (subjectPercent) subjectPercent.textContent = subjectAverage(subject) + "%";
+                    const fill = card?.querySelector(".progress-fill");
+                    if (fill) fill.style.width = subjectAverage(subject) + "%";
+                    const meta = card?.querySelector(".subject-meta");
+                    if (meta) meta.textContent = `${subject.topics.length} topic${subject.topics.length === 1 ? "" : "s"} · ${subject.topics.filter(t => t.progress === 100).length} completed`;
+                    const topics = allTopics();
+                    document.getElementById("overallPercent").textContent = average(topics) + "%";
+                    document.getElementById("topicCount").textContent = topics.length;
+                    document.getElementById("completedCount").textContent = topics.filter(t => t.progress === 100).length;
                 });
-            });
 
-            localStorage.clear();
-            for (let key in updatedData) {
-                localStorage.setItem(key, updatedData[key]);
-            }
-        }
-
-        function submitTeam() {
-
-            var myKey = selectedDate + teamName;
-
-            if (noNameError) {
-
-                if (noError) {
-
-                    if (localStorage.getItem(myKey) == null) {
-
-                        var userData = { 'date': selectedDate, 'name': userName, 'team': teamName, 'status': 'Progress' };
-                        localStorage.setItem(myKey, JSON.stringify(userData));
-
-                        addRow(myKey);
-                    } else {
-                        openPopup2('Already scheduled !!');
+                document.getElementById("subjectGrid").addEventListener("submit", event => {
+                    const form = event.target.closest('form[data-action="add-topic"]');
+                    if (!form) return;
+                    event.preventDefault();
+                    const input = form.elements.topicName;
+                    const name = input.value.trim();
+                    if (!name) return;
+                    const subject = state.subjects.find(s => s.id === form.dataset.subjectId);
+                    if (!subject) return;
+                    if (subject.topics.some(t => t.name.toLowerCase() === name.toLowerCase())) {
+                        notify("That topic already exists in this subject.", true); return;
                     }
+                    subject.topics.push({ id: makeId(), name, progress: 0 });
+                    persist();
+                    render();
+                    notify("Topic added.");
+                });
 
-                } else {
-                    openPopup2('Team not selected !!');
-                }
-            }
-            else {
-                openPopup2('No name selected !!');
-            }
-        }
-
-        function openPopup2(msg) {
-            var popup = document.getElementById('popup2');
-            document.getElementById('second-popup').textContent = msg;
-            popup.style.display = 'block';
-        }
-
-        function closePopup2() {
-            var popup = document.getElementById('popup2');
-            popup.style.display = 'none';
-        }
-
-        function highlightCell(cell) {
-            var teamNames = document.querySelectorAll('.team-name');
-
-            teamNames.forEach(function (element) {
-                element.classList.remove('highlighted');
-            });
-            cell.classList.add('highlighted');
-        }
-
-        function selectTeam(button, name) {
-
-            try {
-                var selectedTeam = button.parentElement.parentElement.querySelector('.highlighted').textContent;
-                selectedDate = button.parentElement.parentElement.querySelector('.selected-date').textContent;
-
-                document.getElementById('selected-team-name').textContent = "Selected Team: " + selectedTeam;
-
-                teamName = selectedTeam;
-                userName = name;
-                noError = true;
-            }
-            catch (err) {
-                noError = false;
-                console.log('Team not selected');
-            }
-        }
-
-        function openPopup(button) {
-            var popup = document.getElementById('popup');
-            popup.style.display = 'block';
-            teamName = button;
-        }
-
-        function closePopup() {
-            var popup = document.getElementById('popup');
-            popup.style.display = 'none';
-        }
-
-        function getSelectedNames() {
-
-            try {
-                var selectedName = document.querySelector('input[name="pl1"]:checked').value;
-
-                closePopup();
-                selectTeam(teamName, selectedName);
-                console.log(selectedName);
-                noNameError = true;
-            }
-            catch (err) {
-                noNameError = false;
-            }
-        }
-
-        function addRow(myKey) {
-
-            var items = localStorage.getItem(myKey);
-            var userEntry = JSON.parse(items);
-
-            console.log(JSON.parse(items));
-
-            var tableBody = document.querySelector('#users-table tbody');
-            var newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                                                <td>${userEntry.date}</td>
-                                                <td>${userEntry.name}</td>
-                                                <td>${userEntry.team}</td>
-                                                <td>${userEntry.status}</td>`;
-
-            tableBody.appendChild(newRow);
-        }
-
-        function calculateGpsProfit() {
-            var profit_loss = document.getElementById('profit_loss_gps');
-            var gopeshTotal = 0;
-
-            dailyData.forEach(function (data) {
-                gopeshTotal += data.gopeshProfit;
-            });
-
-            // Display profit/loss for Gopesh
-            profit_loss.innerHTML += 'Profit/Loss: ';
-            if (gopeshTotal >= 0) {
-                profit_loss.innerHTML += '<span class="green-triangle"></span> ' + gopeshTotal;
-            } else {
-                profit_loss.innerHTML += '<span class="red-triangle"></span> ' + gopeshTotal;
-            }
-        }
-
-        function calculateVivProfit() {
-            var profit_loss = document.getElementById('profit_loss_viv');
-            var vivekTotal = 0;
-
-            dailyData.forEach(function (data) {
-                vivekTotal += data.vivekProfit;
-            });
-
-            // Display profit/loss for Vivek
-            profit_loss.innerHTML += 'Profit/Loss: ';
-            if (vivekTotal >= 0) {
-                profit_loss.innerHTML += '<span class="green-triangle"></span> ' + vivekTotal;
-            } else {
-                profit_loss.innerHTML += '<span class="red-triangle"></span> ' + vivekTotal;
-            }
-        }
-
-        function calculateProfit2() {
-            var profit_loss = document.getElementById('profit_loss2');
-            var gopeshTotal = 0;
-            var overall = 0;
-
-            dailyData2.forEach(function (data) {
-                gopeshTotal += data.gopeshProfit;
-            });
-
-            overall = gopeshTotal + investment;
-
-            // Display profit/loss for Gopesh
-            profit_loss.innerHTML += 'P/L (Others): ';
-            if (gopeshTotal >= 0) {
-                profit_loss.innerHTML += '<span class="green-triangle"></span> ' + gopeshTotal;
-            } else {
-                profit_loss.innerHTML += '<span class="red-triangle"></span> ' + gopeshTotal;
-            }
-            profit_loss.innerHTML += '<br><br>';
-            profit_loss.innerHTML += 'Total Investment: ' + investment;
-
-            profit_loss.innerHTML += '<br>';
-            profit_loss.innerHTML += 'Current Investment Value: ';
-
-            if (overall >= investment) {
-                profit_loss.innerHTML += '<span class="green-triangle"></span> ' + overall;
-            } else {
-                profit_loss.innerHTML += '<span class="red-triangle"></span> ' + overall;
-            }
-        }
-
-        function calculateProfit3() {
-            var profit_loss = document.getElementById('profit_loss3');
-            var profit_loss_encash_gops = document.getElementById('encash-id-gops');
-
-            profit_loss_encash_gops.innerHTML = 'Encash by Gopesh: ' + '<span class="green-triangle"></span> ' + gopeshTotalEnc;
-
-            var inHand = gopeshTotal - investment;
-
-            // Display profit/loss for Gopesh
-            profit_loss.innerHTML += 'Overall Gopesh (P/L): ';
-
-            if (gopeshTotal >= 0) {
-                profit_loss.innerHTML += '<span class="green-triangle"></span> ' + inHand;
-            } else {
-                profit_loss.innerHTML += '<span class="red-triangle"></span> ' + inHand;
-            }
-        }
-
-        function calculateProfit4() {
-
-            var sec1 = document.getElementById('section1');
-            var sec2 = document.getElementById('section2');
-            var sec3 = document.getElementById('section3');
-            var sec4 = document.getElementById('section4');
-            var sec5 = document.getElementById('section5');
-            var sec6 = document.getElementById('section6');
-
-            sec1.innerHTML = 'Other Details';
-            sec2.innerHTML = 'Won: <span class="green-triangle"></span> ' + won + ' || Lost: <span class="red-triangle"></span> ' + lost;
-            sec3.innerHTML = 'Investment: <span class="red-triangle"></span> ' + investment + ' || Vivek: <span class="red-triangle"></span> ' + vivekTotalEnc;
-            sec5.innerHTML = 'Encash: <span class="green-triangle"></span> ' + gopeshTotalEnc;
-            sec6.innerHTML = 'Overall: <span class="green-triangle"></span> ' + overall;
-
-        }
-
-        // Call the function to calculate and display profit/loss
-        calculateGpsProfit();
-        calculateVivProfit();
-        //calculateProfit2();
-        //calculateProfit3();
-        calculateProfit4();
-
-        function updateEntryCount() {
-            var filterTeam = document.getElementById('filter-team').value.toUpperCase();
-            var visibleRowCount = 0;
-            var totalRowCount = 0;
-            var rows = document.querySelectorAll('.team-selection tbody tr');
-
-            rows.forEach(function (row) {
-                totalRowCount++;
-
-                var cells = row.getElementsByTagName("td");
-                var found = false;
-
-                // Loop through all cells in the row
-                for (var i = 0; i < cells.length; i++) {
-                    var cell = cells[i];
-                    if (cell.textContent.toUpperCase().indexOf(filterTeam) > -1) {
-                        found = true;
-                        console.log(totalRowCount);
-                        break;
+                document.getElementById("subjectGrid").addEventListener("click", event => {
+                    const button = event.target.closest("button[data-action]");
+                    if (!button) return;
+                    const { action, id, subjectId } = button.dataset;
+                    if (action === "rename-subject") {
+                        const subject = state.subjects.find(s => s.id === id);
+                        if (!subject) return;
+                        const next = prompt("Rename subject:", subject.name);
+                        if (next === null) return;
+                        const name = next.trim();
+                        if (!name) { notify("Subject name cannot be empty.", true); return; }
+                        if (state.subjects.some(s => s.id !== id && s.name.toLowerCase() === name.toLowerCase())) { notify("A subject with that name already exists.", true); return; }
+                        subject.name = name.slice(0, 60); persist(); render(); notify("Subject renamed.");
+                    } else if (action === "delete-subject") {
+                        const subject = state.subjects.find(s => s.id === id);
+                        if (!subject) return;
+                        if (!confirm(`Delete "${subject.name}" and all ${subject.topics.length} topic(s)? This cannot be undone unless you have a backup.`)) return;
+                        state.subjects = state.subjects.filter(s => s.id !== id); persist(); render(); notify("Subject deleted.");
+                    } else if (action === "delete-topic") {
+                        const subject = state.subjects.find(s => s.id === subjectId);
+                        const topic = subject?.topics.find(t => t.id === id);
+                        if (!subject || !topic) return;
+                        if (!confirm(`Delete topic "${topic.name}"?`)) return;
+                        subject.topics = subject.topics.filter(t => t.id !== id); persist(); render(); notify("Topic deleted.");
                     }
-                }
+                });
 
-                // Increment the visible row count if the selected team is found in any cell, or if no team is selected
-                if (found || filterTeam === '') {
-                    visibleRowCount++;
-                }
-            });
+                const modal = document.getElementById("subjectModal");
+                function openModal() { modal.classList.add("open"); document.getElementById("subjectNameInput").focus(); }
+                function closeModal() { modal.classList.remove("open"); document.getElementById("subjectNameInput").value = ""; }
+                document.getElementById("addSubjectBtn").addEventListener("click", openModal);
+                document.getElementById("cancelSubjectBtn").addEventListener("click", closeModal);
+                modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+                document.getElementById("saveSubjectBtn").addEventListener("click", () => {
+                    const name = document.getElementById("subjectNameInput").value.trim();
+                    const icon = document.getElementById("subjectIconInput").value;
+                    if (!name) { notify("Enter a subject name first.", true); return; }
+                    if (state.subjects.some(s => s.name.toLowerCase() === name.toLowerCase())) { notify("That subject already exists.", true); return; }
+                    const colors = ["#a78bfa", "#fb7185", "#34d399", "#fbbf24", "#22d3ee", "#f472b6"];
+                    state.subjects.push({ id: makeId(), name: name.slice(0, 60), icon, color: colors[state.subjects.length % colors.length], topics: [] });
+                    persist(); render(); closeModal(); notify("Subject added.");
+                });
+                document.getElementById("subjectNameInput").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("saveSubjectBtn").click(); });
+                document.getElementById("searchInput").addEventListener("input", render);
+                document.getElementById("resetSearchBtn").addEventListener("click", () => { document.getElementById("searchInput").value = ""; render(); });
 
-            // Display the count of visible entries
-            //document.getElementById('entry-count-display').textContent = "Showing " + visibleRowCount + " out of " + totalRowCount + " entries";
-        }
-
-        function filterTableByTeam() {
-            var filterTeam = document.getElementById('filter-team').value.toUpperCase();
-            var rows = document.querySelectorAll('.team-selection tbody tr');
-
-            rows.forEach(function (row) {
-                var cells = row.getElementsByTagName("td");
-                var found = false;
-
-                // Loop through all cells in the row
-                for (var i = 0; i < cells.length; i++) {
-                    var cell = cells[i];
-                    if (cell.textContent.toUpperCase().indexOf(filterTeam) > -1) {
-                        found = true;
-                        break;
+                document.getElementById("exportBtn").addEventListener("click", () => {
+                    const backup = { ...clone(state), exportedAt: new Date().toISOString(), app: "Study Progress Tracker" };
+                    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json;charset=utf-8" });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.download = `study-progress-backup-${new Date().toISOString().slice(0, 10)}.json`;
+                    document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url);
+                    notify("JSON backup exported.");
+                });
+                document.getElementById("importBtn").addEventListener("click", () => document.getElementById("importFile").click());
+                document.getElementById("importFile").addEventListener("change", async event => {
+                    const file = event.target.files?.[0];
+                    if (!file) return;
+                    try {
+                        const text = await file.text();
+                        const parsed = JSON.parse(text);
+                        if (!parsed || !Array.isArray(parsed.subjects)) throw new Error("This file does not contain a valid subjects array.");
+                        const imported = normalizeState(parsed);
+                        if (!confirm(`Import ${imported.subjects.length} subject(s) and ${imported.subjects.reduce((n, s) => n + s.topics.length, 0)} topic(s)? This replaces the current tracker data.`)) return;
+                        state = imported;
+                        persist(); render(); notify("Backup imported successfully.");
+                    } catch (error) {
+                        notify("Import failed: " + (error.message || "Invalid JSON file"), true);
+                    } finally {
+                        event.target.value = "";
                     }
-                }
+                });
 
-                // Display the row if the selected team is found in any cell, or if no team is selected
-                if (found || filterTeam === '') {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
-
-        function filterTableByUser() {
-            var filterTeam = document.getElementById('filter-user').value.toUpperCase();
-            var rows = document.querySelectorAll('.team-selection2 tbody tr');
-
-            rows.forEach(function (row) {
-                var cells = row.getElementsByTagName("td");
-                var found = false;
-
-                // Loop through all cells in the row
-                for (var i = 0; i < cells.length; i++) {
-                    var cell = cells[i];
-                    if (cell.textContent.toUpperCase().indexOf(filterTeam) > -1) {
-                        found = true;
-                        break;
+                window.addEventListener("storage", event => {
+                    if (event.key === STORAGE_KEY && event.newValue) {
+                        try { state = normalizeState(JSON.parse(event.newValue)); render(); notify("Tracker updated in another browser tab."); }
+                        catch (error) { console.warn("Could not sync tracker tab:", error); }
                     }
-                }
-
-                // Display the row if the selected team is found in any cell, or if no team is selected
-                if (found || filterTeam === '') {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
-
-        function imptEvent(msg) {
-            Swal.fire(msg);
-        }
-
-        // Add event listener to the select element for filtering the table by team
-        document.getElementById('filter-team').addEventListener('keyup', function () {
-            filterTableByTeam();
-            //updateEntryCount();
-        });
-
-        document.getElementById('filter-user').addEventListener('keyup', function () {
-            filterTableByUser();
-        });
-
-        document.getElementById('section6').addEventListener('click', function () {
-            var overallData = "Encash: " + gopeshTotalEnc + " || Vivek: -" + vivekTotalEnc + " || Investment: -" + investment;
-            Swal.fire(overallData);
-        });
-
-        document.getElementById('ranking-website').addEventListener('click', function () {
-            window.location.href = 'https://www.google.com/search?q=ipl+team+ranking&rlz=1C1OPNX_enIN961IN961&oq=ipl+team+ran&gs_lcrp=EgZjaHJvbWUqDQgAEAAYgwEYsQMYgAQyDQgAEAAYgwEYsQMYgAQyDQgBEAAYgwEYsQMYgAQyBggCEEUYOTIGCAMQABgDMgcIBBAAGIAEMgcIBRAAGIAEMgcIBhAAGIAEMgcIBxAAGIAEMgcICBAAGIAEMgcICRAAGIAEqAIAsAIA&sourceid=chrome&ie=UTF-8#sie=lg;/g/11v0gsbybs;5;/m/03b_lm1;st;fp;1;;;';
-        });
-
-        $(".cursor").click(function () {
-
-            var idClicked = $(this).attr('id');
-            var value = "Match - ";
-
-            if (idClicked.includes("Gopesh") || idClicked.includes("Vivek"))
-                value = idClicked;
-            else
-                value += idClicked;
-
-            $("#filter-user").val(value);
-            filterTableByUser();
-        });
-
+                });
+                render();
+                // Save the initial default subjects so the app starts with persistent data.
+                if (!localStorage.getItem(STORAGE_KEY)) persist();
+            })();
     </script>
-    <script src="/lib/jquery/dist/jquery.min.js"></script>
-    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/site.js?v=4q1jwFhaPaZgr8WAUSrux6hAuh0XDg9kPS3xIVq36I0"></script>
 </body>
 </html>
